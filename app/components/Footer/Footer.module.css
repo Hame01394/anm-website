@@ -1,0 +1,259 @@
+
+/* =========================================
+   ANM FOOTER — MAIN
+========================================= */
+
+.footer {
+  width: 100%;
+  background: #142b45;
+  color: #ffffff;
+  border-top: 4px solid #c6a04a;
+}
+
+/* =========================================
+   MAIN FOOTER LAYOUT
+========================================= */
+
+.footerMain {
+  width: 100%;
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: 60px 40px 50px;
+  display: grid;
+  grid-template-columns: minmax(220px, 1.2fr) minmax(0, 3fr);
+  align-items: start;
+  gap: 45px;
+}
+
+/* =========================================
+   ORGANIZATION BRAND
+========================================= */
+
+.organization {
+  max-width: 340px;
+}
+
+.brand {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 14px;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.brandMark {
+  width: 55px;
+  height: 55px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #c6a04a;
+  border-radius: 50%;
+  color: #e0bd70;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.brandName {
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.6px;
+  line-height: 1.6;
+}
+
+.organizationDescription {
+  margin-top: 23px;
+  color: #c9d2dc;
+  font-size: 13px;
+  line-height: 1.9;
+}
+
+.footerTagline {
+  margin-top: 18px;
+  color: #e0bd70;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.8px;
+  line-height: 1.6;
+}
+
+/* =========================================
+   FOOTER NAVIGATION COLUMNS
+========================================= */
+
+.footerLinks {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  align-items: start;
+  gap: 22px;
+}
+
+.footerColumn {
+  display: block;
+  min-width: 0;
+}
+
+.footerColumn h3 {
+  position: relative;
+  padding-bottom: 13px;
+  margin: 0 0 18px;
+  color: #e0bd70;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.4px;
+  line-height: 1.5;
+}
+
+.footerColumn h3::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 32px;
+  height: 2px;
+  background: #c6a04a;
+}
+
+.footerColumn ul {
+  display: block;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footerColumn li {
+  margin-bottom: 13px;
+}
+
+.footerColumn a {
+  color: #c9d2dc;
+  text-decoration: none;
+  font-size: 12px;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+  transition: color 0.2s ease;
+}
+
+.footerColumn a:hover,
+.footerColumn a:focus-visible {
+  color: #e0bd70;
+  outline: none;
+}
+
+/* =========================================
+   COPYRIGHT / FOOTER BOTTOM
+========================================= */
+
+.footerBottom {
+  width: 100%;
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: 22px 40px;
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.footerBottom p {
+  margin: 0;
+  color: #b8c3cf;
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.backToTop {
+  color: #e0bd70;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.backToTop:hover,
+.backToTop:focus-visible {
+  color: #ffffff;
+}
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 1100px) {
+  .footerMain {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding: 50px 30px;
+  }
+
+  .organization {
+    max-width: 600px;
+  }
+
+  .footerLinks {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    row-gap: 35px;
+  }
+
+  .footerBottom {
+    padding: 22px 30px;
+  }
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 650px) {
+  .footerMain {
+    padding: 42px 22px;
+    gap: 38px;
+  }
+
+  .footerLinks {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 30px 20px;
+  }
+
+  .footerColumn h3 {
+    font-size: 12px;
+  }
+
+  .footerColumn a {
+    font-size: 12px;
+  }
+
+  .footerBottom {
+    padding: 20px 22px;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .footerBottom p {
+    font-size: 11px;
+  }
+}
+
+/* VERY SMALL SCREENS */
+
+@media (max-width: 360px) {
+  .footerLinks {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================================
+   ACCESSIBILITY
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .footerColumn a {
+    transition: none;
+  }
+}
