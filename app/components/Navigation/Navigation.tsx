@@ -5,7 +5,20 @@ import Link from "next/link";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 
-const menus = [
+export interface MenuItem {
+  href: string;
+  label: string;
+  labelTi: string;
+}
+
+export interface NavigationMenu {
+  title: string;
+  titleTi: string;
+  href: string;
+  items: MenuItem[];
+}
+
+const menus: NavigationMenu[] = [
   {
     title: "About ANM",
     titleTi: "ብዛዕባ ANM",
