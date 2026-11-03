@@ -10,7 +10,7 @@ const pillars = [
     lines: ["The", "Nation"],
     color: "#ffffff",
     description:
-      "National renewal begins with a clear understanding of who we are as a people. Our identity is rooted in our languages, cultural heritage, shared history, traditions and collective memory. Respecting our diversity while strengthening our common belonging is essential to building a confident, united nation.",
+      "The Tigrinya are an indigenous maritime nation of approximately 12 million people across Eritrea, Tigray, and the diaspora. Our identity is rooted in our ancestral land, the ancient Ge’ez language, the Tabot, and over 3,000 years of Orit civilisation and history. We seek to preserve our national identity, protect our land and heritage, and secure our right to self-determination.",
   },
   {
     id: "economy",
@@ -102,7 +102,7 @@ export default function VisionPillars() {
             </h2>
 
             <p className="mx-auto mt-3 max-w-2xl text-base leading-7 text-[#526174] sm:text-lg">
-              Four pillars express our principles, guide our mission, and shape our vision for Eritrea's democratic future.
+              Four pillars express our principles, guide our mission, and shape our vision for Eritrea's future.
             </p>
           </div>
         </div>

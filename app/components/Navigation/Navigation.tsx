@@ -32,7 +32,7 @@ const menus: NavigationMenu[] = [
     items: [],
   },
   {
-    title: "National Question",
+    title: "Policy Framework",
     titleTi: "ሃገራዊ ሕቶ",
     href: "/national-question",
     items: [],

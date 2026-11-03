@@ -3,177 +3,250 @@
 
 import { useState } from "react";
 
-const sections = [
+type PolicySection = {
+  id: string;
+  number: string;
+  title: string;
+  symbol: string;
+  solutionTitle: string;
+  solution: string;
+  commitment: string;
+  actions: string[];
+  subtopics?: {
+    title: string;
+    description: string;
+    points: string[];
+  }[];
+};
+
+const sections: PolicySection[] = [
   {
-    number: "01",
     id: "tigrinya-national-question",
-    symbol: "◈",
+    number: "01",
     title: "The Tigrinya National Question",
-    subtitle: "Identity, homeland and self-determination",
-    description:
-      "Address the historical identity, national aspirations and political future of the Tigrinya people. Explore the ANM's position on national self-determination, historical homeland, and the relationship between Tigrinya communities in Eritrea and Tigray.",
-    topics: [
-      "Indigenous identity and historical homeland",
-      "National self-determination",
-      "Political future and democratic choice",
-      "Historical and cultural connections with Tigray",
-      "Cross-border relations and regional cooperation",
-      "Peace, borders and mutual recognition",
+    symbol: "◈",
+    solutionTitle: "A Democratic Path to Self-Determination",
+    solution:
+      "The ANM proposes a democratic political process through which the Tigrinya people can freely determine their political future. This process must protect their identity, recognise their historical connections and provide a peaceful framework for political choice.",
+    commitment:
+      "The Tigrinya people must have the freedom to determine their political future through an inclusive, democratic and internationally recognised process.",
+    actions: [
+      "Establish an inclusive national dialogue involving Tigrinya communities at home and abroad.",
+      "Develop a clear political and legal framework for the exercise of self-determination.",
+      "Protect Tigrinya language, cultural heritage, historical sites and collective identity.",
+      "Promote peaceful dialogue concerning historical connections and relations with Tigray.",
+      "Pursue regional engagement based on mutual recognition, peaceful coexistence and respect for borders.",
+      "Build democratic institutions that allow people to participate freely in decisions about their future.",
     ],
-    principle:
-      "The Tigrinya people must have a meaningful democratic voice in determining their national and political future.",
   },
   {
-    number: "02",
     id: "minority-rights",
-    symbol: "◇",
+    number: "02",
     title: "Minority Rights & Protections",
-    subtitle: "Equality, dignity and fundamental freedoms",
-    description:
-      "Set out the rights and protections of all minority communities. A political future based on self-determination must also address equality, individual freedoms, cultural protection and meaningful political participation.",
-    topics: [
-      "Equal human and civil rights",
-      "Social, economic and political participation",
-      "Religious freedom and cultural protection",
-      "Language and educational rights",
-      "Fair representation in public institutions",
-      "Protection against discrimination",
+    symbol: "◇",
+    solutionTitle: "Constitutional Guarantees and Equal Protection",
+    solution:
+      "The ANM proposes a constitutional system that guarantees equal citizenship and protects the cultural, religious, linguistic, social and political rights of every community. These protections must be enforceable through independent institutions and equal application of the law.",
+    commitment:
+      "No community should be denied its rights, identity, dignity or opportunity because of its ethnicity, religion, language or background.",
+    actions: [
+      "Adopt constitutional guarantees protecting the equal rights of all communities.",
+      "Establish independent courts and accessible legal mechanisms to address discrimination and rights violations.",
+      "Protect freedom of religion, cultural expression, language and education.",
+      "Ensure fair and meaningful representation in elected bodies and public institutions.",
+      "Guarantee equal access to public services, employment and economic opportunities.",
+      "Create independent institutions to monitor human rights and investigate complaints.",
     ],
-    principle:
-      "Every person and community must enjoy equal fundamental rights, dignity and protection under the law.",
   },
   {
-    number: "03",
     id: "veterans-martyrs-wounded",
-    symbol: "✧",
+    number: "03",
     title: "Veterans, Martyrs & Wounded",
-    subtitle: "Recognition, care and social responsibility",
-    description:
-      "Address the responsibilities owed to veterans, wounded people, families of martyrs and all those who made sacrifices during the country's struggle. Recognition must be accompanied by practical and lasting support.",
-    topics: [
-      "Recognition and national remembrance",
-      "Healthcare and rehabilitation",
-      "Pensions and financial support",
-      "Housing and social protection",
-      "Support for families of martyrs",
-      "Education, employment and reintegration",
+    symbol: "✧",
+    solutionTitle: "A National Programme of Care and Recognition",
+    solution:
+      "The ANM proposes a comprehensive social protection programme for veterans, wounded people, families of martyrs and others affected by conflict. Recognition must be translated into accessible healthcare, rehabilitation, financial assistance and opportunities to rebuild their lives.",
+    commitment:
+      "Those who sacrificed their lives, health and well-being must receive lasting recognition, practical support and dignified care.",
+    actions: [
+      "Establish a transparent national register of veterans, wounded people and families of martyrs, with appropriate privacy protections.",
+      "Provide accessible medical treatment, psychological support and long-term rehabilitation.",
+      "Develop fair pension and financial assistance programmes for eligible veterans and affected families.",
+      "Create housing and social assistance programmes for people facing hardship as a result of conflict.",
+      "Provide educational opportunities, vocational training and employment support.",
+      "Establish national remembrance programmes that honour sacrifice while promoting reconciliation and respect for human life.",
     ],
-    principle:
-      "Those who sacrificed and their families deserve dignity, recognition and sustained social support.",
   },
   {
-    number: "04",
     id: "environment-natural-resources",
-    symbol: "❋",
+    number: "04",
     title: "Environment & Natural Resources",
-    subtitle: "Protecting the land and securing the future",
-    description:
-      "Explore the responsible protection and management of Eritrea's land, water, coastline, biodiversity and natural resources. Environmental policy must support sustainable livelihoods and future generations.",
-    topics: [
-      "Land and soil conservation",
-      "Water security and management",
-      "Agriculture and food sustainability",
-      "Coastal and marine protection",
-      "Biodiversity and environmental restoration",
-      "Climate resilience and renewable energy",
+    symbol: "❋",
+    solutionTitle: "Sustainable Stewardship of Land and Resources",
+    solution:
+      "The ANM proposes a national environmental and resource-management programme based on conservation, responsible public oversight and sustainable development. Land, water, coastal resources and biodiversity must be protected while supporting the livelihoods of present and future generations.",
+    commitment:
+      "Natural resources must be managed transparently and sustainably, with environmental protection and public benefit at the centre of national development.",
+    actions: [
+      "Introduce land conservation and soil-restoration programmes to reduce erosion and desertification.",
+      "Invest in water infrastructure, rainwater harvesting, responsible irrigation and sustainable water management.",
+      "Support farmers through improved agricultural methods, access to resources and climate-resilient production.",
+      "Protect coastal areas, marine ecosystems and fisheries through responsible regulation and monitoring.",
+      "Establish environmental protection standards and restore damaged ecosystems and biodiversity.",
+      "Expand renewable energy and climate adaptation initiatives to strengthen long-term environmental resilience.",
     ],
-    principle:
-      "Natural resources must be protected and managed responsibly for present and future generations.",
   },
   {
-    number: "05",
     id: "economic-transformation",
-    symbol: "▧",
+    number: "05",
     title: "Economic Transformation",
-    subtitle: "Opportunity, productivity and prosperity",
-    description:
-      "Set out a vision for a productive and sustainable economy that creates opportunities, supports enterprise and improves living standards. Economic development should be connected to education, infrastructure and responsible investment.",
-    topics: [
-      "Agriculture and food security",
-      "Industry and manufacturing",
-      "Trade, ports and infrastructure",
-      "Energy and technological development",
-      "Private enterprise and investment",
-      "Education, skills and employment",
+    symbol: "▧",
+    solutionTitle: "Building a Productive and Opportunity-Based Economy",
+    solution:
+      "The ANM proposes an economy that creates productive employment, strengthens local enterprise and encourages responsible investment. Economic transformation must be supported by reliable infrastructure, modern skills, transparent institutions and opportunities for people to build secure livelihoods.",
+    commitment:
+      "Economic progress must improve living standards, expand opportunity and enable people to build independent and productive lives.",
+    actions: [
+      "Modernise agriculture through improved irrigation, technology, training and access to markets.",
+      "Encourage local manufacturing and productive industries that create sustainable employment.",
+      "Develop transport, electricity, communications and port infrastructure to support trade and investment.",
+      "Create a transparent legal and regulatory environment that supports private enterprise and responsible investment.",
+      "Expand vocational education, technical training and opportunities for young people to develop practical skills.",
+      "Promote innovation, digital development and access to finance for small businesses and entrepreneurs.",
     ],
-    principle:
-      "Economic development must create opportunity, strengthen productive capacity and improve the quality of life.",
   },
   {
-    number: "06",
     id: "regional-global-strategy",
-    symbol: "◎",
+    number: "06",
     title: "Regional & Global Strategy",
-    subtitle: "Geopolitics, partnerships and the ANM's role",
-    description:
-      "Examine the forces shaping the Horn of Africa, the Red Sea, the Middle East and the wider international order. Define the ANM's proposed approach to regional security, strategic partnerships, diplomacy and global competition.",
-    topics: [
-      "Iran and Turkey: regional ambitions and proxy influence",
-      "Sudan, Yemen, Somalia and Ethiopia: regional fragmentation and instability",
-      "Israel: strategic partnership and regional cooperation",
-      "United States and China: global competition and the ANM's international role",
+    symbol: "◎",
+    solutionTitle: "An Independent and Principled Foreign Policy",
+    solution:
+      "The ANM proposes an independent foreign policy that places the long-term interests of the Tigrinya people at its centre. International relationships should be developed through diplomacy, mutual respect, economic cooperation and a clear understanding of regional and global developments.",
+    commitment:
+      "The movement will pursue international engagement based on independent judgment, peaceful cooperation and the protection of our people's long-term interests.",
+    actions: [
+      "Develop a foreign policy framework that defines diplomatic priorities and protects political independence.",
+      "Build constructive relationships with neighbouring countries and regional organisations.",
+      "Promote dialogue and cooperation on Red Sea security, maritime interests and regional stability.",
+      "Pursue international partnerships that support trade, investment, education, technology and development.",
+      "Assess regional and global developments through independent research and informed policy analysis.",
+      "Maintain diplomatic flexibility and avoid dependence on any single regional or global power.",
     ],
-    principle:
-      "The ANM's regional and international approach should be guided by sovereignty, national interests, peaceful cooperation and strategic independence.",
     subtopics: [
       {
         title: "Iran & Turkey",
-        subtitle: "Regional ambitions and proxy influence",
         description:
-          "Examine the regional strategies of Iran and Turkey, their political, military and economic influence, relationships with non-state actors, and implications for the Horn of Africa and Red Sea.",
+          "Independent assessment of regional influence and strategic interests",
         points: [
-          "Regional political and military influence",
-          "Proxy networks and armed non-state actors",
-          "Strategic presence in the Red Sea and Horn of Africa",
-          "Implications for Eritrean sovereignty and regional security",
+          "Establish diplomatic monitoring of political, military and economic developments involving both countries.",
+          "Assess the implications of their regional policies for the Red Sea and Horn of Africa.",
+          "Engage through diplomacy where cooperation supports peace, stability and mutual interests.",
+          "Avoid involvement in regional rivalries or proxy conflicts.",
         ],
       },
       {
         title: "Sudan, Yemen, Somalia & Ethiopia",
-        subtitle: "Regional fragmentation and instability",
         description:
-          "Examine conflicts, political divisions, institutional challenges and external involvement in neighbouring countries, and consider their consequences for Eritrea and the wider region.",
+          "Peace, regional stability and cross-border cooperation",
         points: [
-          "Sudan: conflict, state fragmentation and competing interests",
-          "Yemen: conflict and the strategic importance of Bab el-Mandeb",
-          "Somalia: state-building, political divisions and security",
-          "Ethiopia: internal conflicts and regional tensions",
-          "Border security, trade and population displacement",
+          "Develop diplomatic channels for monitoring political transitions and regional conflicts.",
+          "Support peaceful dialogue, respect for sovereignty and the protection of civilian populations.",
+          "Strengthen cooperation on border security, trade and the movement of people.",
+          "Explore joint initiatives involving infrastructure, shared resources and regional development.",
+          "Promote peaceful relations with neighbouring communities and countries.",
         ],
       },
       {
         title: "Israel",
-        subtitle: "Strategic partnership and regional cooperation",
         description:
-          "Explore the ANM's proposed strategic relationship with Israel, including diplomatic engagement, economic cooperation, technology and shared interests in regional stability.",
+          "Diplomatic engagement and practical areas of cooperation",
         points: [
-          "Diplomatic and strategic relations",
-          "Red Sea and maritime security",
-          "Agriculture, water management and technology",
-          "Trade, investment, education and innovation",
-          "Regional dialogue and cooperation",
+          "Explore formal diplomatic engagement based on mutual recognition and respect.",
+          "Identify opportunities for cooperation in agriculture, water management and technology.",
+          "Encourage dialogue on Red Sea security and regional stability.",
+          "Develop economic and technical partnerships where they serve clearly defined public interests.",
+          "Maintain an independent foreign policy guided by the movement's principles and priorities.",
         ],
       },
       {
         title: "United States & China",
-        subtitle: "Global competition and international positioning",
         description:
-          "Assess the influence of global powers in the Horn of Africa and Red Sea, including competition over trade, infrastructure, ports, investment and maritime routes. Define an approach to international partnerships based on national interests.",
+          "Balanced international relations and strategic autonomy",
         points: [
-          "U.S.–China geopolitical and economic competition",
-          "Foreign military presence and strategic infrastructure",
-          "Ports, maritime routes and international trade",
-          "Relations with global powers and institutions",
-          "The ANM's diplomatic and international role",
+          "Develop constructive diplomatic relationships with both countries.",
+          "Explore opportunities for investment, trade, education and technological development.",
+          "Assess the effects of major-power competition on the Horn of Africa and Red Sea region.",
+          "Protect political independence when negotiating international agreements and partnerships.",
+          "Base international engagement on transparent objectives and the long-term interests of the people.",
         ],
       },
     ],
   },
 ];
 
+const priorityCards = [
+  {
+    color: "#173f63",
+    lightColor: "#4b82a8",
+    title: "RECLAIM OUR DIGNITY",
+    message:
+      "Restore our national dignity, protect our identity and secure the right of the Tigrinya people to determine their future.",
+    action: "RECLAIM OUR FUTURE",
+  },
+  {
+    color: "#205b70",
+    lightColor: "#5795a8",
+    title: "DEFEND MINORITY RIGHTS",
+    message:
+      "Protect equality, freedom, cultural identity and the fundamental rights of every minority community.",
+    action: "STAND FOR EQUAL RIGHTS",
+  },
+  {
+    color: "#72502f",
+    lightColor: "#b18a54",
+    title: "HONOUR OUR SACRIFICES",
+    message:
+      "Recognise veterans, wounded people and families of martyrs through dignity, healthcare and lasting social protection.",
+    action: "HONOUR THEIR SACRIFICE",
+  },
+  {
+    color: "#28634f",
+    lightColor: "#65a184",
+    title: "PROTECT OUR LAND",
+    message:
+      "Safeguard our land, water and natural resources while building a sustainable environment for future generations.",
+    action: "SECURE OUR ENVIRONMENT",
+  },
+  {
+    color: "#705a2d",
+    lightColor: "#b49a52",
+    title: "END POVERTY. BUILD PROSPERITY.",
+    message:
+      "Create economic opportunity through productive industries, agriculture, investment, education and meaningful employment.",
+    action: "BUILD ECONOMIC OPPORTUNITY",
+  },
+  {
+    color: "#51436f",
+    lightColor: "#8878ad",
+    title: "SHAPE OUR REGIONAL FUTURE",
+    message:
+      "Develop an independent international strategy that protects our interests and builds constructive regional and global partnerships.",
+    action: "DEFINE OUR GLOBAL ROLE",
+  },
+];
+
 export default function NationalQuestionPage() {
-  const [expanded, setExpanded] = useState<string | null>(null);
-  const [activeSubtopic, setActiveSubtopic] = useState(0);
+  const [activeSection, setActiveSection] = useState(0);
+  const [flippedCards, setFlippedCards] = useState<number[]>([]);
+
+  const toggleSolutionCard = (index: number) => {
+    setFlippedCards((current) =>
+      current.includes(index)
+        ? current.filter((item) => item !== index)
+        : [...current, index]
+    );
+  };
 
   const scrollToSection = (id: string) => {
     document.getElementById(id)?.scrollIntoView({
@@ -182,380 +255,305 @@ export default function NationalQuestionPage() {
     });
   };
 
+  const goToSection = (index: number) => {
+    const nextIndex = Math.max(0, Math.min(index, sections.length - 1));
+
+    setActiveSection(nextIndex);
+    scrollToSection(`solution-detail-${sections[nextIndex].id}`);
+  };
+
   return (
     <main className="min-h-screen bg-[#f8f5ed] text-[#142b45]">
-
       {/* HERO */}
-      <section className="relative flex min-h-[70svh] items-center justify-center overflow-hidden bg-[#091725] px-6 py-24 text-center text-white md:min-h-[78svh]">
-
-        {/* Decorative background */}
-        <div className="absolute inset-0 opacity-20">
-          <div className="absolute -left-40 -top-40 h-[550px] w-[550px] rounded-full border border-[#c9a45c]/50" />
-          <div className="absolute -left-20 -top-20 h-[400px] w-[400px] rounded-full border border-[#c9a45c]/40" />
-          <div className="absolute -right-48 -bottom-64 h-[650px] w-[650px] rounded-full border border-[#c9a45c]/50" />
-          <div className="absolute -right-20 -bottom-40 h-[450px] w-[450px] rounded-full border border-[#c9a45c]/40" />
+      <section className="relative overflow-hidden bg-[#142b45] px-6 py-24 text-white md:py-32">
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute -right-24 -top-24 h-96 w-96 rounded-full border border-white" />
+          <div className="absolute -right-12 -top-12 h-72 w-72 rounded-full border border-white" />
+          <div className="absolute -bottom-40 -left-20 h-96 w-96 rounded-full border border-white" />
         </div>
 
-        <div className="absolute inset-0 bg-gradient-to-b from-[#091725]/30 via-transparent to-[#091725]" />
-
-        <div className="relative z-10 mx-auto max-w-5xl">
-
-          <p className="mb-7 text-xs font-bold uppercase tracking-[0.4em] text-[#d5b46b] md:text-sm">
-            Aga'azian National Movement
+        <div className="relative mx-auto max-w-7xl">
+          <p className="mb-5 text-xs font-bold uppercase tracking-[0.3em] text-[#d5b46b]">
+            Aga&apos;azian National Movement
           </p>
 
-          <h1 className="text-5xl font-extrabold leading-tight tracking-tight sm:text-6xl md:text-8xl">
-            The National
-            <span className="mt-2 block text-[#d5b46b]">Question</span>
+          <h1 className="max-w-4xl text-4xl font-extrabold leading-tight md:text-6xl">
+            Our Policy Framework
           </h1>
 
-          <div className="mx-auto mt-8 h-1 w-24 bg-[#c9a45c]" />
+          <div className="mt-8 h-1 w-20 bg-[#c9a45c]" />
 
-          <p className="mx-auto mt-8 max-w-3xl text-base leading-8 text-white/75 md:text-xl">
-            Identity, self-determination, equal rights, national
-            responsibility, economic transformation and the
-            future of our place in the region and the world.
+          <p className="mt-8 max-w-3xl text-lg leading-9 text-white/75 md:text-xl">
+            A framework for dignity and a prosperous future.
           </p>
-
-          <button
-            type="button"
-            onClick={() => scrollToSection("national-agenda")}
-            className="mt-12 inline-flex items-center gap-3 border border-[#c9a45c] bg-[#c9a45c] px-8 py-4 text-xs font-bold uppercase tracking-[0.2em] text-[#142b45] transition hover:bg-transparent hover:text-white"
-          >
-            Explore the National Question
-            <span aria-hidden="true">↓</span>
-          </button>
-
         </div>
       </section>
 
-      {/* INTRODUCTION */}
-      <section className="px-6 py-20 md:px-10 md:py-24">
-        <div className="mx-auto grid max-w-7xl gap-12 md:grid-cols-[1.1fr_0.9fr] md:items-center">
-
-          <div>
-            <p className="mb-4 text-xs font-bold uppercase tracking-[0.25em] text-[#a77d32]">
-              Our National Agenda
-            </p>
-
-            <h2 className="max-w-2xl text-3xl font-extrabold leading-tight md:text-5xl">
-              Defining the questions that shape our future.
-            </h2>
-
-            <div className="mt-6 h-1 w-16 bg-[#c9a45c]" />
-
-            <p className="mt-7 text-base leading-8 text-[#526176] md:text-lg">
-              The National Question brings together the fundamental
-              issues concerning the identity, political future, rights,
-              responsibilities and development of the Tigrinya people.
-              It also addresses the rights of minority communities and
-              the relationships that will shape our regional and
-              international future.
-            </p>
-          </div>
-
-          <div className="border-l-4 border-[#c9a45c] bg-white p-8 shadow-sm md:p-10">
-            <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#a77d32]">
-              The central principle
-            </p>
-
-            <p className="mt-5 text-2xl font-bold leading-relaxed text-[#142b45] md:text-3xl">
-              A national future built on self-determination, equal
-              rights, dignity and responsible development.
-            </p>
-
-            <p className="mt-6 text-sm leading-7 text-[#657287]">
-              Six interconnected areas provide the framework for
-              examining the ANM's national and international agenda.
-            </p>
-          </div>
-
-        </div>
-      </section>
-
-      {/* SECTION NAVIGATION */}
-      <section
-        id="national-agenda"
-        className="scroll-mt-20 border-y border-[#e4dccd] bg-white px-5 py-10 md:px-10"
-      >
+      {/* SIX POLICY PRIORITY CARDS — PRESERVED */}
+      <section className="bg-[#142b45] px-5 py-24 md:px-10 md:py-28">
         <div className="mx-auto max-w-7xl">
+          <div className="relative left-1/2 mb-12 w-screen -translate-x-1/2 bg-white px-7 py-6 text-center md:px-16 md:py-7">
+            <div className="mx-auto max-w-5xl">
+              <p className="text-xs font-bold uppercase tracking-[0.25em] text-[#a77d32]">
+                Our Most Pressing Issues
+              </p>
 
-          <div className="mb-7 text-center">
-            <p className="text-xs font-bold uppercase tracking-[0.25em] text-[#a77d32]">
-              Explore the agenda
-            </p>
-            <h2 className="mt-3 text-2xl font-extrabold md:text-3xl">
-              Six areas. One national future.
-            </h2>
+              <h2 className="mx-auto mt-2 max-w-3xl text-2xl font-extrabold leading-tight text-[#142b45] md:text-4xl">
+                Defining the priorities that will shape our future.
+              </h2>
+
+              <div className="mx-auto mt-4 h-1 w-16 bg-[#c9a45c]" />
+
+              <p className="mx-auto mt-4 max-w-4xl text-sm leading-7 text-[#596779] md:text-base">
+                The ANM&apos;s policy framework addresses the most important
+                issues facing the Tigrinya people. These priorities establish
+                our direction for political, social and economic development,
+                as well as international affairs.
+              </p>
+            </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-6">
-            {sections.map((section) => (
-              <button
-                key={section.id}
-                type="button"
-                onClick={() => scrollToSection(section.id)}
-                className="group border border-[#e7e0d3] bg-[#f8f5ed] p-4 text-left transition hover:border-[#c9a45c] hover:bg-[#142b45] hover:text-white"
-              >
-                <span className="block text-xs font-bold tracking-widest text-[#a77d32] group-hover:text-[#d5b46b]">
-                  {section.number}
-                </span>
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3 xl:gap-9">
+            {sections.map((section, index) => {
+              const card = priorityCards[index];
 
-                <span className="mt-3 block text-2xl text-[#c9a45c]">
-                  {section.symbol}
-                </span>
+              return (
+                <button
+                  key={section.id}
+                  type="button"
+                  onClick={() => goToSection(index)}
+                  aria-label={`Explore ${section.title}`}
+                  className="group relative flex min-h-[580px] w-full flex-col overflow-hidden rounded-tr-[45px] bg-white text-left shadow-lg transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#d5b46b] md:min-h-[640px]"
+                >
+                  <div className="absolute inset-0 bg-white" />
 
-                <span className="mt-3 block text-sm font-bold leading-snug">
-                  {section.title}
-                </span>
-              </button>
-            ))}
-          </div>
+                  <div
+                    className="relative z-10 flex min-h-[95px] flex-col justify-center px-7 py-5 pr-10 transition-opacity duration-500 group-hover:opacity-0 md:min-h-[105px] md:px-8"
+                    style={{
+                      background: `linear-gradient(to bottom, ${card.lightColor}, ${card.color})`,
+                    }}
+                  >
+                    <div className="flex items-center gap-4">
+                      <span className="shrink-0 text-sm font-extrabold tracking-[0.15em] text-white/75">
+                        {section.number}
+                      </span>
 
-        </div>
-      </section>
-
-      {/* MAIN SIX SECTIONS */}
-      <section className="mx-auto max-w-7xl space-y-7 px-5 py-20 md:px-10 md:py-24">
-
-        <div className="mb-12 max-w-3xl">
-          <p className="text-xs font-bold uppercase tracking-[0.25em] text-[#a77d32]">
-            The six national questions
-          </p>
-
-          <h2 className="mt-4 text-3xl font-extrabold leading-tight md:text-5xl">
-            The foundations of our agenda.
-          </h2>
-        </div>
-
-        {sections.map((section) => {
-          const isExpanded = expanded === section.id;
-
-          return (
-            <article
-              key={section.id}
-              id={section.id}
-              className="scroll-mt-24 overflow-hidden border border-[#ded8ca] bg-white shadow-sm transition duration-300 hover:shadow-md"
-            >
-
-              {/* SECTION HEADER */}
-              <button
-                type="button"
-                aria-expanded={isExpanded}
-                onClick={() => {
-                  setExpanded(isExpanded ? null : section.id);
-                  setActiveSubtopic(0);
-                }}
-                className="group flex w-full flex-col gap-5 border-l-[6px] border-[#c9a45c] bg-[#142b45] p-6 text-left text-white transition hover:bg-[#1b3858] md:flex-row md:items-center md:justify-between md:px-10 md:py-9"
-              >
-
-                <div className="flex items-start gap-5 md:items-center">
-
-                  <span className="mt-1 text-3xl text-[#d5b46b] md:text-4xl">
-                    {section.symbol}
-                  </span>
-
-                  <div>
-                    <span className="text-xs font-bold tracking-[0.2em] text-[#d5b46b]">
-                      NATIONAL QUESTION {section.number}
-                    </span>
-
-                    <h3 className="mt-2 text-2xl font-extrabold md:text-3xl">
-                      {section.title}
-                    </h3>
-
-                    <p className="mt-2 text-sm text-white/65 md:text-base">
-                      {section.subtitle}
-                    </p>
+                      <h3 className="text-lg font-extrabold leading-tight text-white md:text-xl">
+                        {section.title}
+                      </h3>
+                    </div>
                   </div>
 
-                </div>
+                  <div className="relative z-10 flex flex-1 flex-col px-8 py-9 transition-opacity duration-300 group-hover:opacity-0 md:px-9 md:py-10">
+                    <span className="text-4xl text-[#c9a45c]">
+                      {section.symbol}
+                    </span>
 
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center self-end border border-[#c9a45c]/60 text-xl text-[#d5b46b] transition group-hover:bg-[#c9a45c] group-hover:text-[#142b45] md:self-center">
-                  {isExpanded ? "−" : "+"}
-                </span>
+                    <h4 className="mt-6 text-xl font-extrabold leading-7 text-[#142b45]">
+                      {card.title}
+                    </h4>
 
-              </button>
+                    <p className="mt-5 text-sm leading-8 text-[#657287] md:text-base">
+                      {card.message}
+                    </p>
 
-              {/* EXPANDED CONTENT */}
-              {isExpanded && (
-                <div className="animate-in fade-in duration-300">
+                    <span className="mt-auto inline-flex items-center gap-2 pt-9 text-xs font-extrabold uppercase tracking-[0.12em] text-[#a77d32]">
+                      EXPLORE THIS PRIORITY
+                      <span aria-hidden="true">→</span>
+                    </span>
+                  </div>
 
-                  <div className="grid gap-10 p-6 md:grid-cols-[1fr_0.85fr] md:p-10">
+                  <div
+                    className="absolute inset-0 z-20 origin-top scale-y-0 transition-transform duration-700 ease-in-out group-hover:scale-y-100"
+                    style={{
+                      background: `linear-gradient(to bottom, ${card.lightColor}, ${card.color})`,
+                    }}
+                  />
 
-                    <div>
-                      <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#a77d32]">
-                        Overview
-                      </p>
+                  <div className="pointer-events-none absolute inset-0 z-30 flex flex-col justify-center px-8 py-10 opacity-0 transition-opacity delay-150 duration-500 group-hover:opacity-100 md:px-9">
+                    <span className="text-xs font-extrabold uppercase tracking-[0.22em] text-white/75">
+                      OUR COMMITMENT
+                    </span>
 
-                      <p className="mt-4 text-base leading-8 text-[#526176] md:text-lg">
-                        {section.description}
-                      </p>
+                    <div className="mb-7 mt-6 h-[2px] w-14 bg-white/80" />
 
-                      <div className="mt-8 border-l-4 border-[#c9a45c] bg-[#f8f5ed] p-6">
-                        <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#a77d32]">
-                          Guiding principle
+                    <h4 className="text-3xl font-extrabold leading-tight text-white md:text-4xl">
+                      {card.title}
+                    </h4>
+
+                    <p className="mt-7 text-base leading-8 text-white/90">
+                      {card.message}
+                    </p>
+
+                    <span className="mt-10 text-xs font-extrabold uppercase leading-6 tracking-[0.12em] text-white">
+                      {card.action} →
+                    </span>
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* THE ANM'S PROPOSED SOLUTIONS */}
+      <section className="bg-[#142b45] px-5 py-24 md:px-10 md:py-28">
+        <div className="mx-auto max-w-7xl">
+
+          {/* WHITE SECTION HEADING BAND */}
+          <div className="relative left-1/2 mb-16 w-screen -translate-x-1/2 bg-white px-7 py-12 md:px-16 md:py-14">
+            <div className="mx-auto max-w-5xl">
+              <p className="text-xs font-extrabold uppercase tracking-[0.25em] text-[#a77d32]">
+                The ANM&apos;s Proposed Solutions
+              </p>
+
+              <h2 className="mt-4 text-3xl font-extrabold leading-tight text-[#142b45] md:text-5xl">
+                Turning our priorities into action.
+              </h2>
+
+              <div className="mt-7 h-1 w-16 bg-[#c9a45c]" />
+
+              <p className="mt-7 text-base leading-8 text-[#596779] md:text-lg">
+                The challenges outlined above require practical solutions.
+                The ANM proposes the following policies, reforms and programmes
+                to address these priorities and build a democratic, secure and
+                prosperous future.
+              </p>
+
+              <p className="mt-5 text-xs font-bold uppercase tracking-[0.15em] text-[#a77d32]">
+                Hover or tap a policy card to explore
+              </p>
+            </div>
+          </div>
+
+          {/* SIX INTERACTIVE POLICY CARDS */}
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">
+            {sections.map((section, index) => {
+              const isFlipped = flippedCards.includes(index);
+
+              return (
+                <div
+                  key={section.id}
+                  className="group [perspective:1400px]"
+                >
+                  <div
+                    className={`relative h-[570px] w-full transition-transform duration-700 ease-in-out [transform-style:preserve-3d] ${
+                      isFlipped ? "[transform:rotateY(180deg)]" : ""
+                    } md:group-hover:[transform:rotateY(180deg)]`}
+                  >
+                    {/* FRONT — WHITE POLICY PREVIEW */}
+                    <div className="absolute inset-0 flex flex-col overflow-hidden rounded-sm border border-[#e5dfd2] bg-white text-[#142b45] shadow-md transition-shadow duration-500 group-hover:shadow-xl [backface-visibility:hidden]">
+                      <div className="flex items-center justify-between border-b border-[#eee9df] bg-white px-7 py-6">
+                        <span className="text-sm font-extrabold tracking-[0.2em] text-[#a77d32]">
+                          {section.number}
+                        </span>
+
+                        <span className="text-4xl text-[#c9a45c]">
+                          {section.symbol}
+                        </span>
+                      </div>
+
+                      <div className="flex flex-1 flex-col px-8 py-9 md:px-9">
+                        <p className="text-xs font-extrabold uppercase tracking-[0.2em] text-[#a77d32]">
+                          Policy Preview
                         </p>
 
-                        <p className="mt-3 text-lg font-bold leading-8 text-[#142b45]">
-                          {section.principle}
+                        <h3 className="mt-5 text-2xl font-extrabold leading-tight text-[#142b45] md:text-3xl">
+                          {section.title}
+                        </h3>
+
+                        <div className="mt-5 h-1 w-14 bg-[#c9a45c]" />
+
+                        <h4 className="mt-6 text-lg font-bold leading-7 text-[#142b45]">
+                          {section.solutionTitle}
+                        </h4>
+
+                        <p className="mt-5 text-sm leading-8 text-[#657287] md:text-base">
+                          {section.solution}
                         </p>
+
+                        <div className="mt-auto border-t border-[#e9e4da] pt-7">
+                          <span className="inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-[0.13em] text-[#a77d32]">
+                            HOVER TO EXPLORE
+                            <span aria-hidden="true">→</span>
+                          </span>
+
+                          <p className="mt-2 text-xs text-[#8b929b] md:hidden">
+                            Tap this card to reveal the proposed actions.
+                          </p>
+                        </div>
                       </div>
                     </div>
 
-                    <div>
-                      <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#a77d32]">
-                        Key areas of focus
+                    {/* BACK — WHITE KEY POLICY AREAS */}
+                    <div className="absolute inset-0 flex flex-col overflow-hidden rounded-sm border border-[#e5dfd2] bg-white px-7 py-8 text-[#142b45] shadow-xl [backface-visibility:hidden] [transform:rotateY(180deg)] md:px-8">
+                      <p className="text-xs font-extrabold uppercase tracking-[0.2em] text-[#a77d32]">
+                        Key Policy Areas
                       </p>
 
-                      <div className="mt-5 space-y-3">
-                        {section.topics.map((topic, index) => (
+                      <h3 className="mt-3 text-xl font-extrabold leading-tight text-[#142b45] md:text-2xl">
+                        {section.title}
+                      </h3>
+
+                      <div className="mt-4 h-1 w-12 bg-[#c9a45c]" />
+
+                      <div className="mt-5 flex-1 space-y-3 overflow-y-auto pr-1">
+                        {section.actions.map((action, actionIndex) => (
                           <div
-                            key={topic}
-                            className="flex items-start gap-3 border-b border-[#e9e2d6] pb-3"
+                            key={action}
+                            className="flex items-start gap-3 border-b border-[#e9e4da] pb-3 last:border-b-0"
                           >
-                            <span className="mt-0.5 text-sm font-bold text-[#c9a45c]">
-                              {String(index + 1).padStart(2, "0")}
+                            <span className="shrink-0 text-xs font-extrabold text-[#a77d32]">
+                              {String(actionIndex + 1).padStart(2, "0")}
                             </span>
 
-                            <span className="text-sm font-semibold leading-6 text-[#142b45]">
-                              {topic}
-                            </span>
+                            <p className="text-sm leading-6 text-[#596779]">
+                              {action}
+                            </p>
                           </div>
                         ))}
                       </div>
+
+                      <div className="mt-5 flex items-center justify-between gap-3 border-t border-[#e9e4da] pt-5">
+                        <button
+                          type="button"
+                          onClick={() => toggleSolutionCard(index)}
+                          className="text-xs font-bold uppercase tracking-[0.1em] text-[#657287] transition hover:text-[#142b45]"
+                        >
+                          ← Back
+                        </button>
+
+                        <a
+                          href={`#solution-detail-${section.id}`}
+                          className="inline-flex items-center gap-2 bg-[#142b45] px-4 py-3 text-xs font-extrabold uppercase tracking-[0.1em] text-white transition hover:bg-[#244b6b]"
+                        >
+                          Read More
+                          <span aria-hidden="true">→</span>
+                        </a>
+                      </div>
                     </div>
 
+                    {/* ACCESSIBLE MOBILE FLIP CONTROL */}
+                    <button
+                      type="button"
+                      onClick={() => toggleSolutionCard(index)}
+                      aria-label={`${isFlipped ? "Show preview for" : "Show policy actions for"} ${section.title}`}
+                      aria-pressed={isFlipped}
+                      className="absolute inset-0 z-10 rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#c9a45c] md:hidden"
+                    />
                   </div>
-
-                  {/* REGIONAL STRATEGY SUBSECTIONS */}
-                  {section.subtopics && (
-                    <div className="border-t border-[#e7e0d3] bg-[#f8f5ed] p-6 md:p-10">
-
-                      <div className="mb-7">
-                        <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#a77d32]">
-                          Regional and international outlook
-                        </p>
-
-                        <h4 className="mt-2 text-2xl font-extrabold">
-                          The forces shaping our region and the world.
-                        </h4>
-                      </div>
-
-                      <div className="grid gap-3 sm:grid-cols-2">
-                        {section.subtopics.map((subtopic, index) => (
-                          <button
-                            key={subtopic.title}
-                            type="button"
-                            onClick={() => setActiveSubtopic(index)}
-                            className={`border p-5 text-left transition ${
-                              activeSubtopic === index
-                                ? "border-[#c9a45c] bg-[#142b45] text-white"
-                                : "border-[#e1d9ca] bg-white text-[#142b45] hover:border-[#c9a45c]"
-                            }`}
-                          >
-                            <span className={`text-xs font-bold tracking-widest ${
-                              activeSubtopic === index
-                                ? "text-[#d5b46b]"
-                                : "text-[#a77d32]"
-                            }`}>
-                              STRATEGIC AREA 0{index + 1}
-                            </span>
-
-                            <span className="mt-3 block text-lg font-bold">
-                              {subtopic.title}
-                            </span>
-
-                            <span className={`mt-2 block text-sm ${
-                              activeSubtopic === index
-                                ? "text-white/65"
-                                : "text-[#657287]"
-                            }`}>
-                              {subtopic.subtitle}
-                            </span>
-                          </button>
-                        ))}
-                      </div>
-
-                      {/* SELECTED STRATEGIC AREA */}
-                      <div className="mt-5 border border-[#ded8ca] bg-white p-6 md:p-8">
-
-                        <div className="flex flex-wrap items-center justify-between gap-3">
-                          <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#a77d32]">
-                            Selected strategic area
-                          </span>
-
-                          <span className="text-xs font-bold text-[#a77d32]">
-                            0{activeSubtopic + 1} / 04
-                          </span>
-                        </div>
-
-                        <h5 className="mt-4 text-2xl font-extrabold">
-                          {section.subtopics[activeSubtopic].title}
-                        </h5>
-
-                        <p className="mt-4 max-w-4xl text-base leading-8 text-[#526176]">
-                          {section.subtopics[activeSubtopic].description}
-                        </p>
-
-                        <div className="mt-7 grid gap-3 md:grid-cols-2">
-                          {section.subtopics[activeSubtopic].points.map(
-                            (point) => (
-                              <div
-                                key={point}
-                                className="flex items-start gap-3 bg-[#f8f5ed] p-4"
-                              >
-                                <span className="mt-1 text-[#c9a45c]">◆</span>
-                                <span className="text-sm font-semibold leading-6 text-[#142b45]">
-                                  {point}
-                                </span>
-                              </div>
-                            )
-                          )}
-                        </div>
-
-                        <div className="mt-7 flex items-center justify-between border-t border-[#e7e0d3] pt-5">
-                          <button
-                            type="button"
-                            disabled={activeSubtopic === 0}
-                            onClick={() =>
-                              setActiveSubtopic((current) => current - 1)
-                            }
-                            className="text-xs font-bold uppercase tracking-widest text-[#142b45] transition hover:text-[#a77d32] disabled:cursor-not-allowed disabled:opacity-30"
-                          >
-                            ← Previous
-                          </button>
-
-                          <button
-                            type="button"
-                            disabled={activeSubtopic === 3}
-                            onClick={() =>
-                              setActiveSubtopic((current) => current + 1)
-                            }
-                            className="text-xs font-bold uppercase tracking-widest text-[#142b45] transition hover:text-[#a77d32] disabled:cursor-not-allowed disabled:opacity-30"
-                          >
-                            Next →
-                          </button>
-                        </div>
-
-                      </div>
-
-                    </div>
-                  )}
-
                 </div>
-              )}
+              );
+            })}
+          </div>
 
-            </article>
-          );
-        })}
+          
+                 
 
+         </div>
       </section>
-
-      {/* CLOSING STATEMENT */}
-      {/* FINAL NATIONAL QUESTION SECTION — SEPARATE FROM FOOTER */}
-
-             
+      {/* WHITE DIVIDER BEFORE FOOTER */}
+<div className="h-3 w-full bg-white" aria-hidden="true" />
     </main>
   );
 }
