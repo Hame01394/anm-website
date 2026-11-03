@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState } from "react";
@@ -289,7 +288,7 @@ export default function NationalQuestionPage() {
         </div>
       </section>
 
-      {/* SIX POLICY PRIORITY CARDS — PRESERVED */}
+      {/* SIX POLICY PRIORITY CARDS */}
       <section className="bg-[#142b45] px-5 py-24 md:px-10 md:py-28">
         <div className="mx-auto max-w-7xl">
           <div className="relative left-1/2 mb-12 w-screen -translate-x-1/2 bg-white px-7 py-6 text-center md:px-16 md:py-7">
@@ -313,7 +312,8 @@ export default function NationalQuestionPage() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3 xl:gap-9">
+          {/* HORIZONTAL MOBILE CAROUSEL */}
+          <div className="flex snap-x snap-mandatory gap-5 overflow-x-auto overscroll-x-contain pb-6 md:grid md:grid-cols-2 md:gap-8 md:overflow-visible md:pb-0 xl:grid-cols-3 xl:gap-9">
             {sections.map((section, index) => {
               const card = priorityCards[index];
 
@@ -323,7 +323,7 @@ export default function NationalQuestionPage() {
                   type="button"
                   onClick={() => goToSection(index)}
                   aria-label={`Explore ${section.title}`}
-                  className="group relative flex min-h-[580px] w-full flex-col overflow-hidden rounded-tr-[45px] bg-white text-left shadow-lg transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#d5b46b] md:min-h-[640px]"
+                  className="group relative flex min-h-[580px] w-[85vw] max-w-[360px] shrink-0 snap-start flex-col overflow-hidden rounded-tr-[45px] bg-white text-left shadow-lg transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#d5b46b] md:min-h-[640px] md:w-full md:max-w-none"
                 >
                   <div className="absolute inset-0 bg-white" />
 
@@ -389,6 +389,11 @@ export default function NationalQuestionPage() {
                       {card.action} →
                     </span>
                   </div>
+
+                  {/* GREEN MOBILE SWIPE ARROW */}
+                  <span className="pointer-events-none absolute bottom-5 right-5 z-40 flex h-12 w-12 items-center justify-center rounded-full border border-emerald-200/70 bg-gradient-to-br from-emerald-400/90 to-emerald-700/95 text-2xl font-bold text-white shadow-[0_4px_15px_rgba(0,0,0,0.35)] md:hidden">
+                    →
+                  </span>
                 </button>
               );
             })}
@@ -399,7 +404,6 @@ export default function NationalQuestionPage() {
       {/* THE ANM'S PROPOSED SOLUTIONS */}
       <section className="bg-[#142b45] px-5 py-24 md:px-10 md:py-28">
         <div className="mx-auto max-w-7xl">
-
           {/* WHITE SECTION HEADING BAND */}
           <div className="relative left-1/2 mb-16 w-screen -translate-x-1/2 bg-white px-7 py-12 md:px-16 md:py-14">
             <div className="mx-auto max-w-5xl">
@@ -426,15 +430,15 @@ export default function NationalQuestionPage() {
             </div>
           </div>
 
-          {/* SIX INTERACTIVE POLICY CARDS */}
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">
+          {/* HORIZONTAL MOBILE POLICY CAROUSEL */}
+          <div className="flex snap-x snap-mandatory gap-5 overflow-x-auto overscroll-x-contain pb-6 md:grid md:grid-cols-2 md:gap-8 md:overflow-visible md:pb-0 xl:grid-cols-3">
             {sections.map((section, index) => {
               const isFlipped = flippedCards.includes(index);
 
               return (
                 <div
                   key={section.id}
-                  className="group [perspective:1400px]"
+                  className="group w-[85vw] max-w-[360px] shrink-0 snap-start [perspective:1400px] md:w-auto md:max-w-none"
                 >
                   <div
                     className={`relative h-[570px] w-full transition-transform duration-700 ease-in-out [transform-style:preserve-3d] ${
@@ -533,27 +537,33 @@ export default function NationalQuestionPage() {
                       </div>
                     </div>
 
-                    {/* ACCESSIBLE MOBILE FLIP CONTROL */}
+                    {/* MOBILE FLIP CONTROL */}
                     <button
                       type="button"
                       onClick={() => toggleSolutionCard(index)}
-                      aria-label={`${isFlipped ? "Show preview for" : "Show policy actions for"} ${section.title}`}
+                      aria-label={`${
+                        isFlipped
+                          ? "Show preview for"
+                          : "Show policy actions for"
+                      } ${section.title}`}
                       aria-pressed={isFlipped}
                       className="absolute inset-0 z-10 rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#c9a45c] md:hidden"
                     />
+
+                    {/* GREEN MOBILE SWIPE ARROW */}
+                    <span className="pointer-events-none absolute bottom-5 right-5 z-30 flex h-12 w-12 items-center justify-center rounded-full border border-emerald-200/70 bg-gradient-to-br from-emerald-400/90 to-emerald-700/95 text-2xl font-bold text-white shadow-[0_4px_15px_rgba(0,0,0,0.35)] md:hidden">
+                      →
+                    </span>
                   </div>
                 </div>
               );
             })}
           </div>
-
-          
-                 
-
-         </div>
+        </div>
       </section>
+
       {/* WHITE DIVIDER BEFORE FOOTER */}
-<div className="h-3 w-full bg-white" aria-hidden="true" />
+      <div className="h-3 w-full bg-white" aria-hidden="true" />
     </main>
   );
 }

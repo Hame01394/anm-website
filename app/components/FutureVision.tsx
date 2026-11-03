@@ -339,23 +339,14 @@ export default function FutureVision() {
           </p>
         </div>
 
-        {/* IMPORTANT DISTINCTION */}
-        <div className="mt-14 border-l-2 border-[#c9a45c] bg-white px-6 py-6 shadow-sm sm:px-8">
-          <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#a77d32]">
-            A Vision, Not a Guarantee
-          </p>
 
-          <p className="mt-3 max-w-4xl text-sm leading-7 text-[#526174] sm:text-base">
-            These presentations illustrate possible paths for national
-            development. They are proposals and aspirations, not
-            guaranteed outcomes. Realising them would require public
-            participation, sound policies, investment, capable
-            institutions and sustained national effort. Any conceptual
-            footage should be clearly identified as illustrative.
-          </p>
-        </div>
+        
+            </div>
 
-      </div>
+      {/* White separation above footer */}
+      <div className="relative left-1/2 mt-20 h-16 w-screen -translate-x-1/2 bg-white" />
     </section>
+    
   );
 }
+

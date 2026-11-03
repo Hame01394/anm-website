@@ -16,20 +16,18 @@ const mainNavigation = [
     href: "/dictatorship",
   },
   {
-    label: "National Question",
+    label: "Policy Framework",
     labelTi: "ሃገራዊ ሕቶ",
     href: "/national-question",
   },
+  
   {
-    label: "Our Vision",
-    labelTi: "ራእይና",
-    href: "/vision",
-  },
-  {
-    label: "Resistance & Advocacy",
+    label: "Tigrinya Genocide",
     labelTi: "ተቓውሞን ጎስጓስን",
-    href: "/resistance",
+    href: "/tigrinya-genocide",
   },
+
+  
   {
     label: "News & Media",
     labelTi: "ዜናን ሚድያን",
@@ -141,17 +139,27 @@ export default function Footer() {
           </div>
 
           {/* Contact and social media */}
-          <div>
-            <h2 className="text-xs font-bold uppercase tracking-[0.14em] text-[#c9a45c]">
-              {isTigrinya ? "ርክብን ምትእስሳርን" : "Contact & Connect"}
-            </h2>
+<div>
+  <h2 className="text-xs font-bold uppercase tracking-[0.14em] text-[#c9a45c]">
+    {isTigrinya ? "ርክብን ምትእስሳርን" : "Contact & Connect"}
+  </h2>
 
-            <p className="mt-4 max-w-xs text-xs leading-6 text-white/70">
-              {isTigrinya
-                ? "ወግዓዊ ሓበሬታ ርክብን ዝተረጋገጹ ማሕበራዊ ሚድያ መራኸቢታትን ምስ ተዳለዉ ኣብዚ ክሕተሙ እዮም።"
-                : "Official contact information and verified social media channels will be published here when available."}
-            </p>
-          </div>
+  <p className="mt-4 max-w-xs text-xs leading-6 text-white/70">
+    {isTigrinya
+      ? "ብዋትስኣፕ ርኸቡና።"
+      : "Connect with the Aga'azian National Movement through WhatsApp."}
+  </p>
+
+  <a
+    href="https://wa.me/972542366696"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-white transition-colors hover:text-[#c9a45c]"
+  >
+    <span>WhatsApp</span>
+    <span>+972 54-236-6696</span>
+  </a>
+</div>
 
           {/* Legal information */}
           <div>

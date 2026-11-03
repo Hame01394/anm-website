@@ -104,12 +104,14 @@ export default function Navigation() {
                 {/* BRAND */}
         <Link
           href={isTigrinya ? "/ti" : "/"}
-          className="flex shrink-0 items-center gap-3"
+          className="flex shrink-0 items-center gap-1"
         >
           {/* Logo symbol — to be replaced with the Menora emblem later */}
-          <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-md border-2 border-[#c9a45c] bg-[#c9a45c] text-xl font-black text-[#142b45]">
-            ANM
-          </span>
+          <img
+  src="/images/menorah.png.png"
+  alt="Aga'azian National Movement"
+  className="h-20 w-20 shrink-0 object-contain brightness-150 contrast-125 drop-shadow-[0_0_8px_rgba(255,220,150,0.65)]"
+/>
 
           {/* Organization name */}
           <span className="flex min-w-0 flex-col">
