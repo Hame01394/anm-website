@@ -3,24 +3,29 @@ import Image from "next/image";
 
 const leaders = [
   {
-    name: "Leader's Name",
-    position: "Position / Title",
-    image: "",
+    name: "Habtom Mehari",
+    position: "Chairperson",
+    image: "/images/chairperson.png",
   },
   {
-    name: "Leader's Name",
-    position: "Position / Title",
-    image: "",
+    name: "Yehshelu Gebremariam",
+    position: "Head of Political Affairs",
+    image: "/images/head-of-political-affairs.png",
   },
   {
-    name: "Leader's Name",
-    position: "Position / Title",
-    image: "",
+    name: "Futsum Kidane",
+    position: "Head of Media and Communication",
+    image: "/images/head-of-media-and-communication.png",
   },
   {
-    name: "Leader's Name",
-    position: "Position / Title",
-    image: "",
+    name: "Daniel Temelso",
+    position: "secretary-general",
+    image: "/images/secretary-general.png",
+  },
+  {
+    name: "Asmerom Asmelash",
+    position: "Head of External Relations",
+    image: "/images/head-of-external-relations.png",
   },
 ];
 
@@ -88,54 +93,46 @@ export default function AboutPage() {
   return (
     <main className="min-h-screen bg-[#f8f5ed] text-[#142b45]">
 
-      
-{/* =====================================================
-    HERO — FULL-WIDTH VIDEO WITH TITLE OVERLAY
-===================================================== */}
-<section className="relative w-full overflow-hidden bg-[#142b45] text-white">
+      {/* =====================================================
+          HERO — FULL-WIDTH VIDEO WITH TITLE OVERLAY
+      ===================================================== */}
+      <section className="relative w-full overflow-hidden bg-[#142b45] text-white">
 
-  <div className="relative min-h-[500px] w-full sm:min-h-[600px] lg:min-h-[700px]">
+        <div className="relative min-h-[500px] w-full sm:min-h-[600px] lg:min-h-[700px]">
 
-    {/* BACKGROUND VIDEO */}
-    <video
-      className="absolute inset-0 h-full w-full object-cover"
-      controls
-      playsInline
-      preload="metadata"
-      poster="/images/anm-activities-poster.jpg"
-    >
-      <source
-        src="/videos/anm-activities.mp4"
-        type="video/mp4"
-      />
-      Your browser does not support the video element.
-    </video>
+          {/* BACKGROUND VIDEO */}
+          <video
+            className="absolute inset-0 h-full w-full object-cover"
+            controls
+            playsInline
+            preload="metadata"
+            poster="/images/anm-activities-poster.jpg"
+          >
+            <source
+              src="/videos/anm-activities.mp4"
+              type="video/mp4"
+            />
+            Your browser does not support the video element.
+          </video>
 
-    {/* DARK OVERLAY */}
-    <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-[#142b45]/65 via-[#142b45]/30 to-[#142b45]/75" />
+          {/* DARK OVERLAY */}
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-[#142b45]/65 via-[#142b45]/30 to-[#142b45]/75" />
 
-    {/* HERO TEXT */}
-    <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center px-5 pb-16 text-center">
+          {/* HERO TEXT */}
+          <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center px-5 pb-16 text-center">
+            <div className="max-w-5xl">
 
-      <div className="max-w-5xl">
+              <h1 className="text-3xl font-extrabold leading-tight text-white drop-shadow-lg sm:text-5xl lg:text-7xl">
+                Aga'azian National Movement
+              </h1>
 
-        
-        <h1 className="text-3xl font-extrabold leading-tight text-white drop-shadow-lg sm:text-5xl lg:text-7xl">
-          Aga'azian National Movement
-        </h1>
+              <div className="mx-auto my-6 h-1 w-20 rounded-full bg-[#c9a45c]" />
 
-        <div className="mx-auto my-6 h-1 w-20 rounded-full bg-[#c9a45c]" />
+            </div>
+          </div>
 
-        
-      </div>
-
-    </div>
-
-  </div>
-
-  
-</section>
-
+        </div>
+      </section>
 
       {/* =====================================================
           SECTION 1 — WHO WE ARE
@@ -148,7 +145,6 @@ export default function AboutPage() {
 
           <div className="mx-auto mb-12 max-w-3xl text-center">
 
-            
             <h2 className="text-3xl font-extrabold sm:text-4xl lg:text-5xl">
               Who We Are
             </h2>
@@ -168,7 +164,6 @@ export default function AboutPage() {
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
 
             <div className="rounded-xl border border-[#e5e1d8] bg-[#faf9f6] p-6">
-              
               <h3 className="mb-3 text-lg font-extrabold">
                 Cultural Renaissance
               </h3>
@@ -180,7 +175,6 @@ export default function AboutPage() {
             </div>
 
             <div className="rounded-xl border border-[#e5e1d8] bg-[#faf9f6] p-6">
-              
               <h3 className="mb-3 text-lg font-extrabold">
                 Direct Democracy
               </h3>
@@ -192,7 +186,6 @@ export default function AboutPage() {
             </div>
 
             <div className="rounded-xl border border-[#e5e1d8] bg-[#faf9f6] p-6">
-              
               <h3 className="mb-3 text-lg font-extrabold">
                 Economic Prosperity
               </h3>
@@ -204,7 +197,6 @@ export default function AboutPage() {
             </div>
 
             <div className="rounded-xl border border-[#e5e1d8] bg-[#faf9f6] p-6">
-              
               <h3 className="mb-3 text-lg font-extrabold">
                 National Sovereignty
               </h3>
@@ -225,74 +217,23 @@ export default function AboutPage() {
             modernization, and cultural renewal.
           </p>
 
-          {/* OUR VISION */}
-          <div
-            id="our-vision"
-            className="mt-16 overflow-hidden rounded-2xl bg-[#142b45] p-7 text-white sm:p-10 lg:p-12"
-          >
-
-            <div className="mx-auto max-w-4xl text-center">
-
-              <p className="mb-3 text-sm font-bold uppercase tracking-[0.25em] text-[#c9a45c]">
-                Our Vision
-              </p>
-
-              <h3 className="text-2xl font-extrabold leading-tight sm:text-3xl lg:text-4xl">
-                A Sovereign, Democratic and Prosperous Future
-              </h3>
-
-              <p className="mx-auto mt-5 max-w-3xl text-sm leading-7 text-white/75 sm:text-base">
-                We envision a future in which the Tigrinya nation
-                exercises its right to self-determination and
-                sovereignty, lives under democratic constitutional
-                governance, and builds strong institutions, economic
-                prosperity and a renewed cultural identity.
-              </p>
-
-            </div>
-
-            <div className="mt-10 grid gap-5 sm:grid-cols-2">
-
-              {visionPillars.map((pillar) => (
-                <div
-                  key={pillar.number}
-                  className="rounded-xl border border-white/15 bg-white/5 p-5"
-                >
-
-                  <span className="text-sm font-bold text-[#c9a45c]">
-                    {pillar.number}
-                  </span>
-
-                  <h4 className="mt-2 text-lg font-bold">
-                    {pillar.title}
-                  </h4>
-
-                  <p className="mt-2 text-sm leading-7 text-white/70">
-                    {pillar.description}
-                  </p>
-
-                </div>
-              ))}
-
-            </div>
-
-          </div>
-
+          
         </div>
       </section>
 
       {/* =====================================================
           SECTION 2 — LEADERSHIP & STRUCTURE
+          FULL NAVY LEADERSHIP BACKGROUND
       ===================================================== */}
       <section
         id="leadership-structure"
-        className="bg-[#f1eee6] px-5 py-16 sm:px-8 lg:py-20"
+        className="bg-[#102944] px-5 py-16 text-white sm:px-8 lg:py-20"
       >
         <div className="mx-auto max-w-7xl">
 
           <div className="mx-auto mb-12 max-w-3xl text-center">
 
-            <p className="mb-3 text-sm font-bold uppercase tracking-[0.25em] text-[#a77d32]">
+            <p className="mb-3 text-sm font-bold uppercase tracking-[0.25em] text-[#c9a45c]">
               02 — Our Organization
             </p>
 
@@ -302,7 +243,7 @@ export default function AboutPage() {
 
             <div className="mx-auto my-5 h-1 w-14 rounded-full bg-[#c9a45c]" />
 
-            <p className="text-sm leading-7 text-[#526174] sm:text-base">
+            <p className="text-sm leading-7 text-white/75 sm:text-base">
               Meet the people entrusted with leading the movement
               and understand the organizational framework through
               which ANM carries out its responsibilities.
@@ -319,60 +260,102 @@ export default function AboutPage() {
                 Our Leadership
               </h3>
 
-              <span className="text-xs font-semibold uppercase tracking-wider text-[#a77d32]">
-                Leadership Team
+              <span className="hidden text-sm text-white/50 sm:block">
+                Five leadership profiles
               </span>
 
             </div>
 
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {/* MOBILE — HORIZONTAL SWIPE */}
+            <div className="sm:hidden">
 
-              {leaders.map((leader, index) => (
-                <div
-                  key={index}
-                  className="overflow-hidden rounded-xl border border-[#e2ded5] bg-white transition-shadow duration-300 hover:shadow-lg"
-                >
+              <div className="flex snap-x snap-mandatory gap-5 overflow-x-auto pb-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
 
-                  <div className="relative flex aspect-[4/5] items-center justify-center bg-[#e6e8e9]">
+                {leaders.map((leader, index) => (
+                  <div
+                    key={leader.name}
+                    className="w-[82%] flex-none snap-center overflow-hidden rounded-xl border border-white/15 bg-[#173653]"
+                  >
 
-                    {leader.image ? (
+                    <div className="relative flex aspect-[4/5] items-center justify-center overflow-hidden bg-[#173653]">
+
                       <Image
                         src={leader.image}
                         alt={leader.name}
                         fill
+                        sizes="82vw"
                         className="object-cover"
                       />
-                    ) : (
-                      <div className="text-center text-[#84909c]">
 
-                        <div className="mx-auto mb-3 flex h-20 w-20 items-center justify-center rounded-full bg-white">
+                    </div>
 
-                          <span className="text-3xl font-bold text-[#a77d32]">
-                            ANM
-                          </span>
+                    <div className="min-h-[145px] p-5">
 
-                        </div>
+                      <p className="mb-2 text-xs font-bold uppercase tracking-[0.2em] text-[#c9a45c]">
+                        {String(index + 1).padStart(2, "0")}
+                      </p>
 
-                        <p className="text-xs font-medium">
-                          Leadership Photograph
-                        </p>
+                      <h4 className="font-extrabold text-white">
+                        {leader.name}
+                      </h4>
 
-                      </div>
-                    )}
+                      <p className="mt-1 text-sm text-[#d4b574]">
+                        {leader.position}
+                      </p>
+
+                      <p className="mt-3 text-xs leading-6 text-white/60">
+                        Official leadership profile and biography.
+                      </p>
+
+                    </div>
+
+                  </div>
+                ))}
+
+              </div>
+
+              <p className="mt-2 text-center text-xs tracking-wide text-white/50">
+                Swipe left or right to view all five leaders
+              </p>
+
+            </div>
+
+            {/* DESKTOP — THREE-COLUMN GRID */}
+            <div className="hidden gap-6 sm:grid sm:grid-cols-2 lg:grid-cols-3">
+
+              {leaders.map((leader, index) => (
+                <div
+                  key={leader.name}
+                  className="overflow-hidden rounded-xl border border-white/15 bg-[#173653] transition-all duration-300 hover:-translate-y-1 hover:border-[#c9a45c]/60 hover:shadow-xl hover:shadow-black/20"
+                >
+
+                  <div className="relative flex aspect-[4/5] items-center justify-center overflow-hidden bg-[#173653]">
+
+                    <Image
+                      src={leader.image}
+                      alt={leader.name}
+                      fill
+                      sizes="(max-width: 1024px) 50vw, 33vw"
+                      className="object-cover"
+                    />
 
                   </div>
 
-                  <div className="p-5">
+                  <div className="min-h-[145px] p-5">
 
-                    <h4 className="font-extrabold">
+                    <p className="mb-2 text-xs font-bold uppercase tracking-[0.2em] text-[#c9a45c]">
+                      {String(index + 1).padStart(2, "0")}
+                    </p>
+
+                    <h4 className="font-extrabold text-white">
                       {leader.name}
                     </h4>
 
-                    <p className="mt-1 text-sm text-[#a77d32]">
+                    <p className="mt-1 text-sm text-[#d4b574]">
                       {leader.position}
                     </p>
 
-                    <p className="mt-3 text-xs leading-6 text-[#526174]">
+                    <p className="mt-3 text-xs leading-6 text-white/60">
                       Official leadership profile and biography.
                     </p>
 
@@ -383,15 +366,22 @@ export default function AboutPage() {
 
             </div>
 
-            <p className="mt-5 text-center text-xs text-[#7a8490]">
+            <p className="mt-6 text-center text-xs leading-6 text-white/50">
               Leadership names, photographs, positions and biographies
-              will be added using officially approved information.
+              will be presented using officially approved information.
             </p>
 
           </div>
 
-          {/* ORGANIZATIONAL STRUCTURE */}
-          <div className="rounded-2xl bg-white p-6 shadow-sm sm:p-10">
+        </div>
+
+        {/* =====================================================
+            ORGANIZATIONAL STRUCTURE
+            FULL-WIDTH WHITE BACKGROUND
+        ===================================================== */}
+        <div className="relative left-1/2 w-screen -translate-x-1/2 bg-white px-5 py-16 text-[#142b45] sm:px-8 lg:px-12">
+
+          <div className="mx-auto max-w-7xl">
 
             <div className="mb-10 text-center">
 
@@ -489,6 +479,7 @@ export default function AboutPage() {
           </div>
 
         </div>
+
       </section>
 
       {/* =====================================================
@@ -511,6 +502,8 @@ export default function AboutPage() {
             </h2>
 
             <div className="mx-auto my-5 h-1 w-14 rounded-full bg-[#c9a45c]" />
+
+            <div className="mx-auto my-8 h-px w-full max-w-5xl bg-white/70" />
 
             <p className="text-sm leading-7 text-white/70 sm:text-base">
               ANM works to prepare, organize, advocate and develop
@@ -546,11 +539,12 @@ export default function AboutPage() {
 
           </div>
 
-          
         </div>
       </section>
-            
+
+      {/* WHITE SEPARATION BEFORE FOOTER */}
+      <div className="h-10 w-full bg-white" />
+
     </main>
-   
   );
 }
