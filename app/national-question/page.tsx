@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState } from "react";
@@ -238,6 +239,9 @@ const priorityCards = [
 export default function NationalQuestionPage() {
   const [activeSection, setActiveSection] = useState(0);
   const [flippedCards, setFlippedCards] = useState<number[]>([]);
+  const [activePriorityCard, setActivePriorityCard] = useState<number | null>(
+    null
+  );
 
   const toggleSolutionCard = (index: number) => {
     setFlippedCards((current) =>
@@ -259,6 +263,22 @@ export default function NationalQuestionPage() {
 
     setActiveSection(nextIndex);
     scrollToSection(`solution-detail-${sections[nextIndex].id}`);
+  };
+
+  const handlePriorityCardClick = (index: number) => {
+    const isTouchDevice = window.matchMedia("(hover: none)").matches;
+
+    if (!isTouchDevice) {
+      goToSection(index);
+      return;
+    }
+
+    if (activePriorityCard === index) {
+      setActivePriorityCard(null);
+      goToSection(index);
+    } else {
+      setActivePriorityCard(index);
+    }
   };
 
   return (
@@ -312,23 +332,26 @@ export default function NationalQuestionPage() {
             </div>
           </div>
 
-          {/* HORIZONTAL MOBILE CAROUSEL */}
+          {/* HORIZONTAL MOBILE CAROUSEL / DESKTOP GRID */}
           <div className="flex snap-x snap-mandatory gap-5 overflow-x-auto overscroll-x-contain pb-6 md:grid md:grid-cols-2 md:gap-8 md:overflow-visible md:pb-0 xl:grid-cols-3 xl:gap-9">
             {sections.map((section, index) => {
               const card = priorityCards[index];
+              const isActive = activePriorityCard === index;
 
               return (
                 <button
                   key={section.id}
                   type="button"
-                  onClick={() => goToSection(index)}
+                  onClick={() => handlePriorityCardClick(index)}
                   aria-label={`Explore ${section.title}`}
+                  aria-expanded={isActive}
                   className="group relative flex min-h-[580px] w-[85vw] max-w-[360px] shrink-0 snap-start flex-col overflow-hidden rounded-tr-[45px] bg-white text-left shadow-lg transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#d5b46b] md:min-h-[640px] md:w-full md:max-w-none"
                 >
-                  <div className="absolute inset-0 bg-white" />
-
+                  {/* ORIGINAL CARD HEADING */}
                   <div
-                    className="relative z-10 flex min-h-[95px] flex-col justify-center px-7 py-5 pr-10 transition-opacity duration-500 group-hover:opacity-0 md:min-h-[105px] md:px-8"
+                    className={`relative z-10 flex min-h-[95px] flex-col justify-center px-7 py-5 pr-10 transition-opacity duration-500 md:min-h-[105px] md:px-8 ${
+                      isActive ? "opacity-0 md:opacity-100" : ""
+                    } group-hover:opacity-0`}
                     style={{
                       background: `linear-gradient(to bottom, ${card.lightColor}, ${card.color})`,
                     }}
@@ -344,7 +367,12 @@ export default function NationalQuestionPage() {
                     </div>
                   </div>
 
-                  <div className="relative z-10 flex flex-1 flex-col px-8 py-9 transition-opacity duration-300 group-hover:opacity-0 md:px-9 md:py-10">
+                  {/* ORIGINAL CARD CONTENT */}
+                  <div
+                    className={`relative z-10 flex flex-1 flex-col px-8 py-9 transition-opacity duration-300 md:px-9 md:py-10 ${
+                      isActive ? "opacity-0 md:opacity-100" : ""
+                    } group-hover:opacity-0`}
+                  >
                     <span className="text-4xl text-[#c9a45c]">
                       {section.symbol}
                     </span>
@@ -363,14 +391,26 @@ export default function NationalQuestionPage() {
                     </span>
                   </div>
 
+                  {/* HIGHLIGHTED CARD BACKGROUND */}
                   <div
-                    className="absolute inset-0 z-20 origin-top scale-y-0 transition-transform duration-700 ease-in-out group-hover:scale-y-100"
+                    className={`absolute inset-0 z-20 origin-bottom transition-transform duration-700 ease-in-out ${
+                      isActive
+                        ? "scale-y-100 md:scale-y-0"
+                        : "scale-y-0"
+                    } group-hover:scale-y-100`}
                     style={{
                       background: `linear-gradient(to bottom, ${card.lightColor}, ${card.color})`,
                     }}
                   />
 
-                  <div className="pointer-events-none absolute inset-0 z-30 flex flex-col justify-center px-8 py-10 opacity-0 transition-opacity delay-150 duration-500 group-hover:opacity-100 md:px-9">
+                  {/* HIGHLIGHTED CONTENT */}
+                  <div
+                    className={`pointer-events-none absolute inset-0 z-30 flex flex-col justify-center px-8 py-10 transition-opacity duration-500 md:px-9 ${
+                      isActive
+                        ? "opacity-100 md:opacity-0"
+                        : "opacity-0"
+                    } group-hover:opacity-100`}
+                  >
                     <span className="text-xs font-extrabold uppercase tracking-[0.22em] text-white/75">
                       OUR COMMITMENT
                     </span>
@@ -387,6 +427,10 @@ export default function NationalQuestionPage() {
 
                     <span className="mt-10 text-xs font-extrabold uppercase leading-6 tracking-[0.12em] text-white">
                       {card.action} →
+                    </span>
+
+                    <span className="mt-5 text-xs font-semibold text-white/70 md:hidden">
+                      TAP AGAIN TO EXPLORE
                     </span>
                   </div>
 
