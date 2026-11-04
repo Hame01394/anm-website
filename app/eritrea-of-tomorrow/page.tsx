@@ -435,7 +435,7 @@ function ThreePillarCircle() {
                       height="150"
                     >
                       <div
-                        xmlns="http://www.w3.org/1999/xhtml"
+                        
                         className="flex h-full w-full flex-col items-center justify-center px-2 py-2 text-center"
                         style={{
                           boxSizing: "border-box",
