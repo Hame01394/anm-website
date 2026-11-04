@@ -179,9 +179,23 @@ export default function ArchitectureOfPower() {
   const isFocused = activeGroup !== null;
 
   return (
+  <>
+    {/* INTRODUCTION SECTION — WHITE BACKGROUND */}
+    <header className="bg-white px-5 py-16 text-center md:px-10 md:py-20">
+  <p className="mb-4 text-sm font-bold uppercase tracking-[0.3em] text-[#9b7940]">
+    Dictator Isaias Afwerki
+  </p>
+
+  <h2 className="text-3xl font-black uppercase leading-tight tracking-wide text-black md:text-5xl">
+    One Man Rule
+  </h2>
+
+  <div className="mx-auto mt-7 h-[2px] w-24 bg-[#101f35]" />
+</header>
+
+    {/* EXISTING ARCHITECTURE OF POWER SECTION */}
     <section className="aop-section">
       <div className="aop-heading">
-        <h2>Architecture of Power</h2>
         <p>
           Explore the relationships between the central leadership
           and the institutions surrounding it.
@@ -917,5 +931,6 @@ export default function ArchitectureOfPower() {
         }
       `}</style>
     </section>
+    </>
   );
 }
