@@ -32,6 +32,12 @@ const menus: NavigationMenu[] = [
     items: [],
   },
   {
+    title: "Eritrea of Tomorrow",
+    titleTi: "ኤርትራ ናይ ጽባሕ",
+    href: "/eritrea-of-tomorrow",
+    items: [],
+  },
+  {
     title: "Policy Framework",
     titleTi: "ሃገራዊ ሕቶ",
     href: "/national-question",
@@ -101,34 +107,32 @@ export default function Navigation() {
     >
       <div className="mx-auto flex min-h-[100px] max-w-[1800px] items-center justify-between gap-6 px-6 py-4">
 
-                {/* BRAND */}
+        {/* BRAND */}
         <Link
           href={isTigrinya ? "/ti" : "/"}
           className="flex shrink-0 items-center gap-1"
         >
-          {/* Logo symbol — to be replaced with the Menora emblem later */}
+          {/* Logo symbol */}
           <img
-  src="/images/menorah.png.png"
-  alt="Aga'azian National Movement"
-  className="h-20 w-20 shrink-0 object-contain brightness-150 contrast-125 drop-shadow-[0_0_8px_rgba(255,220,150,0.65)]"
-/>
+            src="/images/menorah.png.png"
+            alt="Aga'azian National Movement"
+            className="h-20 w-20 shrink-0 object-contain brightness-150 contrast-125 drop-shadow-[0_0_8px_rgba(255,220,150,0.65)]"
+          />
 
           {/* Organization name */}
           <span className="flex min-w-0 flex-col">
-            {/* ANM — letters spread across the full name width */}
             <span className="grid w-full grid-cols-3 text-center text-5xl font-black leading-none tracking-normal text-white lg:text-6xl">
-  {isTigrinya ? (
-  <span className="col-span-3">ሃምኣ</span>
-) : (
-  <>
-    <span>A</span>
-    <span>N</span>
-    <span>M</span>
-  </>
-)}
-</span>
+              {isTigrinya ? (
+                <span className="col-span-3">ሃምኣ</span>
+              ) : (
+                <>
+                  <span>A</span>
+                  <span>N</span>
+                  <span>M</span>
+                </>
+              )}
+            </span>
 
-            {/* Full organization name */}
             <span className="mt-1 whitespace-nowrap text-[12px] font-extrabold tracking-wide text-white lg:text-sm">
               {isTigrinya
                 ? "ምንቅስቓስ ሃገራዊ ኣጋኣዝያን"

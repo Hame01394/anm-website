@@ -4,32 +4,68 @@ import FutureVision from "./FutureVision";
 import VisionPillars from "./VisionPillars";
 import NationalStruggle from "./NationalStruggle";
 
-const pillars = [
-  {
-    number: "01",
-    title: "The Nation",
-    description:
-      "Strengthening national unity, identity, sovereignty and the equal dignity of every citizen.",
-  },
-  {
-    number: "02",
-    title: "The Economy",
-    description:
-      "Building economic opportunity, productive institutions and shared prosperity.",
-  },
-  {
-    number: "03",
-    title: "Direct Democracy",
-    description:
-      "Promoting popular participation, accountable leadership and democratic decision-making.",
-  },
-  {
-    number: "04",
-    title: "Institution Building",
-    description:
-      "Establishing independent institutions, constitutional government and the rule of law.",
-  },
-];
+
+function MovementMetrics() {
+  const metrics = [
+    {
+      value: "500+",
+      label: "Registered Members",
+      description: "People formally affiliated with ANM.",
+    },
+    {
+      value: "26K+",
+      label: "Social Media Followers",
+      description: "People following ANM's official channels.",
+    },
+    {
+      value: "10K+",
+      label: "Website Visitors",
+      description: "People visiting the ANM website.",
+    },
+  ];
+
+  return (
+    <section className="w-full bg-white px-6 py-14 text-[#142b45] md:py-16">
+      <div className="mx-auto max-w-6xl">
+        <div className="mb-10 text-center">
+          <p className="mb-3 text-xs font-bold uppercase tracking-[0.28em] text-[#9b7940]">
+            A Growing National Movement
+          </p>
+
+          <h2 className="text-2xl font-bold md:text-3xl">
+            Building a Connected Community
+          </h2>
+
+          <p className="mx-auto mt-3 max-w-2xl text-sm leading-7 text-[#142b45]/70">
+            Building a connected, engaged and informed national community.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 divide-y divide-[#142b45]/15 sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+          {metrics.map((metric) => (
+            <div
+              key={metric.label}
+              className="px-5 py-7 text-center sm:py-3"
+            >
+              <div className="text-4xl font-extrabold tracking-tight text-[#9b7940] md:text-5xl">
+                {metric.value}
+              </div>
+
+              <h3 className="mt-3 text-sm font-bold uppercase tracking-wider text-[#142b45]">
+                {metric.label}
+              </h3>
+
+              <p className="mt-2 text-xs leading-6 text-[#142b45]/65">
+                {metric.description}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 
 export default function HomeExperience() {
   const heroVideoSrc = "";
@@ -62,7 +98,6 @@ export default function HomeExperience() {
 
         {/* HERO CONTENT */}
         <div className="relative z-10 mx-auto max-w-5xl">
-
           <p className="mb-6 text-xs font-bold uppercase tracking-[0.3em] text-[#d5b46b] sm:text-sm">
             Aga'azian National Movement
           </p>
@@ -92,12 +127,16 @@ export default function HomeExperience() {
               </span>
             </button>
           </div>
-
         </div>
       </section>
 
-      {/* THE FOUR PILLARS */}
-      <VisionPillars />
+      {/* ANM GROWTH STATISTICS — WHITE BACKGROUND */}
+      <MovementMetrics />
+
+      {/* THE FOUR PILLARS — NAVY BLUE BACKGROUND */}
+      <div className="w-full bg-[#142b45] text-white">
+        <VisionPillars />
+      </div>
 
       {/* NATIONAL STRUGGLE */}
       <NationalStruggle />
@@ -105,7 +144,6 @@ export default function HomeExperience() {
       {/* THE FUTURE — DEMOCRATIC DEVELOPMENT */}
       <FutureVision />
 
-            
     </div>
   );
 }

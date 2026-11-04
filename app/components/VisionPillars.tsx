@@ -91,21 +91,18 @@ export default function VisionPillars() {
       <div className="mx-auto max-w-7xl">
 
         {/* SECTION INTRODUCTION - WHITE BAND */}
-        <div className="relative left-1/2 mb-8 w-screen -translate-x-1/2 bg-white px-5 py-6 text-center sm:px-8 lg:py-8">
-          <div className="mx-auto max-w-4xl text-center">
-            <p className="mb-2 text-sm font-bold uppercase tracking-[0.25em] text-[#a77d32]">
-              Our Movement
-            </p>
+        <div className="relative left-1/2 mb-8 w-screen -translate-x-1/2 bg-[#142b45] px-5 py-6 text-center sm:px-8 lg:py-8">
+  <div className="mx-auto max-w-4xl text-center">
+    
+    <h2 className="text-3xl font-extrabold leading-tight text-white sm:text-4xl lg:text-5xl">
+      The Foundations
+    </h2>
 
-            <h2 className="text-3xl font-extrabold leading-tight text-[#142b45] sm:text-4xl lg:text-5xl">
-              The Foundations of the Aga'azian National Movement
-            </h2>
-
-            <p className="mx-auto mt-3 max-w-2xl text-base leading-7 text-[#526174] sm:text-lg">
-              Four pillars express our principles, guide our mission, and shape our vision for Eritrea's future.
-            </p>
-          </div>
-        </div>
+    <p className="mx-auto mt-3 max-w-2xl text-base leading-7 text-white/75 sm:text-lg">
+      Four pillars express the Aga'azian National Movement's principles, guide our mission, and shape our vision for Eritrea's future.
+    </p>
+  </div>
+</div>
 
         {/* INTERACTIVE CIRCLE WITH ERITREA BACKGROUND */}
         <div className="mx-auto w-full max-w-[1050px]">
