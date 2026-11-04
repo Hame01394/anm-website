@@ -105,7 +105,7 @@ export default function Navigation() {
       : ""
   }`}
 >
-      <div className="mx-auto flex min-h-[100px] max-w-[1800px] items-center justify-between gap-6 px-6 py-4">
+      <div className="mx-auto flex min-h-[68px] max-w-[1800px] items-center justify-between gap-6 px-3 py-2 xl:min-h-[100px] xl:px-6 xl:py-4">
 
         {/* BRAND */}
         <Link
@@ -116,12 +116,12 @@ export default function Navigation() {
           <img
             src="/images/menorah.png.png"
             alt="Aga'azian National Movement"
-            className="h-20 w-20 shrink-0 object-contain brightness-150 contrast-125 drop-shadow-[0_0_8px_rgba(255,220,150,0.65)]"
+            className="h-14 w-14 shrink-0 object-contain brightness-150 contrast-125 drop-shadow-[0_0_8px_rgba(255,220,150,0.65)] xl:h-20 xl:w-20"
           />
 
           {/* Organization name */}
           <span className="flex min-w-0 flex-col">
-            <span className="grid w-full grid-cols-3 text-center text-5xl font-black leading-none tracking-normal text-white lg:text-6xl">
+            <span className="grid w-full grid-cols-3 text-center text-4xl font-black leading-none tracking-normal text-white xl:text-6xl">
               {isTigrinya ? (
                 <span className="col-span-3">ሃምኣ</span>
               ) : (
@@ -133,7 +133,7 @@ export default function Navigation() {
               )}
             </span>
 
-            <span className="mt-1 whitespace-nowrap text-[12px] font-extrabold tracking-wide text-white lg:text-sm">
+            <span className="mt-0.5 whitespace-nowrap text-[10px] font-extrabold tracking-wide text-white xl:mt-1 xl:text-sm">
               {isTigrinya
                 ? "ምንቅስቓስ ሃገራዊ ኣጋኣዝያን"
                 : "Aga'azian National Movement"}
