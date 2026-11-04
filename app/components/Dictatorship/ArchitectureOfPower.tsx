@@ -17,78 +17,70 @@ const groups: Record<GroupId, Person[]> = {
       name: "Isaias Afwerki",
       description:
         "The central figure exercising personal control over the state and its institutions.",
-      image: "",
+      image: "/images/isaias-afwerki-1.png",
     },
     {
-      name: "His Wife",
+      name: "Saba Haile",
       description:
-        "A member of the dictator's immediate family and inner circle.",
-      image: "",
+        "Wife of Isaias Afwerki and a member of the president's inner family circle.",
+      image: "/images/wife.png",
     },
     {
-      name: "His Son",
-      description: "A member of the dictator's immediate family.",
-      image: "",
+      name: "Abraham Afewerki",
+      description:
+        "Son of Dictator Isaias Afwerki and a member of the presidential family.",
+      image: "/images/son.png",
     },
   ],
   military: [
     {
-      name: "Military Commander 1",
-      description:
-        "Senior military leadership within the ruling power structure.",
-      image: "",
+      name: "Filipos Weldehyones",
+      description: "Chief of Staff, Defence Forces.",
+      image: "/images/military-filios-woldeyohannes.png",
     },
     {
-      name: "Military Commander 2",
-      description:
-        "Senior military leadership within the ruling power structure.",
-      image: "",
+      name: "Tekle Kiflay (Manjus)",
+      description: "Senior military commander.",
+      image: "/images/military-tekle-manjus.png",
     },
     {
       name: "Military Commander 3",
-      description:
-        "Senior military leadership within the ruling power structure.",
-      image: "",
+      description: "Senior military associate.",
+      image: "/images/military-commander-3.png",
     },
   ],
   security: [
     {
-      name: "Security Official 1",
-      description:
-        "A senior figure within the national security apparatus.",
-      image: "",
+      name: "Abraha Kassa Nemariam",
+      description: "National Security Chief.",
+      image: "/images/security-abraha-kassa.png",
     },
     {
       name: "Security Official 2",
-      description:
-        "A senior figure within the national security apparatus.",
-      image: "",
+      description: "A senior figure within the national security apparatus.",
+      image: "/images/security-official-2.png",
     },
     {
       name: "Security Official 3",
-      description:
-        "A senior figure within the national security apparatus.",
-      image: "",
+      description: "A senior figure within the national security apparatus.",
+      image: "/images/security-official-3.png",
     },
   ],
   loyalists: [
     {
-      name: "Political Loyalist 1",
-      description:
-        "A political figure aligned with the ruling leadership.",
-      image: "",
+      name: "Yemane Gebreab",
+      description: "PFDJ Head of Political Affairs.",
+      image: "/images/political-yemane-gebreab.png",
     },
     {
-      name: "Political Loyalist 2",
-      description:
-        "A political figure aligned with the ruling leadership.",
-      image: "",
+      name: "Yemane Gebremeskel",
+      description: "Minister of Information.",
+      image: "/images/political-yemane-gebremeskel.png",
     },
     {
-      name: "Political Loyalist 3",
-      description:
-        "A political figure aligned with the ruling leadership.",
-      image: "",
+      name: "Hagos Ghebrehiwot",
+      description: "PFDJ Head of Economic Affairs.",
+      image: "/images/political-hagos-gebrehiwot.png",
     },
   ],
 };

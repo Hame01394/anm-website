@@ -80,9 +80,7 @@ export default function DestructionOfEritrea() {
       id="destruction-of-eritrea"
       className="w-full bg-white text-[#101f35]"
     >
-      {/* ================================================== */}
       {/* WHITE SECTION HEADING */}
-      {/* ================================================== */}
 
       <header className="bg-white px-5 py-16 text-center md:px-10 md:py-20">
         <p className="mb-4 text-sm font-bold uppercase tracking-[0.3em] text-[#9b7940]">
@@ -94,17 +92,14 @@ export default function DestructionOfEritrea() {
         </h2>
 
         <div className="mx-auto mt-7 h-[2px] w-24 bg-[#101f35]" />
-        
       </header>
 
-      {/* ================================================== */}
-      {/* NAVY INTERACTIVE AREA */}
-      {/* ================================================== */}
+      {/* INTERACTIVE AREA */}
 
       <div className="w-full bg-[#101f35] px-5 py-16 text-white md:px-10 md:py-20 lg:px-16">
         <div className="mx-auto max-w-7xl">
 
-          {/* CATEGORY NAVIGATION */}
+          {/* CATEGORY NAVIGATION - ORIGINAL BLUE DESIGN */}
 
           <nav
             aria-label="Destruction categories"
@@ -119,9 +114,7 @@ export default function DestructionOfEritrea() {
                   type="button"
                   aria-expanded={isActive}
                   onClick={() => {
-                    setActiveCategory(
-                      isActive ? null : category.id
-                    );
+                    setActiveCategory(isActive ? null : category.id);
                     setActiveTopic(null);
                   }}
                   className={`min-h-[112px] min-w-[190px] flex-1 border px-5 py-5 text-left transition-colors duration-200 lg:min-w-0 ${
@@ -146,13 +139,16 @@ export default function DestructionOfEritrea() {
             })}
           </nav>
 
-          {/* EXPANDED CATEGORY */}
+          {/* WHITE AREA BELOW CATEGORY NAVIGATION */}
 
           {selectedCategory && (
-            <div className="border-t border-white/25 pt-9">
+            <div className="border border-[#e3ddcf] bg-white p-6 text-[#101f35] md:p-9">
+
+              {/* CATEGORY HEADING */}
+
               <div className="mb-7 flex flex-wrap items-center justify-between gap-4">
                 <div>
-                  <p className="mb-2 text-xs font-bold uppercase tracking-[0.25em] text-[#d9bd82]">
+                  <p className="mb-2 text-xs font-bold uppercase tracking-[0.25em] text-[#9b7940]">
                     Explore the impact
                   </p>
 
@@ -167,7 +163,7 @@ export default function DestructionOfEritrea() {
                     setActiveCategory(null);
                     setActiveTopic(null);
                   }}
-                  className="border border-white/40 px-4 py-2 text-xs font-bold uppercase tracking-wider transition hover:border-[#d9bd82] hover:text-[#d9bd82]"
+                  className="border border-[#101f35]/40 px-4 py-2 text-xs font-bold uppercase tracking-wider text-[#101f35] transition hover:border-[#9b7940] hover:text-[#9b7940]"
                 >
                   Close section ×
                 </button>
@@ -189,12 +185,12 @@ export default function DestructionOfEritrea() {
                       }
                       className={`flex items-center justify-between gap-4 border px-5 py-5 text-left transition duration-200 ${
                         isSelected
-                          ? "border-[#d9bd82] bg-[#1b304b]"
-                          : "border-white/20 bg-transparent hover:border-white/60 hover:bg-white/5"
+                          ? "border-[#c9a45c] bg-[#f8f5ed] text-[#101f35]"
+                          : "border-[#e3ddcf] bg-white text-[#101f35] hover:border-[#c9a45c] hover:bg-[#fcfaf5]"
                       }`}
                     >
                       <span className="flex items-center gap-4">
-                        <span className="text-sm font-bold text-[#d9bd82]">
+                        <span className="text-sm font-bold text-[#9b7940]">
                           {String(index + 1).padStart(2, "0")}
                         </span>
 
@@ -203,7 +199,7 @@ export default function DestructionOfEritrea() {
                         </span>
                       </span>
 
-                      <span className="text-xl text-[#d9bd82]">
+                      <span className="text-xl text-[#9b7940]">
                         {isSelected ? "−" : "+"}
                       </span>
                     </button>
@@ -211,14 +207,14 @@ export default function DestructionOfEritrea() {
                 })}
               </div>
 
-              {/* TOPIC CONTENT PANEL */}
+              {/* WHITE TOPIC CONTENT PANEL */}
 
               {activeTopic && (
                 <article
-                  className="mt-8 border border-[#d9bd82]/60 bg-[#172a43] p-6 md:p-9"
+                  className="mt-8 border border-[#e3ddcf] bg-white p-6 text-[#101f35] md:p-9"
                   aria-live="polite"
                 >
-                  <p className="mb-3 text-xs font-bold uppercase tracking-[0.25em] text-[#d9bd82]">
+                  <p className="mb-3 text-xs font-bold uppercase tracking-[0.25em] text-[#9b7940]">
                     {selectedCategory.title}
                   </p>
 
@@ -228,29 +224,29 @@ export default function DestructionOfEritrea() {
 
                   <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr]">
                     <div>
-                      <h5 className="mb-3 text-sm font-bold uppercase tracking-wider text-[#d9bd82]">
+                      <h5 className="mb-3 text-sm font-bold uppercase tracking-wider text-[#9b7940]">
                         Explanation and evidence
                       </h5>
 
-                      <p className="text-sm leading-8 text-white/75">
+                      <p className="text-sm leading-8 text-slate-600">
                         Research, verified evidence and a detailed
                         explanation of {activeTopic.toLowerCase()} will
                         be presented here.
                       </p>
 
-                      <p className="mt-5 text-sm leading-8 text-white/75">
+                      <p className="mt-5 text-sm leading-8 text-slate-600">
                         This section is reserved for documented facts,
                         relevant statistics, firsthand testimonies and
                         references to credible supporting reports.
                       </p>
                     </div>
 
-                    <div className="border-t border-white/20 pt-6 lg:border-l lg:border-t-0 lg:pl-8 lg:pt-0">
-                      <h5 className="mb-3 text-sm font-bold uppercase tracking-wider text-[#d9bd82]">
+                    <div className="border-t border-[#e3ddcf] pt-6 lg:border-l lg:border-t-0 lg:pl-8 lg:pt-0">
+                      <h5 className="mb-3 text-sm font-bold uppercase tracking-wider text-[#9b7940]">
                         Supporting material
                       </h5>
 
-                      <ul className="space-y-3 text-sm text-white/70">
+                      <ul className="space-y-3 text-sm text-slate-600">
                         <li>• Relevant photographs</li>
                         <li>• Verified statistics and data</li>
                         <li>• Testimonies and personal accounts</li>
@@ -262,7 +258,6 @@ export default function DestructionOfEritrea() {
               )}
             </div>
           )}
-
         </div>
       </div>
     </section>
