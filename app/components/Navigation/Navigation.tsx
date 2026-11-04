@@ -99,12 +99,12 @@ export default function Navigation() {
 
   return (
     <header
-      className={`relative z-50 w-full border-b-4 border-[#c9a45c] bg-[#142b45] text-white shadow-lg ${
-        isTigrinya
-          ? "[font-family:'Noto_Sans_Ethiopic',Nyala,serif]"
-          : ""
-      }`}
-    >
+  className={`sticky top-0 z-[100] w-full border-b-4 border-[#c9a45c] bg-[#142b45] text-white shadow-lg ${
+    isTigrinya
+      ? "[font-family:'Noto_Sans_Ethiopic',Nyala,serif]"
+      : ""
+  }`}
+>
       <div className="mx-auto flex min-h-[100px] max-w-[1800px] items-center justify-between gap-6 px-6 py-4">
 
         {/* BRAND */}
