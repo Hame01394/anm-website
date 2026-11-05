@@ -3,177 +3,249 @@
 
 import { useState } from "react";
 
-const sections = [
+type PolicySection = {
+  id: string;
+  number: string;
+  title: string;
+  symbol: string;
+  solutionTitle: string;
+  solution: string;
+  commitment: string;
+  actions: string[];
+  subtopics?: {
+    title: string;
+    description: string;
+    points: string[];
+  }[];
+};
+
+const sections: PolicySection[] = [
   {
-    number: "01",
     id: "tigrinya-national-question",
-    symbol: "◈",
+    number: "01",
     title: "ሃገራዊ ሕቶ ትግርኛ",
-    subtitle: "መንነት፣ ሃገራዊ መበቆልን ባዕላዊ ውሳነን",
-    description:
-      "ታሪኻዊ መንነት፣ ሃገራዊ ምንቅስቓሳትን ፖለቲካዊ መጻኢን ህዝቢ ትግርኛ ዳህስስ። ኣብ ባዕላዊ ውሳነ ሃገራዊ መርገጺ ANM፣ ታሪኻዊ ሃገራዊ መበቆልን ኣብ ኤርትራን ትግራይን ዝነብሩ ማሕበረሰባት ትግርኛ ዘለዎም ርክብን መርምር።",
-    topics: [
-      "ተወላዳዊ መንነትን ታሪኻዊ ሃገራዊ መበቆልን",
-      "ባዕላዊ ውሳነ ሃገራዊ",
-      "ፖለቲካዊ መጻኢን ደሞክራስያዊ ምርጫን",
-      "ታሪኻውን ባህላውን ምትእስሳር ምስ ትግራይ",
-      "ዶባዊ ርክባትን ዞባዊ ምትሕብባርን",
-      "ሰላም፣ ዶባትን ሓድሕዳዊ ኣፍልጦን",
+    symbol: "◈",
+    solutionTitle: "ደሞክራስያዊ መንገዲ ናብ ርእሰ-ውሳነ",
+    solution:
+      "ANM፡ ህዝቢ ትግርኛ ንፖለቲካዊ መጻኢኡ ብናጻ ክውስን ዘኽእሎ ደሞክራስያዊ ፖለቲካዊ መስርሕ የቕርብ። እዚ መስርሕ ንመንነቱ ክሕሉ፣ ታሪኻዊ ምትእስሳሩ ክእምንን ንፖለቲካዊ ምርጫ ሰላማዊ ባይታ ከቕርብን ኣለዎ።",
+    commitment:
+      "ህዝቢ ትግርኛ ብኣካታቲ፣ ደሞክራስያዊን ኣህጉራዊ ኣፍልጦ ዘለዎን መስርሕ ንፖለቲካዊ መጻኢኡ ክውስን ናጽነት ክህልዎ ኣለዎ።",
+    actions: [
+      "ኣብ ውሽጢ ሃገርን ኣብ ወጻእን ዝርከቡ ማሕበረሰባት ትግርኛ ዘሳትፍ ኣካታቲ ሃገራዊ ዘተ ምጅማር።",
+      "ንኣተገባብራ ርእሰ-ውሳነ ንጹር ፖለቲካዊን ሕጋዊን ማዕቀፍ ምድላው።",
+      "ቋንቋ ትግርኛ፣ ባህላዊ ቅርሲ፣ ታሪኻዊ ቦታታትን ሓባራዊ መንነትን ምሕላው።",
+      "ብዛዕባ ታሪኻዊ ምትእስሳርን ርክባትን ምስ ትግራይ ሰላማዊ ዘተ ምትብባዕ።",
+      "ኣብ ሓድሕዳዊ ኣፍልጦ፣ ሰላማዊ ምንባርን ኣኽብሮት ዶባትን ዝተመርኮሰ ዞባዊ ርክባት ምምዕባል።",
+      "ህዝቢ ብናጻ ኣብ ውሳነታት መጻኢኡ ክሳተፍ ዘኽእሉ ደሞክራስያዊ ትካላት ምህናጽ።",
     ],
-    principle:
-      "ህዝቢ ትግርኛ ብዛዕባ ሃገራውን ፖለቲካውን መጻኢኡ ንምውሳን ትርጉም ዘለዎ ደሞክራስያዊ ድምጺ ክህልዎ ኣለዎ።",
   },
   {
-    number: "02",
     id: "minority-rights",
+    number: "02",
+    title: "መሰላትን ሓለዋን ኣናእሽቱ ማሕበረሰባት",
     symbol: "◇",
-    title: "መሰላትን ውሕስነታትን ኣናእሽቶ ማሕበረሰባት",
-    subtitle: "ማዕርነት፣ ክብርን መሰረታዊ ናጽነታትን",
-    description:
-      "መሰላትን ውሕስነታትን ኩሎም ኣናእሽቶ ማሕበረሰባት ኣብ ምቕራጽ ኣተኩር። ኣብ ባዕላዊ ውሳነ ዝተመርኮሰ ፖለቲካዊ መጻኢ፣ ማዕርነት፣ ውልቃዊ ናጽነታት፣ ምክልኻል ባህልን ትርጉም ዘለዎ ፖለቲካዊ ተሳትፎን ክረጋገጹ ኣለዎም።",
-    topics: [
-      "ማዕረ ሰብኣውን ሲቪላውን መሰላት",
-      "ማሕበራዊ፣ ቁጠባውን ፖለቲካውን ተሳትፎ",
-      "ሃይማኖታዊ ናጽነትን ምክልኻል ባህልን",
-      "መሰላት ቋንቋን ትምህርትን",
-      "ፍትሓዊ ውክልና ኣብ ህዝባዊ ትካላት",
-      "ካብ ኣድልዎ ምክልኻል",
+    solutionTitle: "ቅዋማዊ ውሕስነትን ማዕረ ሓለዋ ሕግን",
+    solution:
+      "ANM፡ ማዕረ ዜግነት ዘረጋግጽን ባህላዊ፣ ሃይማኖታዊ፣ ቋንቋዊ፣ ማሕበራዊን ፖለቲካዊን መሰላት ናይ ኩሉ ማሕበረሰብ ዝሕሉን ቅዋማዊ ስርዓት የቕርብ። እዚ ውሕስነት ብናጻ ትካላትን ማዕረ ኣተገባብራ ሕግን ክረጋገጽ ኣለዎ።",
+    commitment:
+      "ሓደ ማሕበረሰብ ብምኽንያት ብሄሩ፣ ሃይማኖቱ፣ ቋንቋኡ ወይ ድሕረ-ባይታኡ መሰላቱ፣ መንነቱ፣ ክብሩ ወይ ዕድሉ ክኽልከል የብሉን።",
+    actions: [
+      "ማዕረ መሰላት ኩሎም ማሕበረሰባት ዝሕሉ ቅዋማዊ ውሕስነታት ምትግባር።",
+      "ኣድልዎን ምጥሓስ መሰላትን ንምፍታሕ ናጻ ቤት ፍርድን ተበጻሕነት ዘለዎም ሕጋዊ መንገድታትን ምቛም።",
+      "ናጽነት ሃይማኖት፣ ባህላዊ ኣገላልጻ፣ ቋንቋን ትምህርትን ምሕላው።",
+      "ኣብ ዝተመርጹ ኣካላትን ህዝባዊ ትካላትን ፍትሓዊን ትርጉም ዘለዎን ውክልና ምርግጋጽ።",
+      "ኩሉ ሰብ ኣብ ህዝባዊ ኣገልግሎት፣ ስራሕን ቁጠባዊ ዕድላትን ማዕረ ተበጻሕነት ክህልዎ ምርግጋጽ።",
+      "መሰላት ደቂ ሰባት ዝከታተሉን ጥርዓናት ዝምርምሩን ናጻ ትካላት ምቛም።",
     ],
-    principle:
-      "ነፍሲ ወከፍ ሰብን ማሕበረሰብን ማዕረ መሰረታዊ መሰላት፣ ክብርን ብሕጊ ዝረጋገጽ ውሕስነትን ክህልዎ ኣለዎ።",
   },
   {
-    number: "03",
     id: "veterans-martyrs-wounded",
-    symbol: "✧",
+    number: "03",
     title: "ተጋደልቲ፣ ሰማእታትን ስንኩላንን",
-    subtitle: "ኣፍልጦ፣ ክንክንን ማሕበራዊ ሓላፍነትን",
-    description:
-      "ኣብ ቃልሲ ሃገር ንዝተሳተፉ ተጋደልቲ፣ ንዝተጎድኡ፣ ስድራቤታት ሰማእታትን ንኹሎም መስዋእቲ ዝኸፈሉን ዝግብኦም ሓላፍነታት ዳህስስ። ኣፍልጦ ምሃብ ብግብራውን ዘላቕን ደገፍ ክስነ ኣለዎ።",
-    topics: [
-      "ኣፍልጦን ሃገራዊ ዝኽርን",
-      "ክንክን ጥዕናን ምሕዋይን",
-      "ጡረታን ገንዘባዊ ደገፍን",
-      "መንበሪ ገዛን ማሕበራዊ ውሕስነትን",
-      "ደገፍ ንስድራቤታት ሰማእታት",
-      "ትምህርቲ፣ ስራሕን ዳግመ ምውህሃድን",
+    symbol: "✧",
+    solutionTitle: "ሃገራዊ መደብ ክንክንን ኣፍልጦን",
+    solution:
+      "ANM፡ ንተጋደልቲ፣ ኣካለ ስንኩላን፣ ስድራቤታት ሰማእታትን ብግጭት ንዝተጸልዉ ካልኦትን ዝሕግዝ ሰፊሕ መደብ ማሕበራዊ ውሕስነት የቕርብ። ኣፍልጦ ብተበጻሕነት ዘለዎ ሕክምና፣ ምሕዋይ፣ ገንዘባዊ ሓገዝን ሓድሽ ህይወት ንምጅማር ዘኽእሉ ዕድላትን ክግለጽ ኣለዎ።",
+    commitment:
+      "እቶም ህይወቶም፣ ጥዕናኦምን ድሕነቶምን ዝገበሩ መስዋእቲ ዘላቒ ኣፍልጦ፣ ተግባራዊ ደገፍን ክብሪ ዝሓለወ ክንክንን ክረኽቡ ኣለዎም።",
+    actions: [
+      "ግቡእ ሓለዋ ምስጢራዊነት ዝተሓለወ ግሉጽ ሃገራዊ መዝገብ ተጋደልቲ፣ ስንኩላንን ስድራቤታት ሰማእታትን ምቛም።",
+      "ተበጻሕነት ዘለዎ ሕክምናዊ ረድኤት፣ ስነ-ኣእምሮኣዊ ደገፍን ነዊሕ ግዜ ዝወስድ መልሶ ምሕዋይን ምሃብ።",
+      "ንብቑዓት ተጋደልትን ስድራቤታት ግዳያትን ፍትሓዊ መደባት ጡረታን ገንዘባዊ ሓገዝን ምምዕባል።",
+      "ብሰንኪ ግጭት ኣብ ጸገም ንዝወደቑ ሰባት መደባት መንበሪ ገዛን ማሕበራዊ ሓገዝን ምቕራብ።",
+      "ዕድላት ትምህርቲ፣ ሞያዊ ስልጠናን ደገፍ ስራሕን ምቕራብ።",
+      "መስዋእቲ ዘኽብሩ፣ ምስ እዚ ድማ ዕርቅን ኣኽብሮት ህይወት ደቂ ሰባትን ዘተባብዑ ሃገራዊ መደባት መዘከርታ ምቛም።",
     ],
-    principle:
-      "እቶም መስዋእቲ ዝኸፈሉን ስድራቤታቶምን ክብሪ፣ ኣፍልጦን ቀጻሊ ማሕበራዊ ደገፍን ይግብኦም።",
   },
   {
-    number: "04",
     id: "environment-natural-resources",
-    symbol: "❋",
+    number: "04",
     title: "ከባቢን ተፈጥሮኣዊ ሃብትን",
-    subtitle: "ምድሪ ምሕላውን መጻኢ ምርግጋጽን",
-    description:
-      "ምድሪ፣ ማይ፣ ገማግም ባሕሪ፣ ህይወታዊ ብዙሕነትን ተፈጥሮኣዊ ሃብትን ኤርትራ ብሓላፍነት ምሕላውን ምምሕዳርን ዳህስስ። ፖሊሲ ከባቢ ዘላቒ ናብራን ድሌታት ወለዶታት መጻኢን ክድግፍ ኣለዎ።",
-    topics: [
-      "ምሕላው መሬትን ሓመድን",
-      "ውሕስነትን ምምሕዳርን ማይ",
-      "ሕርሻን ዘላቒ ውሕስነት መግብን",
-      "ምክልኻል ገማግም ባሕርን ሃይቃትን",
-      "ህይወታዊ ብዙሕነትን ምሕዳስ ከባቢን",
-      "ምጽዋር ለውጢ ክሊማን ተሓደስቲ ጸዓትን",
+    symbol: "❋",
+    solutionTitle: "ዘላቒ ሓለዋ መሬትን ሃብትን",
+    solution:
+      "ANM፡ ኣብ ሓለዋ ተፈጥሮ፣ ሓላፍነታዊ ህዝባዊ ቁጽጽርን ዘላቒ ምዕባለን ዝተመርኮሰ ሃገራዊ መደብ ምሕደራ ከባቢን ሃብትን የቕርብ። መሬት፣ ማይ፣ ጸጋታት ገማግም ባሕርን ብዙሕነት ህይወትን እናተሓለዉ ንህይወት ሕጂን መጻኢን ወለዶታት ክድግፉ ኣለዎም።",
+    commitment:
+      "ተፈጥሮኣዊ ሃብቲ ብግሉጽነትን ብዘላቕነትን ክመሓደሩ፣ ሓለዋ ከባቢን ረብሓ ህዝብን ድማ ማእከል ሃገራዊ ምዕባለ ክኾኑ ኣለዎም።",
+    actions: [
+      "ምብስባስ መሬትን ምስፍሕፋሕ በረኻን ንምንካይ መደባት ሓለዋ መሬትን ምሕዳስ ሓመድን ምትግባር።",
+      "ኣብ ትሕተ-ቅርጺ ማይ፣ ምእካብ ዝናብ ማይ፣ ሓላፍነታዊ መስኖን ዘላቒ ምሕደራ ማይን ወፍሪ ምግባር።",
+      "ብምምሕያሽ ሜላታት ሕርሻ፣ ተበጻሕነት ሃብትን ንክሊማ ዝጻወር ምህርትን ንሓረስቶት ምድጋፍ።",
+      "ብሓላፍነታዊ ሕግታትን ቁጽጽርን ከባቢታት ገማግም ባሕሪ፣ ስነ-ምህዳር ባሕርን ዓሳ ምግፋፍን ምሕላው።",
+      "ደረጃታት ሓለዋ ከባቢ ምትእትታው፣ ዝተጎድኡ ስነ-ምህዳራትን ብዙሕነት ህይወትን ምሕዳስ።",
+      "ንነዊሕ ግዜ ዘላቒ ጽንዓት ከባቢ ንምሕያል ተሓዳሲ ጸዓትን ናይ ክሊማ ምስምማዕ ተበግሶታትን ምስፋሕ።",
     ],
-    principle:
-      "ተፈጥሮኣዊ ሃብቲ ንሎሚን ንወለዶታት መጻኢን ብሓላፍነት ክሕሎን ክመሓደርን ኣለዎ።",
   },
   {
-    number: "05",
     id: "economic-transformation",
-    symbol: "▧",
+    number: "05",
     title: "ቁጠባዊ ለውጢ",
-    subtitle: "ዕድላት፣ ምፍራይን ብልጽግናን",
-    description:
-      "ዕድላት ዝፈጥር፣ ስራሕ ፈጠራ ዝድግፍን ደረጃ ናብራ ዘመሓይሽን ፍርያምን ዘላቕን ቁጠባ ንምህናጽ ራእይ ኣቕርብ። ቁጠባዊ ምዕባለ ምስ ትምህርቲ፣ ትሕተ-ቅርጺን ሓላፍነታዊ ወፍርን ክተኣሳሰር ኣለዎ።",
-    topics: [
-      "ሕርሻን ውሕስነት መግብን",
-      "ኢንዱስትሪን ምፍራይን",
-      "ንግዲ፣ ወደባትን ትሕተ-ቅርጺን",
-      "ጸዓትን ቴክኖሎጂያዊ ምዕባለን",
-      "ውልቃዊ ትካላትን ወፍርን",
-      "ትምህርቲ፣ ክእለትን ስራሕን",
+    symbol: "▧",
+    solutionTitle: "ፍርያምን ዕድላት ዝፈጥርን ቁጠባ ምህናጽ",
+    solution:
+      "ANM፡ ፍርያም ስራሕ ዝፈጥር፣ ከባብያዊ ትካላት ዘሐይልን ሓላፍነታዊ ወፍሪ ዘተባብዕን ቁጠባ የቕርብ። ቁጠባዊ ለውጢ ብዝተኣማምን ትሕተ-ቅርጺ፣ ዘመናዊ ክእለት፣ ግሉጽ ትካላትን ሰባት ውሑስ ናብራ ክሃንጹ ብዝኽእሉ ዕድላትን ክድገፍ ኣለዎ።",
+    commitment:
+      "ቁጠባዊ ዕቤት ደረጃ ናብራ ከማሓይሽ፣ ዕድላት ከስፍሕን ሰባት ናጻን ፍርያምን ህይወት ክሃንጹ ከኽእልን ኣለዎ።",
+    actions: [
+      "ብምምሕያሽ መስኖ፣ ቴክኖሎጂ፣ ስልጠናን ተበጻሕነት ዕዳጋን ሕርሻ ምዝማን።",
+      "ዘላቒ ስራሕ ዝፈጥሩ ከባብያዊ ምፍራይን ፍርያም ኢንዱስትሪታትን ምትብባዕ።",
+      "ንንግድን ወፍርን ዝድግፉ መራኸቢ መጓዓዝያ፣ ኤሌክትሪክ፣ ርክባትን ወደባትን ምምዕባል።",
+      "ውልቃዊ ትካላትን ሓላፍነታዊ ወፍርን ዝድግፍ ግሉጽ ሕጋዊን ምምሕዳራዊን ሃዋህው ምፍጣር።",
+      "ሞያዊ ትምህርቲ፣ ቴክኒካዊ ስልጠናን ንመንእሰያት ተግባራዊ ክእለት ከማዕብሉ ዘኽእሉ ዕድላትን ምስፋሕ።",
+      "ንንኣሽቱ ትካላትን ሰብ ስራሕ ፈጠራን ፈጠራዊ ሓሳባት፣ ዲጂታላዊ ምዕባለን ተበጻሕነት ፋይናንስን ምትብባዕ።",
     ],
-    principle:
-      "ቁጠባዊ ምዕባለ ዕድላት ክፈጥር፣ ፍርያም ዓቕሚ ከደልድልን ጽሬት ናብራ ከመሓይሽን ኣለዎ።",
   },
   {
-    number: "06",
     id: "regional-global-strategy",
+    number: "06",
+    title: "ዞባዊን ዓለምለኻዊን ስትራተጂ",
     symbol: "◎",
-    title: "ዞባውን ዓለምለኻውን ስትራተጂ",
-    subtitle: "ጂኦፖለቲክስ፣ ሽርክነታትን ተራ ANMን",
-    description:
-      "ኣብ ቀርኒ ኣፍሪቃ፣ ቀይሕ ባሕሪ፣ ማእከላይ ምብራቕን ሰፊሕ ዓለምለኻዊ ስርዓትን ጽልዋ ዘለዎም ሓይልታት መርምር። ኣብ ዞባዊ ድሕነት፣ ስትራተጂያዊ ሽርክነት፣ ዲፕሎማሲን ዓለምለኻዊ ውድድርን ዝምልከት ዝቐርብ ኣገባብ ANM ኣነጽር።",
-    topics: [
-      "ኢራንን ቱርኪን፦ ዞባዊ ምንቅስቓስን ብወከልቲ ዝግበር ጽልዋን",
-      "ሱዳን፣ የመን፣ ሶማልያን ኢትዮጵያን፦ ዞባዊ ምብትታንን ዘይርጉእነትን",
-      "እስራኤል፦ ስትራተጂያዊ ሽርክነትን ዞባዊ ምትሕብባርን",
-      "ሕቡራት መንግስታት ኣመሪካን ቻይናን፦ ዓለምለኻዊ ውድድርን ኣህጉራዊ ተራ ANMን",
+    solutionTitle: "ናጻን መትከላዊን ፖሊሲ ወጻኢ ጉዳያት",
+    solution:
+      "ANM፡ ንነዊሕ ግዜ ረብሓታት ህዝቢ ትግርኛ ማእከሉ ዝገበረ ናጻ ፖሊሲ ወጻኢ ጉዳያት የቕርብ። ኣህጉራዊ ርክባት ብዲፕሎማሲ፣ ሓድሕዳዊ ኣኽብሮት፣ ቁጠባዊ ምትሕብባርን ንዞባዊን ዓለምለኻዊን ምዕባለታት ብግቡእ ብምርዳእን ክምዕብሉ ኣለዎም።",
+    commitment:
+      "እቲ ምንቅስቓስ ኣብ ናጻ ገምጋም፣ ሰላማዊ ምትሕብባርን ምሕላው ነዊሕ ግዜ ረብሓታት ህዝብናን ዝተመርኮሰ ኣህጉራዊ ርክባት ክኽተል እዩ።",
+    actions: [
+      "ዲፕሎማስያዊ ቀዳምነታት ዝገልጽን ፖለቲካዊ ናጽነት ዝሕሉን ማዕቀፍ ፖሊሲ ወጻኢ ጉዳያት ምምዕባል።",
+      "ምስ ጎረባብቲ ሃገራትን ዞባዊ ትካላትን ሃናጺ ርክባት ምህናጽ።",
+      "ኣብ ድሕነት ቀይሕ ባሕሪ፣ ረብሓታት ባሕራዊ መጓዓዝያን ዞባዊ ምርግጋእን ዘተኮረ ዘተን ምትሕብባርን ምትብባዕ።",
+      "ንንግዲ፣ ወፍሪ፣ ትምህርቲ፣ ቴክኖሎጂን ምዕባለን ዝድግፉ ኣህጉራዊ ሽርክነታት ምኽታል።",
+      "ዞባዊን ዓለምለኻዊን ምዕባለታት ብናጻ ምርምርን ፖሊሲያዊ ትንተናን ምግምጋም።",
+      "ዲፕሎማስያዊ ተለዋዋጥነት ምሕላውን ካብ ሓደ ዞባዊ ወይ ዓለምለኻዊ ሓይሊ ጥራይ ኣብ ዘይምምርኳስን።",
     ],
-    principle:
-      "ዞባውን ዓለምለኻውን ኣገባብ ANM ብሉኣላውነት፣ ሃገራዊ ረብሓታት፣ ሰላማዊ ምትሕብባርን ስትራተጂያዊ ናጽነትን ክምራሕ ኣለዎ።",
     subtopics: [
       {
-        title: "ኢራንን ቱርኪን",
-        subtitle: "ዞባዊ ምንቅስቓስን ብወከልቲ ዝግበር ጽልዋን",
-        description:
-          "ዞባዊ ስትራተጂታት ኢራንን ቱርኪን፣ ፖለቲካዊ፣ ወተሃደራውን ቁጠባውን ጽልዋአን፣ ምስ መንግስታዊ ዘይኮኑ ተዋሳእቲ ዘለወን ርክብን ኣብ ቀርኒ ኣፍሪቃን ቀይሕ ባሕርን ዘለዎ ሳዕቤንን መርምር።",
+        title: "ኢራንን ቱርክን",
+        description: "ናጻ ገምጋም ዞባዊ ጽልዋን ስትራተጂያዊ ረብሓታትን",
         points: [
-          "ዞባዊ ፖለቲካውን ወተሃደራውን ጽልዋ",
-          "መርበባት ወከልትን ዕጡቓት መንግስታዊ ዘይኮኑ ተዋሳእትን",
-          "ስትራተጂያዊ ህላወ ኣብ ቀይሕ ባሕርን ቀርኒ ኣፍሪቃን",
-          "ሳዕቤን ኣብ ሉኣላውነት ኤርትራን ዞባዊ ድሕነትን",
+          "ምስ ክልቲአን ሃገራት ዝተኣሳሰሩ ፖለቲካዊ፣ ወተሃደራዊን ቁጠባዊን ምዕባለታት ንምክትታል ዲፕሎማስያዊ መደብ ምቛም።",
+          "ዞባዊ ፖሊሲታተን ኣብ ቀይሕ ባሕርን ቀርኒ ኣፍሪቃን ዘለዎ ሳዕቤናት ምግምጋም።",
+          "ምትሕብባር ንሰላም፣ ምርግጋእን ሓድሕዳዊ ረብሓን ኣብ ዝድግፈሉ ኩነታት ብዲፕሎማሲ ምስታፍ።",
+          "ኣብ ዞባዊ ምትፍናን ወይ ብወኪል ዝካየድ ግጭታት ካብ ምስታፍ ምቑጣብ።",
         ],
       },
       {
         title: "ሱዳን፣ የመን፣ ሶማልያን ኢትዮጵያን",
-        subtitle: "ዞባዊ ምብትታንን ዘይርጉእነትን",
-        description:
-          "ኣብ ጎረባብቲ ሃገራት ዘሎ ግጭታት፣ ፖለቲካዊ ፍልልያት፣ ትካላዊ ብድሆታትን ወጻኢ ምትእትታዋትን፣ ከምኡውን ኣብ ኤርትራን ሰፊሕ ዞባን ዘለዎም ሳዕቤናት መርምር።",
+        description: "ሰላም፣ ዞባዊ ምርግጋእን ዶባዊ ምትሕብባርን",
         points: [
-          "ሱዳን፦ ግጭት፣ ምብትታን መንግስትን ዝተፈላለዩ ረብሓታትን",
-          "የመን፦ ግጭትን ስትራተጂያዊ ኣገዳስነት ባብ ኤል-መንደብን",
-          "ሶማልያ፦ ምህናጽ መንግስትን ፖለቲካዊ ፍልልያትን ድሕነትን",
-          "ኢትዮጵያ፦ ውሽጣዊ ግጭታትን ዞባዊ ወጥርን",
-          "ድሕነት ዶባት፣ ንግድን ምፍንቓል ህዝብን",
+          "ፖለቲካዊ ለውጥን ዞባዊ ግጭታትን ንምክትታል ዲፕሎማስያዊ መራኸቢታት ምምዕባል።",
+          "ሰላማዊ ዘተ፣ ኣኽብሮት ልኡላውነት ሃገራትን ሓለዋ ሲቪላውያንን ምድጋፍ።",
+          "ኣብ ድሕነት ዶብ፣ ንግድን ምንቅስቓስ ሰባትን ምትሕብባር ምሕያል።",
+          "ትሕተ-ቅርጺ፣ ሓባራዊ ሃብትን ዞባዊ ምዕባለን ዝምልከቱ ሓባራዊ ተበግሶታት ምምርማር።",
+          "ምስ ጎረባብቲ ማሕበረሰባትን ሃገራትን ሰላማዊ ርክባት ምትብባዕ።",
         ],
       },
       {
         title: "እስራኤል",
-        subtitle: "ስትራተጂያዊ ሽርክነትን ዞባዊ ምትሕብባርን",
-        description:
-          "እቲ ANM ዝቐርቦ ስትራተጂያዊ ርክብ ምስ እስራኤል ዳህስስ። እዚ ዲፕሎማስያዊ ምትእስሳር፣ ቁጠባዊ ምትሕብባር፣ ቴክኖሎጂን ኣብ ዞባዊ ርግኣት ዘለዉ ሓባራዊ ረብሓታትን የጠቓልል።",
+        description: "ዲፕሎማስያዊ ርክብን ተግባራዊ ዕድላት ምትሕብባርን",
         points: [
-          "ዲፕሎማስያውን ስትራተጂያውን ርክባት",
-          "ድሕነት ቀይሕ ባሕርን ምንቅስቓስ ባሕራውን",
-          "ሕርሻ፣ ምምሕዳር ማይን ቴክኖሎጂን",
-          "ንግዲ፣ ወፍሪ፣ ትምህርትን ምህዞን",
-          "ዞባዊ ዘተን ምትሕብባርን",
+          "ኣብ ሓድሕዳዊ ኣፍልጦን ኣኽብሮትን ዝተመርኮሰ ወግዓዊ ዲፕሎማስያዊ ርክብ ምምርማር።",
+          "ኣብ ሕርሻ፣ ምሕደራ ማይን ቴክኖሎጂን ዕድላት ምትሕብባር ምልላይ።",
+          "ብዛዕባ ድሕነት ቀይሕ ባሕርን ዞባዊ ምርግጋእን ዘተ ምትብባዕ።",
+          "ንጹር ህዝባዊ ረብሓታት ኣብ ዘገልግሉሉ ኩነታት ቁጠባዊን ቴክኒካዊን ሽርክነታት ምምዕባል።",
+          "ብመትከላትን ቀዳምነታትን እቲ ምንቅስቓስ ዝምራሕ ናጻ ፖሊሲ ወጻኢ ጉዳያት ምሕላው።",
         ],
       },
       {
         title: "ሕቡራት መንግስታት ኣመሪካን ቻይናን",
-        subtitle: "ዓለምለኻዊ ውድድርን ኣህጉራዊ ኣቀማምጣን",
-        description:
-          "ኣብ ቀርኒ ኣፍሪቃን ቀይሕ ባሕርን ዘሎ ጽልዋ ዓለምለኻዊ ሓይልታት ገምግም። እዚ ኣብ ንግዲ፣ ትሕተ-ቅርጺ፣ ወደባት፣ ወፍርን መስመራት ምንቅስቓስ ባሕርን ዝግበር ውድድር የጠቓልል። ኣብ ሃገራዊ ረብሓታት ዝተመርኮሰ ኣገባብ ኣህጉራዊ ሽርክነት ኣነጽር።",
+        description: "ሚዛናዊ ኣህጉራዊ ርክባትን ስትራተጂያዊ ርእሰ-ምምሕዳርን",
         points: [
-          "ጂኦፖለቲካውን ቁጠባውን ውድድር ኣመሪካን ቻይናን",
-          "ወጻኢ ወተሃደራዊ ህላወን ስትራተጂያዊ ትሕተ-ቅርጺን",
-          "ወደባት፣ መስመራት ባሕርን ዓለምለኻዊ ንግድን",
-          "ርክባት ምስ ዓለምለኻዊ ሓይልታትን ትካላትን",
-          "ዲፕሎማስያውን ኣህጉራውን ተራ ANM",
+          "ምስ ክልቲአን ሃገራት ሃናጺ ዲፕሎማስያዊ ርክባት ምምዕባል።",
+          "ዕድላት ወፍሪ፣ ንግዲ፣ ትምህርትን ቴክኖሎጂያዊ ምዕባለን ምምርማር።",
+          "ምውድዳር ዓበይቲ ሓይልታት ኣብ ቀርኒ ኣፍሪቃን ዞባ ቀይሕ ባሕርን ዘለዎ ጽልዋ ምግምጋም።",
+          "ኣብ ኣህጉራዊ ስምምዓትን ሽርክነታትን ክእቶ እንከሎ ፖለቲካዊ ናጽነት ምሕላው።",
+          "ኣህጉራዊ ርክባት ኣብ ግሉጽ ዕላማታትን ነዊሕ ግዜ ረብሓታት ህዝብን ምምርኳስ።",
         ],
       },
     ],
   },
 ];
 
-export default function NationalQuestionPageTi() {
-  const [expanded, setExpanded] = useState<string | null>(null);
-  const [activeSubtopic, setActiveSubtopic] = useState(0);
+const priorityCards = [
+  {
+    color: "#173f63",
+    lightColor: "#4b82a8",
+    title: "ክብርና ንመልስ",
+    message:
+      "ሃገራዊ ክብርና ንምለስ፣ መንነትና ንሓሉ፣ ህዝቢ ትግርኛ ንመጻኢኡ ክውስን ዘለዎ መሰል ነረጋግጽ።",
+    action: "መጻኢና ንመልስ",
+  },
+  {
+    color: "#205b70",
+    lightColor: "#5795a8",
+    title: "መሰላት ኣናእሽቱ ማሕበረሰባት ንሓሉ",
+    message:
+      "ማዕርነት፣ ናጽነት፣ ባህላዊ መንነትን መሰረታዊ መሰላት ኩሉ ኣናእሽቱ ማሕበረሰባትን ንሓሉ።",
+    action: "ንማዕረ መሰላት ደው ንበል",
+  },
+  {
+    color: "#72502f",
+    lightColor: "#b18a54",
+    title: "መስዋእትና ነኽብር",
+    message:
+      "ንተጋደልቲ፣ ስንኩላንን ስድራቤታት ሰማእታትን ብክብሪ፣ ሕክምናን ዘላቒ ማሕበራዊ ውሕስነትን ኣፍልጦ ንሃብ።",
+    action: "መስዋእቶም ነኽብር",
+  },
+  {
+    color: "#28634f",
+    lightColor: "#65a184",
+    title: "መሬትና ንሓሉ",
+    message:
+      "ንመሬትና፣ ማይናን ተፈጥሮኣዊ ሃብትናን ንሓሉ፣ ንመጻኢ ወለዶታት ዘላቒ ከባቢ ንሃንጽ።",
+    action: "ከባቢና ንውሕስ",
+  },
+  {
+    color: "#705a2d",
+    lightColor: "#b49a52",
+    title: "ድኽነት ነጥፍእ። ብልጽግና ንህነጽ።",
+    message:
+      "ብፍርያም ኢንዱስትሪታት፣ ሕርሻ፣ ወፍሪ፣ ትምህርትን ትርጉም ዘለዎ ስራሕን ቁጠባዊ ዕድላት ንፍጠር።",
+    action: "ቁጠባዊ ዕድላት ንሃንጽ",
+  },
+  {
+    color: "#51436f",
+    lightColor: "#8878ad",
+    title: "ዞባዊ መጻኢና ንቕርጽ",
+    message:
+      "ረብሓታትና ዝሕሉን ሃናጺ ዞባዊን ዓለምለኻዊን ሽርክነታት ዝሃንጽን ናጻ ኣህጉራዊ ስትራተጂ ንምዕብል።",
+    action: "ዓለምለኻዊ ተራና ንግለጽ",
+  },
+];
+
+export default function NationalQuestionPage() {
+  const [activeSection, setActiveSection] = useState(0);
+  const [flippedCards, setFlippedCards] = useState<number[]>([]);
+  const [activePriorityCard, setActivePriorityCard] = useState<number | null>(
+    null
+  );
+
+  const toggleSolutionCard = (index: number) => {
+    setFlippedCards((current) =>
+      current.includes(index)
+        ? current.filter((item) => item !== index)
+        : [...current, index]
+    );
+  };
 
   const scrollToSection = (id: string) => {
     document.getElementById(id)?.scrollIntoView({
@@ -182,360 +254,363 @@ export default function NationalQuestionPageTi() {
     });
   };
 
+  const goToSection = (index: number) => {
+    const nextIndex = Math.max(0, Math.min(index, sections.length - 1));
+
+    setActiveSection(nextIndex);
+    scrollToSection(`solution-detail-${sections[nextIndex].id}`);
+  };
+
+  const handlePriorityCardClick = (index: number) => {
+    const isTouchDevice = window.matchMedia("(hover: none)").matches;
+
+    if (isTouchDevice) {
+      setActivePriorityCard(index);
+    } else {
+      goToSection(index);
+    }
+  };
+
+  const resetPriorityCard = () => {
+    setActivePriorityCard(null);
+  };
+
   return (
     <main
       lang="ti"
       className="min-h-screen bg-[#f8f5ed] text-[#142b45]"
-      style={{ fontFamily: "'Noto Sans Ethiopic', Nyala, serif" }}
     >
       {/* HERO */}
-      <section className="relative flex min-h-[70svh] items-center justify-center overflow-hidden bg-[#091725] px-6 py-24 text-center text-white md:min-h-[78svh]">
-        <div className="absolute inset-0 opacity-20">
-          <div className="absolute -left-40 -top-40 h-[550px] w-[550px] rounded-full border border-[#c9a45c]/50" />
-          <div className="absolute -left-20 -top-20 h-[400px] w-[400px] rounded-full border border-[#c9a45c]/40" />
-          <div className="absolute -right-48 -bottom-64 h-[650px] w-[650px] rounded-full border border-[#c9a45c]/50" />
-          <div className="absolute -right-20 -bottom-40 h-[450px] w-[450px] rounded-full border border-[#c9a45c]/40" />
+      <section className="relative overflow-hidden bg-[#142b45] px-6 py-24 text-white md:py-32">
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute -right-24 -top-24 h-96 w-96 rounded-full border border-white" />
+          <div className="absolute -right-12 -top-12 h-72 w-72 rounded-full border border-white" />
+          <div className="absolute -bottom-40 -left-20 h-96 w-96 rounded-full border border-white" />
         </div>
 
-        <div className="absolute inset-0 bg-gradient-to-b from-[#091725]/30 via-transparent to-[#091725]" />
-
-        <div className="relative z-10 mx-auto max-w-5xl">
-          <p className="mb-7 text-xs font-bold uppercase tracking-[0.4em] text-[#d5b46b] md:text-sm">
-            ምንቅስቓስ ሃገራዊ ኣጋኣዝያን
+        <div className="relative mx-auto max-w-7xl">
+          <p className="mb-5 text-xs font-bold uppercase tracking-[0.3em] text-[#d5b46b]">
+            Aga&apos;azian National Movement
           </p>
 
-          <h1 className="text-5xl font-extrabold leading-tight tracking-tight sm:text-6xl md:text-8xl">
-            ሃገራዊ
-            <span className="mt-2 block text-[#d5b46b]">ሕቶ</span>
+          <h1 className="max-w-4xl text-4xl font-extrabold leading-tight md:text-6xl">
+            ማዕቀፍ ፖሊሲታትና
           </h1>
 
-          <div className="mx-auto mt-8 h-1 w-24 bg-[#c9a45c]" />
+          <div className="mt-8 h-1 w-20 bg-[#c9a45c]" />
 
-          <p className="mx-auto mt-8 max-w-3xl text-base leading-8 text-white/75 md:text-xl">
-            መንነት፣ ባዕላዊ ውሳነ፣ ማዕረ መሰላት፣ ሃገራዊ
-            ሓላፍነት፣ ቁጠባዊ ለውጢን ኣብ ዞባናን ዓለምን
-            ዘለና መጻኢ ቦታን።
+          <p className="mt-8 max-w-3xl text-lg leading-9 text-white/75 md:text-xl">
+            ንክብርን ብልጽግናን መጻኢ ዝሃንጽ ማዕቀፍ።
           </p>
-
-          <button
-            type="button"
-            onClick={() => scrollToSection("national-agenda")}
-            className="mt-12 inline-flex items-center gap-3 border border-[#c9a45c] bg-[#c9a45c] px-8 py-4 text-xs font-bold uppercase tracking-[0.2em] text-[#142b45] transition hover:bg-transparent hover:text-white"
-          >
-            ሃገራዊ ሕቶ ዳህስስ
-            <span aria-hidden="true">↓</span>
-          </button>
         </div>
       </section>
 
-      {/* INTRODUCTION */}
-      <section className="px-6 py-20 md:px-10 md:py-24">
-        <div className="mx-auto grid max-w-7xl gap-12 md:grid-cols-[1.1fr_0.9fr] md:items-center">
-          <div>
-            <p className="mb-4 text-xs font-bold uppercase tracking-[0.25em] text-[#a77d32]">
-              ሃገራዊ ኣጀንዳና
-            </p>
-
-            <h2 className="max-w-2xl text-3xl font-extrabold leading-tight md:text-5xl">
-              መጻኢና ዝቐርጹ ሕቶታት ንምንጻር።
-            </h2>
-
-            <div className="mt-6 h-1 w-16 bg-[#c9a45c]" />
-
-            <p className="mt-7 text-base leading-8 text-[#526176] md:text-lg">
-              ሃገራዊ ሕቶ ነቶም መንነት፣ ፖለቲካዊ መጻኢ፣
-              መሰላት፣ ሓላፍነታትን ምዕባለን ህዝቢ ትግርኛ
-              ዝምልከቱ መሰረታዊ ጉዳያት የጠቓልል። ከምኡውን
-              መሰላት ኣናእሽቶ ማሕበረሰባትን ንዞባውን
-              ዓለምለኻውን መጻኢና ዝቐርጹ ርክባትን ይምርምር።
-            </p>
-          </div>
-
-          <div className="border-l-4 border-[#c9a45c] bg-white p-8 shadow-sm md:p-10">
-            <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#a77d32]">
-              ማእከላይ መትከል
-            </p>
-
-            <p className="mt-5 text-2xl font-bold leading-relaxed text-[#142b45] md:text-3xl">
-              ኣብ ባዕላዊ ውሳነ፣ ማዕረ መሰላት፣ ክብርን
-              ሓላፍነታዊ ምዕባለን ዝተመርኮሰ ሃገራዊ መጻኢ።
-            </p>
-
-            <p className="mt-6 text-sm leading-7 text-[#657287]">
-              ሽዱሽተ ሓባራዊ ዓውድታት ንሃገራዊ፣ ዞባውን
-              ዓለምለኻውን ኣጀንዳ ANM ንምምርማር መሰረት
-              ይኾኑ።
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* SECTION NAVIGATION */}
-      <section
-        id="national-agenda"
-        className="scroll-mt-20 border-y border-[#e4dccd] bg-white px-5 py-10 md:px-10"
-      >
+      {/* SIX POLICY PRIORITY CARDS */}
+      <section className="bg-[#142b45] px-5 py-24 md:px-10 md:py-28">
         <div className="mx-auto max-w-7xl">
-          <div className="mb-7 text-center">
-            <p className="text-xs font-bold uppercase tracking-[0.25em] text-[#a77d32]">
-              ኣጀንዳና ዳህስስ
-            </p>
-            <h2 className="mt-3 text-2xl font-extrabold md:text-3xl">
-              ሽዱሽተ ዓውድታት። ሓደ ሃገራዊ መጻኢ።
-            </h2>
+          <div className="relative left-1/2 mb-12 w-screen -translate-x-1/2 bg-white px-7 py-6 text-center md:px-16 md:py-7">
+            <div className="mx-auto max-w-5xl">
+              <p className="text-xs font-bold uppercase tracking-[0.25em] text-[#a77d32]">
+                እቶም ኣዝዮም ኣገደስቲ ጉዳያትና
+              </p>
+
+              <h2 className="mx-auto mt-2 max-w-3xl text-2xl font-extrabold leading-tight text-[#142b45] md:text-4xl">
+                መጻኢና ዝቕርጹ ቀዳምነታት ምውሳን።
+              </h2>
+
+              <div className="mx-auto mt-4 h-1 w-16 bg-[#c9a45c]" />
+
+              <p className="mx-auto mt-4 max-w-4xl text-sm leading-7 text-[#596779] md:text-base">
+                ማዕቀፍ ፖሊሲ ANM ነቶም ንህዝቢ ትግርኛ ዝጸልዉ ኣገደስቲ ጉዳያት ይምልስ። እዞም ቀዳምነታት ንፖለቲካዊ፣ ማሕበራዊ፣ ቁጠባዊ ምዕባለን ኣህጉራዊ ጉዳያትን ኣንፈትና ይውስኑ።
+              </p>
+            </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-6">
-            {sections.map((section) => (
-              <button
-                key={section.id}
-                type="button"
-                onClick={() => scrollToSection(section.id)}
-                className="group border border-[#e7e0d3] bg-[#f8f5ed] p-4 text-left transition hover:border-[#c9a45c] hover:bg-[#142b45] hover:text-white"
-              >
-                <span className="block text-xs font-bold tracking-widest text-[#a77d32] group-hover:text-[#d5b46b]">
-                  {section.number}
-                </span>
+          <div className="flex snap-x snap-mandatory gap-5 overflow-x-auto overscroll-x-contain pb-6 md:grid md:grid-cols-2 md:gap-8 md:overflow-visible md:pb-0 xl:grid-cols-3 xl:gap-9">
+            {sections.map((section, index) => {
+              const card = priorityCards[index];
+              const isActive = activePriorityCard === index;
 
-                <span className="mt-3 block text-2xl text-[#c9a45c]">
-                  {section.symbol}
-                </span>
+              return (
+                <div
+                  key={section.id}
+                  className="group relative flex min-h-[580px] w-[85vw] max-w-[360px] shrink-0 snap-start flex-col overflow-hidden rounded-tr-[45px] bg-white text-left shadow-lg transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl md:min-h-[640px] md:w-full md:max-w-none"
+                >
+                  <div
+                    className={`relative z-10 flex min-h-[95px] flex-col justify-center px-7 py-5 pr-10 transition-opacity duration-500 md:min-h-[105px] md:px-8 ${
+                      isActive ? "opacity-0 md:opacity-100" : ""
+                    } group-hover:opacity-0`}
+                    style={{
+                      background: `linear-gradient(to bottom, ${card.lightColor}, ${card.color})`,
+                    }}
+                  >
+                    <div className="flex items-center gap-4">
+                      <span className="shrink-0 text-sm font-extrabold tracking-[0.15em] text-white/75">
+                        {section.number}
+                      </span>
 
-                <span className="mt-3 block text-sm font-bold leading-snug">
-                  {section.title}
-                </span>
-              </button>
-            ))}
-          </div>
-        </div>
-      </section>
+                      <h3 className="text-lg font-extrabold leading-tight text-white md:text-xl">
+                        {section.title}
+                      </h3>
+                    </div>
+                  </div>
 
-      {/* MAIN SIX SECTIONS */}
-      <section className="mx-auto max-w-7xl space-y-7 px-5 py-20 md:px-10 md:py-24">
-        <div className="mb-12 max-w-3xl">
-          <p className="text-xs font-bold uppercase tracking-[0.25em] text-[#a77d32]">
-            ሽዱሽተ ሃገራዊ ሕቶታት
-          </p>
-
-          <h2 className="mt-4 text-3xl font-extrabold leading-tight md:text-5xl">
-            መሰረታት ኣጀንዳና።
-          </h2>
-        </div>
-
-        {sections.map((section) => {
-          const isExpanded = expanded === section.id;
-
-          return (
-            <article
-              key={section.id}
-              id={section.id}
-              className="scroll-mt-24 overflow-hidden border border-[#ded8ca] bg-white shadow-sm transition duration-300 hover:shadow-md"
-            >
-              {/* SECTION HEADER */}
-              <button
-                type="button"
-                aria-expanded={isExpanded}
-                onClick={() => {
-                  setExpanded(isExpanded ? null : section.id);
-                  setActiveSubtopic(0);
-                }}
-                className="group flex w-full flex-col gap-5 border-l-[6px] border-[#c9a45c] bg-[#142b45] p-6 text-left text-white transition hover:bg-[#1b3858] md:flex-row md:items-center md:justify-between md:px-10 md:py-9"
-              >
-                <div className="flex items-start gap-5 md:items-center">
-                  <span className="mt-1 text-3xl text-[#d5b46b] md:text-4xl">
-                    {section.symbol}
-                  </span>
-
-                  <div>
-                    <span className="text-xs font-bold tracking-[0.2em] text-[#d5b46b]">
-                      ሃገራዊ ሕቶ {section.number}
+                  <div
+                    className={`relative z-10 flex flex-1 flex-col px-8 py-9 transition-opacity duration-300 md:px-9 md:py-10 ${
+                      isActive ? "opacity-0 md:opacity-100" : ""
+                    } group-hover:opacity-0`}
+                  >
+                    <span className="text-4xl text-[#c9a45c]">
+                      {section.symbol}
                     </span>
 
-                    <h3 className="mt-2 text-2xl font-extrabold md:text-3xl">
-                      {section.title}
-                    </h3>
+                    <h4 className="mt-6 text-xl font-extrabold leading-7 text-[#142b45]">
+                      {card.title}
+                    </h4>
 
-                    <p className="mt-2 text-sm text-white/65 md:text-base">
-                      {section.subtitle}
+                    <p className="mt-5 text-sm leading-8 text-[#657287] md:text-base">
+                      {card.message}
                     </p>
+
+                    <span className="mt-auto inline-flex items-center gap-2 pt-9 text-xs font-extrabold uppercase tracking-[0.12em] text-[#a77d32]">
+                      ነዚ ቀዳምነት ዳህስስ
+                      <span aria-hidden="true">→</span>
+                    </span>
                   </div>
+
+                  <button
+                    type="button"
+                    onClick={() => handlePriorityCardClick(index)}
+                    aria-label={`ን${section.title} ኣስርሕ`}
+                    aria-expanded={isActive}
+                    className="absolute inset-0 z-[15] cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-inset focus-visible:outline-[#d5b46b]"
+                  />
+
+                  <div
+                    className={`pointer-events-none absolute inset-0 z-20 origin-top transition-transform duration-700 ease-in-out ${
+                      isActive
+                        ? "scale-y-100 md:scale-y-0"
+                        : "scale-y-0"
+                    } group-hover:scale-y-100`}
+                    style={{
+                      background: `linear-gradient(to bottom, ${card.lightColor}, ${card.color})`,
+                    }}
+                  />
+
+                  <div
+                    className={`pointer-events-none absolute inset-0 z-30 flex flex-col justify-center px-8 py-10 transition-opacity duration-500 md:px-9 ${
+                      isActive
+                        ? "opacity-100 md:opacity-0"
+                        : "opacity-0"
+                    } group-hover:opacity-100`}
+                  >
+                    <span className="text-xs font-extrabold uppercase tracking-[0.22em] text-white/75">
+                      ቃል ኣተዋና
+                    </span>
+
+                    <div className="mb-7 mt-6 h-[2px] w-14 bg-white/80" />
+
+                    <h4 className="text-3xl font-extrabold leading-tight text-white md:text-4xl">
+                      {card.title}
+                    </h4>
+
+                    <p className="mt-7 text-base leading-8 text-white/90">
+                      {card.message}
+                    </p>
+
+                    <span className="mt-10 text-xs font-extrabold uppercase leading-6 tracking-[0.12em] text-white">
+                      {card.action}
+                    </span>
+
+                    <span className="mt-5 text-xs font-semibold text-white/70 md:hidden">
+                      ንምቕጻል እቶም ቀስትታት ተጠቐም
+                    </span>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={resetPriorityCard}
+                    aria-label={`ን${section.title} ዘሎ ምልክታ ኣልግስ`}
+                    className={`absolute right-5 top-5 z-50 flex h-11 w-11 items-center justify-center rounded-full border border-white/70 bg-white/20 text-2xl font-bold text-white shadow-lg backdrop-blur-sm transition-all duration-300 hover:scale-110 hover:bg-white/35 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white ${
+                      isActive
+                        ? "opacity-100"
+                        : "pointer-events-none opacity-0"
+                    } md:group-hover:pointer-events-auto md:group-hover:opacity-100`}
+                  >
+                    ↗
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => goToSection(index)}
+                    aria-label={`ናብ ዝርዝር ፖሊሲ ${section.title} ኪድ`}
+                    className={`absolute bottom-5 right-5 z-50 flex h-12 w-12 items-center justify-center rounded-full border border-white/70 bg-white/20 text-2xl font-bold text-white shadow-lg backdrop-blur-sm transition-all duration-300 hover:scale-110 hover:bg-white/35 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white ${
+                      isActive
+                        ? "opacity-100"
+                        : "pointer-events-none opacity-0"
+                    } md:group-hover:pointer-events-auto md:group-hover:opacity-100`}
+                  >
+                    →
+                  </button>
                 </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
 
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center self-end border border-[#c9a45c]/60 text-xl text-[#d5b46b] transition group-hover:bg-[#c9a45c] group-hover:text-[#142b45] md:self-center">
-                  {isExpanded ? "−" : "+"}
-                </span>
-              </button>
+      {/* THE ANM'S PROPOSED SOLUTIONS */}
+      <section className="bg-[#142b45] px-5 py-24 md:px-10 md:py-28">
+        <div className="mx-auto max-w-7xl">
+          <div className="relative left-1/2 mb-16 w-screen -translate-x-1/2 bg-white px-7 py-12 md:px-16 md:py-14">
+            <div className="mx-auto max-w-5xl">
+              <p className="text-xs font-extrabold uppercase tracking-[0.25em] text-[#a77d32]">
+                ዝቐርቡ ፖሊሲታት ANM
+              </p>
 
-              {/* EXPANDED CONTENT */}
-              {isExpanded && (
-                <div className="animate-in fade-in duration-300">
-                  <div className="grid gap-10 p-6 md:grid-cols-[1fr_0.85fr] md:p-10">
-                    <div>
-                      <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#a77d32]">
-                        ሓፈሻዊ መግለጺ
-                      </p>
+              <h2 className="mt-4 text-3xl font-extrabold leading-tight text-[#142b45] md:text-5xl">
+                ቀዳምነታትና ናብ ተግባር ምቕያር።
+              </h2>
 
-                      <p className="mt-4 text-base leading-8 text-[#526176] md:text-lg">
-                        {section.description}
-                      </p>
+              <div className="mt-7 h-1 w-16 bg-[#c9a45c]" />
 
-                      <div className="mt-8 border-l-4 border-[#c9a45c] bg-[#f8f5ed] p-6">
-                        <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#a77d32]">
-                          መምርሒ መትከል
+              <p className="mt-7 text-base leading-8 text-[#596779] md:text-lg">
+                እቶም ኣብ ላዕሊ ዝተገልጹ ብድሆታት ተግባራዊ ፍታሓት ይሓትቱ። ANM ነዞም ቀዳምነታት ንምምላስን ደሞክራስያዊ፣ ውሑስን ብልጽግና ዝመልኦን መጻኢ ንምህናጽን ዝሕግዙ ፖሊሲታት፣ ለውጥታትን መደባትን የቕርብ።
+              </p>
+
+              <p className="mt-5 text-xs font-bold uppercase tracking-[0.15em] text-[#a77d32]">
+                ንምድህሳስ ኣብ ካርድ ፖሊሲ ምልክት ግበር ወይ ጠውቕ
+              </p>
+            </div>
+          </div>
+
+          <div className="flex snap-x snap-mandatory gap-5 overflow-x-auto overscroll-x-contain pb-6 md:grid md:grid-cols-2 md:gap-8 md:overflow-visible md:pb-0 xl:grid-cols-3">
+            {sections.map((section, index) => {
+              const isFlipped = flippedCards.includes(index);
+
+              return (
+                <div
+                  key={section.id}
+                  className="group w-[85vw] max-w-[360px] shrink-0 snap-start [perspective:1400px] md:w-auto md:max-w-none"
+                >
+                  <div
+                    className={`relative h-[570px] w-full transition-transform duration-700 ease-in-out [transform-style:preserve-3d] ${
+                      isFlipped ? "[transform:rotateY(180deg)]" : ""
+                    } md:group-hover:[transform:rotateY(180deg)]`}
+                  >
+                    {/* FRONT */}
+                    <div className="absolute inset-0 flex flex-col overflow-hidden rounded-sm border border-[#e5dfd2] bg-white text-[#142b45] shadow-md transition-shadow duration-500 group-hover:shadow-xl [backface-visibility:hidden]">
+                      <div className="flex items-center justify-between border-b border-[#eee9df] bg-white px-7 py-6">
+                        <span className="text-sm font-extrabold tracking-[0.2em] text-[#a77d32]">
+                          {section.number}
+                        </span>
+
+                        <span className="text-4xl text-[#c9a45c]">
+                          {section.symbol}
+                        </span>
+                      </div>
+
+                      <div className="flex flex-1 flex-col px-8 py-9 md:px-9">
+                        <p className="text-xs font-extrabold uppercase tracking-[0.2em] text-[#a77d32]">
+                          ሓፈሻዊ ትሕዝቶ ፖሊሲ
                         </p>
 
-                        <p className="mt-3 text-lg font-bold leading-8 text-[#142b45]">
-                          {section.principle}
+                        <h3 className="mt-5 text-2xl font-extrabold leading-tight text-[#142b45] md:text-3xl">
+                          {section.title}
+                        </h3>
+
+                        <div className="mt-5 h-1 w-14 bg-[#c9a45c]" />
+
+                        <h4 className="mt-6 text-lg font-bold leading-7 text-[#142b45]">
+                          {section.solutionTitle}
+                        </h4>
+
+                        <p className="mt-5 text-sm leading-8 text-[#657287] md:text-base">
+                          {section.solution}
                         </p>
+
+                        <div className="mt-auto border-t border-[#e9e4da] pt-7">
+                          <span className="inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-[0.13em] text-[#a77d32]">
+                            ንምድህሳስ ጠውቕ
+                            <span aria-hidden="true">→</span>
+                          </span>
+
+                          <p className="mt-2 text-xs text-[#8b929b] md:hidden">
+                            ነቶም ዝቐረቡ ስጉምትታት ንምርኣይ ኣብዚ ካርድ ጠውቕ።
+                          </p>
+                        </div>
                       </div>
                     </div>
 
-                    <div>
-                      <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#a77d32]">
-                        ቀንዲ መዳያት ትኹረት
+                    {/* BACK */}
+                    <div className="absolute inset-0 flex flex-col overflow-hidden rounded-sm border border-[#e5dfd2] bg-white px-7 py-8 text-[#142b45] shadow-xl [backface-visibility:hidden] [transform:rotateY(180deg)] md:px-8">
+                      <p className="text-xs font-extrabold uppercase tracking-[0.2em] text-[#a77d32]">
+                        ቀንዲ ኣንፈታት ፖሊሲ
                       </p>
 
-                      <div className="mt-5 space-y-3">
-                        {section.topics.map((topic, index) => (
+                      <h3 className="mt-3 text-xl font-extrabold leading-tight text-[#142b45] md:text-2xl">
+                        {section.title}
+                      </h3>
+
+                      <div className="mt-4 h-1 w-12 bg-[#c9a45c]" />
+
+                      <div className="mt-5 flex-1 space-y-3 overflow-y-auto pr-1">
+                        {section.actions.map((action, actionIndex) => (
                           <div
-                            key={topic}
-                            className="flex items-start gap-3 border-b border-[#e9e2d6] pb-3"
+                            key={action}
+                            className="flex items-start gap-3 border-b border-[#e9e4da] pb-3 last:border-b-0"
                           >
-                            <span className="mt-0.5 text-sm font-bold text-[#c9a45c]">
-                              {String(index + 1).padStart(2, "0")}
+                            <span className="shrink-0 text-xs font-extrabold text-[#a77d32]">
+                              {String(actionIndex + 1).padStart(2, "0")}
                             </span>
 
-                            <span className="text-sm font-semibold leading-6 text-[#142b45]">
-                              {topic}
-                            </span>
+                            <p className="text-sm leading-6 text-[#596779]">
+                              {action}
+                            </p>
                           </div>
                         ))}
                       </div>
+
+                      <div className="mt-5 flex items-center justify-between gap-3 border-t border-[#e9e4da] pt-5">
+                        <button
+                          type="button"
+                          onClick={() => toggleSolutionCard(index)}
+                          className="text-xs font-bold uppercase tracking-[0.1em] text-[#657287] transition hover:text-[#142b45]"
+                        >
+                          ← ተመለስ
+                        </button>
+
+                        <a
+                          href={`#solution-detail-${section.id}`}
+                          className="inline-flex items-center gap-2 bg-[#142b45] px-4 py-3 text-xs font-extrabold uppercase tracking-[0.1em] text-white transition hover:bg-[#244b6b]"
+                        >
+                          ዝርዝር ርአ
+                          <span aria-hidden="true">→</span>
+                        </a>
+                      </div>
                     </div>
+
+                    <button
+                      type="button"
+                      onClick={() => toggleSolutionCard(index)}
+                      aria-label={`ን${section.title} ዝርዝር ስጉምትታት ርአ`}
+                      aria-pressed={isFlipped}
+                      className="absolute inset-0 z-10 rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#c9a45c] md:hidden"
+                    />
+
+                    <span className="pointer-events-none absolute bottom-5 right-5 z-30 flex h-12 w-12 items-center justify-center rounded-full border border-emerald-200/70 bg-gradient-to-br from-emerald-400/90 to-emerald-700/95 text-2xl font-bold text-white shadow-[0_4px_15px_rgba(0,0,0,0.35)] md:hidden">
+                      →
+                    </span>
                   </div>
-
-                  {/* REGIONAL STRATEGY SUBSECTIONS */}
-                  {section.subtopics && (
-                    <div className="border-t border-[#e7e0d3] bg-[#f8f5ed] p-6 md:p-10">
-                      <div className="mb-7">
-                        <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#a77d32]">
-                          ዞባውን ዓለምለኻውን ኣረኣእያ
-                        </p>
-
-                        <h4 className="mt-2 text-2xl font-extrabold">
-                          ንዞባናን ዓለምን ዝቐርጹ ሓይልታት።
-                        </h4>
-                      </div>
-
-                      <div className="grid gap-3 sm:grid-cols-2">
-                        {section.subtopics.map((subtopic, index) => (
-                          <button
-                            key={subtopic.title}
-                            type="button"
-                            onClick={() => setActiveSubtopic(index)}
-                            className={`border p-5 text-left transition ${
-                              activeSubtopic === index
-                                ? "border-[#c9a45c] bg-[#142b45] text-white"
-                                : "border-[#e1d9ca] bg-white text-[#142b45] hover:border-[#c9a45c]"
-                            }`}
-                          >
-                            <span
-                              className={`text-xs font-bold tracking-widest ${
-                                activeSubtopic === index
-                                  ? "text-[#d5b46b]"
-                                  : "text-[#a77d32]"
-                              }`}
-                            >
-                              ስትራተጂያዊ ዓውዲ 0{index + 1}
-                            </span>
-
-                            <span className="mt-3 block text-lg font-bold">
-                              {subtopic.title}
-                            </span>
-
-                            <span
-                              className={`mt-2 block text-sm ${
-                                activeSubtopic === index
-                                  ? "text-white/65"
-                                  : "text-[#657287]"
-                              }`}
-                            >
-                              {subtopic.subtitle}
-                            </span>
-                          </button>
-                        ))}
-                      </div>
-
-                      {/* SELECTED STRATEGIC AREA */}
-                      <div className="mt-5 border border-[#ded8ca] bg-white p-6 md:p-8">
-                        <div className="flex flex-wrap items-center justify-between gap-3">
-                          <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#a77d32]">
-                            ዝተመርጸ ስትራተጂያዊ ዓውዲ
-                          </span>
-
-                          <span className="text-xs font-bold text-[#a77d32]">
-                            0{activeSubtopic + 1} / 04
-                          </span>
-                        </div>
-
-                        <h5 className="mt-4 text-2xl font-extrabold">
-                          {section.subtopics[activeSubtopic].title}
-                        </h5>
-
-                        <p className="mt-4 max-w-4xl text-base leading-8 text-[#526176]">
-                          {section.subtopics[activeSubtopic].description}
-                        </p>
-
-                        <div className="mt-7 grid gap-3 md:grid-cols-2">
-                          {section.subtopics[activeSubtopic].points.map(
-                            (point) => (
-                              <div
-                                key={point}
-                                className="flex items-start gap-3 bg-[#f8f5ed] p-4"
-                              >
-                                <span className="mt-1 text-[#c9a45c]">◆</span>
-                                <span className="text-sm font-semibold leading-6 text-[#142b45]">
-                                  {point}
-                                </span>
-                              </div>
-                            )
-                          )}
-                        </div>
-
-                        <div className="mt-7 flex items-center justify-between border-t border-[#e7e0d3] pt-5">
-                          <button
-                            type="button"
-                            disabled={activeSubtopic === 0}
-                            onClick={() =>
-                              setActiveSubtopic((current) => current - 1)
-                            }
-                            className="text-xs font-bold uppercase tracking-widest text-[#142b45] transition hover:text-[#a77d32] disabled:cursor-not-allowed disabled:opacity-30"
-                          >
-                            ← ዝሓለፈ
-                          </button>
-
-                          <button
-                            type="button"
-                            disabled={activeSubtopic === 3}
-                            onClick={() =>
-                              setActiveSubtopic((current) => current + 1)
-                            }
-                            className="text-xs font-bold uppercase tracking-widest text-[#142b45] transition hover:text-[#a77d32] disabled:cursor-not-allowed disabled:opacity-30"
-                          >
-                            ዝቕጽል →
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  )}
                 </div>
-              )}
-            </article>
-          );
-        })}
+              );
+            })}
+          </div>
+        </div>
       </section>
 
-      {/* CLOSING STATEMENT — SEPARATE FROM FOOTER */}
+      {/* WHITE DIVIDER BEFORE FOOTER */}
+      <div className="h-3 w-full bg-white" aria-hidden="true" />
     </main>
   );
 }

@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useId, useState } from "react";
@@ -236,7 +237,11 @@ type CircleItem = {
   target: string;
 };
 
-function SectionLabel({ children }: { children: React.ReactNode }) {
+function SectionLabel({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <p className="mb-4 text-xs font-bold uppercase tracking-[0.25em] text-[#a77d32]">
       {children}
@@ -249,29 +254,31 @@ function NationalFrameworkHeading() {
   return (
     <section className="w-full border-b border-[#e7e0d3] bg-white px-5 py-14 md:px-10 md:py-20">
       <div className="mx-auto max-w-7xl text-center">
-        <SectionLabel>Our National Framework</SectionLabel>
+        <SectionLabel>WE WILL BUILD ERITREA</SectionLabel>
 
         <h2 className="text-3xl font-bold leading-tight text-[#142b45] md:text-5xl">
-          The Three Pillars of Eritrea of Tomorrow
+          A Strong Economy & Institutions. A Proud Nation.
         </h2>
 
         <div className="mx-auto mt-6 h-1 w-20 bg-[#c9a45c]" />
 
         <p className="mx-auto mt-6 max-w-3xl text-base leading-8 text-[#596779] md:text-lg">
-          Three interconnected foundations for building a prosperous
-          economy, a proud and cohesive nation, and institutions
-          that serve the people.
+          After three decades of dictatorship, economic devastation,
+          ethnic cleansing, and institutional destruction, we will
+          rebuild Eritrea’s economy, revitalize our national identity,
+          restore our dignity, and establish democratic institutions
+          that serve and empower the people.
         </p>
       </div>
     </section>
   );
 }
 
+// INTERACTIVE THREE-PILLAR CIRCLE
 function ThreePillarCircle() {
   const [hovered, setHovered] = useState<number | null>(null);
   const [selected, setSelected] = useState<number | null>(null);
 
-  // Generate unique SVG IDs for this component instance.
   const uniqueId = useId().replace(/:/g, "");
   const clipId = `eritreaCircleClip-${uniqueId}`;
   const shadowId = `threePillarShadow-${uniqueId}`;
@@ -296,8 +303,8 @@ function ThreePillarCircle() {
     },
     {
       title: pillars[1].title,
-      shortTitle: "STRONG AND",
-      secondLine: "PROSPEROUS ECONOMY",
+      shortTitle: "STRONG",
+      secondLine: "ECONOMY",
       description:
         "Industrial development, infrastructure, agriculture, trade, energy and economic opportunity.",
       path: "M250 250 L431.9 355 A210 210 0 0 1 68.1 355 Z",
@@ -351,11 +358,6 @@ function ThreePillarCircle() {
     <section className="w-full overflow-visible bg-[#142b45] px-5 py-16 md:px-10 md:py-24">
       <div className="mx-auto max-w-7xl">
         <div className="flex flex-col items-center">
-          <p className="mb-8 text-center text-xs font-bold uppercase tracking-[0.2em] text-[#d5b46b]">
-            Explore the Three Foundations
-          </p>
-
-          {/* LARGE INTERACTIVE CIRCLE */}
           <div
             className="relative w-full max-w-[950px]"
             onPointerLeave={() => setHovered(null)}
@@ -435,7 +437,6 @@ function ThreePillarCircle() {
                       height="150"
                     >
                       <div
-                        
                         className="flex h-full w-full flex-col items-center justify-center px-2 py-2 text-center"
                         style={{
                           boxSizing: "border-box",
@@ -498,7 +499,6 @@ function ThreePillarCircle() {
                         strokeLinejoin="round"
                       />
 
-                      {/* SECTOR TITLES — NO NUMBERS */}
                       {!isActive && (
                         <>
                           <text
@@ -559,8 +559,6 @@ function ThreePillarCircle() {
                   }}
                 />
               ))}
-
-              {/* GOLDEN OUTER CIRCLE REMOVED */}
             </svg>
           </div>
 
@@ -574,6 +572,7 @@ function ThreePillarCircle() {
   );
 }
 
+// DEVELOPMENT AREA CARD
 function DevelopmentAreaCard({
   area,
 }: {
@@ -600,90 +599,152 @@ function DevelopmentAreaCard({
   );
 }
 
-function PillarSection({ pillar }: { pillar: Pillar }) {
+// EXPANDABLE PILLAR SECTION
+function PillarSection({
+  pillar,
+  isOpen,
+  onToggle,
+}: {
+  pillar: Pillar;
+  isOpen: boolean;
+  onToggle: () => void;
+}) {
   return (
     <article
       id={`pillar-${pillar.number}`}
-      className="scroll-mt-24 overflow-hidden border border-[#ded8ca] border-t-[5px] border-t-[#c9a45c] bg-white shadow-sm"
+      className="w-full scroll-mt-24 overflow-hidden"
     >
-      {/* PILLAR HEADING */}
-      <div className="border-l-[6px] border-[#c9a45c] bg-[#142b45] px-6 py-7 md:px-10 md:py-9">
-        <div className="flex flex-col gap-3">
-          <span className="text-xs font-bold tracking-[0.2em] text-[#d5b46b]">
-            PILLAR {pillar.number}
+      {/* WHITE HORIZONTAL RECTANGLE */}
+      <button
+        type="button"
+        onClick={onToggle}
+        aria-expanded={isOpen}
+        aria-controls={`pillar-content-${pillar.number}`}
+        className="group flex min-h-[88px] w-full items-center justify-between gap-5 bg-white px-5 py-5 text-left transition-colors duration-300 hover:bg-[#f8f5ed] md:min-h-[100px] md:px-9"
+      >
+        <div className="flex min-w-0 items-center gap-5 md:gap-8">
+          <span className="shrink-0 text-sm font-bold tracking-[0.2em] text-[#a77d32]">
+            {pillar.number}
           </span>
 
-          <h2 className="text-2xl font-bold leading-tight text-white md:text-4xl">
+          <h2 className="text-lg font-bold leading-snug text-[#142b45] md:text-2xl">
             {pillar.title}
           </h2>
-
-          <p className="text-sm text-white/70 md:text-base">
-            {pillar.subtitle}
-          </p>
-        </div>
-      </div>
-
-      {/* PILLAR IMAGE */}
-      <div className="relative h-64 overflow-hidden bg-[#10263d] md:h-80">
-        <img
-          src={pillar.image}
-          alt={pillar.title}
-          className="h-full w-full object-cover"
-          loading="lazy"
-        />
-
-        <div className="absolute inset-0 bg-gradient-to-t from-[#091725]/65 to-transparent" />
-
-        <div className="absolute bottom-6 left-6 md:bottom-8 md:left-10">
-          <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#e2c47e]">
-            Eritrea of Tomorrow
-          </span>
-        </div>
-      </div>
-
-      {/* PILLAR DESCRIPTION */}
-      <div className="px-6 py-9 md:px-10 md:py-12">
-        <div className="mb-10 max-w-4xl">
-          <SectionLabel>Strategic Vision</SectionLabel>
-
-          <p className="text-base leading-8 text-[#42536a] md:text-lg">
-            {pillar.description}
-          </p>
         </div>
 
-        {/* DEVELOPMENT AREAS */}
-        <div className="mb-7 flex flex-col gap-3 border-b border-[#ded8ca] pb-5 sm:flex-row sm:items-end sm:justify-between">
-          <div>
-            <SectionLabel>Development Framework</SectionLabel>
-
-            <h3 className="text-2xl font-bold text-[#142b45] md:text-3xl">
-              Key Development Areas
-            </h3>
-          </div>
-
-          <p className="text-sm text-[#8a795b]">
-            {pillar.areas.length} strategic areas
-          </p>
-        </div>
-
-        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-          {pillar.areas.map((area) => (
-            <DevelopmentAreaCard
-              key={`${pillar.number}-${area.number}`}
-              area={area}
+        {/* GOLD INVERTED-L CONTROL */}
+        <span
+          className="flex h-10 w-10 shrink-0 items-center justify-center bg-[#c9a45c] transition-colors duration-300 group-hover:bg-[#d8b873] md:h-12 md:w-12"
+          aria-hidden="true"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            className={`h-6 w-6 text-[#142b45] transition-transform duration-500 ${
+              isOpen ? "rotate-90" : "rotate-0"
+            }`}
+            fill="none"
+          >
+            <path
+              d="M6 5 H18 V17"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinecap="square"
+              strokeLinejoin="miter"
             />
-          ))}
+          </svg>
+        </span>
+      </button>
+
+      {/* EXPANDABLE CONTENT */}
+      <div
+        id={`pillar-content-${pillar.number}`}
+        className={`grid transition-[grid-template-rows,opacity] duration-700 ease-in-out ${
+          isOpen
+            ? "grid-rows-[1fr] opacity-100"
+            : "grid-rows-[0fr] opacity-0"
+        }`}
+        aria-hidden={!isOpen}
+        inert={!isOpen}
+      >
+        <div className="min-h-0 overflow-hidden">
+          <div className="border-t border-[#e7e0d3] bg-white">
+
+            {/* PILLAR IMAGE */}
+            <div className="relative h-64 overflow-hidden bg-[#10263d] md:h-80">
+              <img
+                src={pillar.image}
+                alt={pillar.title}
+                className="h-full w-full object-cover"
+                loading="lazy"
+              />
+
+              <div className="absolute inset-0 bg-gradient-to-t from-[#091725]/65 to-transparent" />
+
+              <div className="absolute bottom-6 left-6 md:bottom-8 md:left-10">
+                <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#e2c47e]">
+                  Eritrea of Tomorrow
+                </span>
+              </div>
+            </div>
+
+            {/* STRATEGIC VISION */}
+            <div className="px-6 py-9 md:px-10 md:py-12">
+              <div className="mb-10 max-w-4xl">
+                <SectionLabel>Strategic Vision</SectionLabel>
+
+                <p className="text-base leading-8 text-[#42536a] md:text-lg">
+                  {pillar.description}
+                </p>
+              </div>
+
+              {/* DEVELOPMENT FRAMEWORK */}
+              <div className="mb-7 flex flex-col gap-3 border-b border-[#ded8ca] pb-5 sm:flex-row sm:items-end sm:justify-between">
+                <div>
+                  <SectionLabel>Development Framework</SectionLabel>
+
+                  <h3 className="text-2xl font-bold text-[#142b45] md:text-3xl">
+                    Key Development Areas
+                  </h3>
+                </div>
+
+                <p className="text-sm text-[#8a795b]">
+                  {pillar.areas.length} strategic areas
+                </p>
+              </div>
+
+              {/* DEVELOPMENT AREA CARDS */}
+              <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+                {pillar.areas.map((area) => (
+                  <DevelopmentAreaCard
+                    key={`${pillar.number}-${area.number}`}
+                    area={area}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </article>
   );
 }
 
+// MAIN PAGE
 export default function EritreaOfTomorrow() {
   const videoSrc = "/videos/eritrea-of-tomorrow.mp4";
 
+  // ONE OPEN PILLAR AT A TIME
+  const [openPillar, setOpenPillar] = useState<string | null>(null);
+
+  const togglePillar = (number: string) => {
+    setOpenPillar((current) =>
+      current === number ? null : number
+    );
+  };
+
   return (
     <main className="min-h-screen bg-white text-[#142b45]">
+
       {/* FULL-WIDTH VIDEO HERO */}
       <section
         className="relative flex min-h-[75svh] w-full items-center justify-center overflow-hidden bg-[#091725] md:min-h-[85svh]"
@@ -717,54 +778,28 @@ export default function EritreaOfTomorrow() {
           </h1>
 
           <div className="mx-auto mt-7 h-1 w-24 bg-[#c9a45c]" />
-
-          <p className="mx-auto mt-8 max-w-3xl text-base leading-8 text-white/85 md:text-xl">
-            A vision for a prosperous, culturally confident and
-            institutionally strong Eritrea.
-          </p>
-
-          <a
-            href="#national-pillars"
-            className="mt-12 inline-flex items-center gap-3 border border-[#c9a45c] bg-[#142b45]/80 px-8 py-4 text-sm font-bold uppercase tracking-[0.15em] text-white shadow-lg transition duration-300 hover:bg-[#c9a45c] hover:text-[#142b45]"
-          >
-            Explore the Three Pillars
-            <span aria-hidden="true">↓</span>
-          </a>
         </div>
       </section>
 
-      {/* FULL-WIDTH WHITE SEPARATOR */}
+      {/* FULL-WIDTH WHITE INTRODUCTION */}
       <NationalFrameworkHeading />
 
-      {/* INTERACTIVE CIRCLE */}
+      {/* INTERACTIVE THREE-PILLAR CIRCLE */}
       <div id="national-pillars">
         <ThreePillarCircle />
       </div>
 
-      {/* FIRST PILLAR */}
-      <section className="w-full bg-white px-5 py-10 md:px-10 md:py-14">
-        <div className="mx-auto max-w-7xl">
-          <PillarSection pillar={pillars[0]} />
-        </div>
-      </section>
-
-      {/* WHITE SEPARATOR */}
-      <div className="h-8 w-full bg-white" aria-hidden="true" />
-
-      {/* SECOND PILLAR */}
-      <section className="w-full bg-white px-5 py-10 md:px-10 md:py-14">
-        <div className="mx-auto max-w-7xl">
-          <PillarSection pillar={pillars[1]} />
-        </div>
-      </section>
-
-      {/* WHITE SEPARATOR */}
-      <div className="h-8 w-full bg-white" aria-hidden="true" />
-
-      {/* THIRD PILLAR */}
-      <section className="w-full bg-white px-5 py-10 md:px-10 md:py-14">
-        <div className="mx-auto max-w-7xl">
-          <PillarSection pillar={pillars[2]} />
+      {/* EXPANDABLE THREE-PILLAR POLICY FRAMEWORK */}
+      <section className="w-full bg-[#142b45] px-5 py-14 md:px-10 md:py-20">
+        <div className="mx-auto max-w-7xl space-y-4">
+          {pillars.map((pillar) => (
+            <PillarSection
+              key={pillar.number}
+              pillar={pillar}
+              isOpen={openPillar === pillar.number}
+              onToggle={() => togglePillar(pillar.number)}
+            />
+          ))}
         </div>
       </section>
 
@@ -774,29 +809,27 @@ export default function EritreaOfTomorrow() {
 
         <div className="relative z-10 mx-auto max-w-4xl">
           <p className="mb-5 text-xs font-bold uppercase tracking-[0.3em] text-[#d5b46b]">
-            A National Vision
+            Eritrea Tomorrow
           </p>
 
           <h2 className="mb-7 text-3xl font-extrabold leading-tight md:text-5xl">
-            The Future We Build Together
+            The Future We Build and Defend
           </h2>
 
           <div className="mx-auto mb-8 h-1 w-20 bg-[#c9a45c]" />
 
           <p className="text-base leading-8 text-white/75 md:text-lg">
-            A prosperous Eritrea requires a strong economy,
-            a proud and cohesive nation, and trustworthy institutions.
-            These three foundations form the basis of our vision
-            for the future.
+            Eritrea is surrounded by fragile states—Ethiopia, Sudan, and Yemen—which have become proxies for Iran, Turkey, and other regional and global powers. We need a strong economy, a clear national purpose, and trustworthy institutions. Our survival, sovereignty, and national security cannot rest on a broken economy, demoralised national service, or ageing generals without salaries, pensions, and institutional support.
           </p>
         </div>
       </section>
 
-      {/* EMPTY WHITE SEPARATOR BEFORE THE SHARED WEBSITE FOOTER */}
+      {/* WHITE SEPARATOR BEFORE SHARED WEBSITE FOOTER */}
       <div
         className="h-16 w-full bg-white md:h-20"
         aria-hidden="true"
       />
+
     </main>
   );
 }
