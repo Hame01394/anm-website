@@ -4,6 +4,12 @@
 import Link from "next/link";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
+import {
+  Facebook,
+  Instagram,
+  Youtube,
+  Send,
+} from "lucide-react";
 
 export interface MenuItem {
   href: string;
@@ -63,6 +69,15 @@ const menus: NavigationMenu[] = [
   },
 ];
 
+// Replace empty URLs with ANM's official social media addresses.
+const socialLinks = [
+  { name: "Facebook", href: "", Icon: Facebook },
+  { name: "Instagram", href: "", Icon: Instagram },
+  { name: "YouTube", href: "", Icon: Youtube },
+  { name: "X", href: "", Icon: null },
+  { name: "Telegram", href: "", Icon: Send },
+];
+
 export default function Navigation() {
   const pathname = usePathname();
 
@@ -72,12 +87,10 @@ export default function Navigation() {
   const isTigrinya =
     pathname === "/ti" || pathname.startsWith("/ti/");
 
-  // Corresponding English route
   const englishHref = isTigrinya
     ? pathname.replace(/^\/ti(?=\/|$)/, "") || "/"
     : pathname;
 
-  // Corresponding Tigrinya route
   const tigrinyaHref = isTigrinya
     ? pathname
     : pathname === "/"
@@ -99,12 +112,12 @@ export default function Navigation() {
 
   return (
     <header
-  className={`sticky top-0 z-[100] w-full border-b-4 border-[#c9a45c] bg-[#142b45] text-white shadow-lg ${
-    isTigrinya
-      ? "[font-family:'Noto_Sans_Ethiopic',Nyala,serif]"
-      : ""
-  }`}
->
+      className={`sticky top-0 z-[100] w-full border-b-4 border-[#c9a45c] bg-[#142b45] text-white shadow-lg ${
+        isTigrinya
+          ? "[font-family:'Noto_Sans_Ethiopic',Nyala,serif]"
+          : ""
+      }`}
+    >
       <div className="mx-auto flex min-h-[68px] max-w-[1800px] items-center justify-between gap-6 px-3 py-2 xl:min-h-[100px] xl:px-6 xl:py-4">
 
         {/* BRAND */}
@@ -112,14 +125,12 @@ export default function Navigation() {
           href={isTigrinya ? "/ti" : "/"}
           className="flex shrink-0 items-center gap-1"
         >
-          {/* Logo symbol */}
           <img
             src="/images/menorah.png.png"
             alt="Aga'azian National Movement"
             className="h-14 w-14 shrink-0 object-contain brightness-150 contrast-125 drop-shadow-[0_0_8px_rgba(255,220,150,0.65)] xl:h-20 xl:w-20"
           />
 
-          {/* Organization name */}
           <span className="flex min-w-0 flex-col">
             <span className="grid w-full grid-cols-3 text-center text-4xl font-black leading-none tracking-normal text-white xl:text-6xl">
               {isTigrinya ? (
@@ -170,12 +181,6 @@ export default function Navigation() {
                     className="flex items-center gap-1 whitespace-nowrap rounded px-2 py-3 text-xs font-semibold transition hover:bg-white/10 hover:text-[#c9a45c] 2xl:px-3"
                   >
                     {isTigrinya ? menu.titleTi : menu.title}
-
-                    {menu.items.length > 0 && (
-                      <span className="text-[9px] text-[#c9a45c]">
-                        ▼
-                      </span>
-                    )}
                   </Link>
 
                   {menu.items.length > 0 &&
@@ -259,7 +264,8 @@ export default function Navigation() {
 
       {/* MOBILE MENU */}
       {mobileOpen && (
-        <nav className="border-t border-white/20 bg-[#142b45] px-6 py-4 xl:hidden">
+        <nav className="max-h-[calc(100dvh-68px)] overflow-y-auto border-t border-white/20 bg-[#142b45] px-6 py-4 xl:hidden">
+
           {menus.map((menu) => (
             <Link
               key={menu.href}
@@ -283,6 +289,7 @@ export default function Navigation() {
             {supportLabel}
           </Link>
 
+          {/* LANGUAGE SELECTOR */}
           <div className="flex items-center gap-4 py-5 text-sm font-semibold">
             <Link
               href={englishHref}
@@ -301,6 +308,38 @@ export default function Navigation() {
             >
               ትግርኛ
             </Link>
+          </div>
+
+          {/* MOBILE SOCIAL MEDIA */}
+          <div className="border-t border-white/15 pt-5 pb-3">
+            <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.16em] text-[#c9a45c]">
+              {isTigrinya ? "ተኸታተሉና" : "CONNECT WITH ANM"}
+            </p>
+
+            <div className="flex items-center gap-4">
+              {socialLinks.map(({ name, href, Icon }) => (
+                <a
+                  key={name}
+                  href={href || undefined}
+                  target={href ? "_blank" : undefined}
+                  rel={href ? "noopener noreferrer" : undefined}
+                  aria-label={name}
+                  title={name}
+                  aria-disabled={!href}
+                  className={`flex h-10 w-10 items-center justify-center border border-[#c9a45c]/50 text-white transition ${
+                    href
+                      ? "hover:bg-[#c9a45c] hover:text-[#142b45]"
+                      : "cursor-not-allowed opacity-50"
+                  }`}
+                >
+                  {name === "X" ? (
+                    <span className="text-lg font-bold">𝕏</span>
+                  ) : Icon ? (
+                    <Icon size={19} strokeWidth={1.8} />
+                  ) : null}
+                </a>
+              ))}
+            </div>
           </div>
         </nav>
       )}
