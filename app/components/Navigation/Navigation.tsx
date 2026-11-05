@@ -104,9 +104,17 @@ export default function Navigation() {
     ? "/ti/support-donation"
     : "/support-donation";
 
+  const shopHref = isTigrinya
+    ? "/ti/shop"
+    : "/shop";
+
   const supportLabel = isTigrinya
     ? "ደገፍን ወፈያን"
     : "Support and Donation";
+
+  const shopLabel = isTigrinya
+    ? "ድኳን"
+    : "Shop";
 
   const getSocialSymbol = (name: string) => {
     switch (name) {
@@ -222,6 +230,17 @@ export default function Navigation() {
           </ul>
         </nav>
 
+        {/* SEPARATE SHOP LINK */}
+        <div className="hidden shrink-0 border-l border-white/25 pl-3 xl:block">
+          <Link
+            href={shopHref}
+            className="inline-flex items-center gap-2 whitespace-nowrap border border-[#c9a45c] px-3 py-3 text-xs font-bold uppercase tracking-wider text-[#d5b46b] transition hover:bg-[#c9a45c] hover:text-[#142b45]"
+          >
+            {shopLabel}
+            <span aria-hidden="true">↗</span>
+          </Link>
+        </div>
+
         {/* DESKTOP SUPPORT */}
         <div className="hidden shrink-0 xl:flex">
           <Link
@@ -232,7 +251,7 @@ export default function Navigation() {
           </Link>
         </div>
 
-        {/* SINGLE LANGUAGE SWITCH */}
+        {/* LANGUAGE SWITCH */}
         <div className="flex shrink-0 items-center whitespace-nowrap text-[11px] font-bold sm:text-xs">
           {isTigrinya ? (
             <Link
@@ -288,11 +307,20 @@ export default function Navigation() {
             </Link>
           ))}
 
+          {/* MOBILE SHOP LINK */}
+          <Link
+            href={shopHref}
+            onClick={() => setMobileOpen(false)}
+            className="mt-5 block border border-[#c9a45c] px-5 py-3 text-center text-sm font-bold uppercase tracking-wider text-[#d5b46b] transition hover:bg-[#c9a45c] hover:text-[#142b45]"
+          >
+            {shopLabel}
+          </Link>
+
           {/* SUPPORT BUTTON */}
           <Link
             href={supportHref}
             onClick={() => setMobileOpen(false)}
-            className="mt-5 block border border-[#c9a45c] px-5 py-3 text-center text-sm font-semibold text-[#d5b46b] transition hover:bg-[#c9a45c] hover:text-[#142b45]"
+            className="mt-3 block border border-white/30 px-5 py-3 text-center text-sm font-semibold transition hover:border-[#c9a45c] hover:text-[#c9a45c]"
           >
             {supportLabel}
           </Link>
