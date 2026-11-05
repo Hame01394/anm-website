@@ -54,12 +54,8 @@ export default function Footer() {
 
   return (
     <footer
-      className={`bg-[#142b45] text-white ${
-        isTigrinya
-          ? "[font-family:'Noto_Sans_Ethiopic',Nyala,serif]"
-          : ""
-      }`}
       lang={isTigrinya ? "ti" : "en"}
+      className="bg-[#142b45] text-white"
     >
       <div className="mx-auto max-w-7xl px-6 py-8 sm:py-10">
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">

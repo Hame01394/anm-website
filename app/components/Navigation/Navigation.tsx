@@ -127,11 +127,8 @@ export default function Navigation() {
 
   return (
     <header
-      className={`sticky top-0 z-[100] w-full border-b-4 border-[#c9a45c] bg-[#142b45] text-white shadow-lg ${
-        isTigrinya
-          ? "[font-family:'Noto_Sans_Ethiopic',Nyala,serif]"
-          : ""
-      }`}
+      lang={isTigrinya ? "ti" : "en"}
+      className="sticky top-0 z-[100] w-full border-b-4 border-[#c9a45c] bg-[#142b45] text-white shadow-lg"
     >
       <div className="mx-auto flex min-h-[68px] max-w-[1800px] items-center justify-between gap-2 px-3 py-2 xl:min-h-[100px] xl:gap-6 xl:px-6 xl:py-4">
 
@@ -235,7 +232,7 @@ export default function Navigation() {
           </Link>
         </div>
 
-        {/* SINGLE LANGUAGE SWITCH — ALWAYS VISIBLE */}
+        {/* SINGLE LANGUAGE SWITCH */}
         <div className="flex shrink-0 items-center whitespace-nowrap text-[11px] font-bold sm:text-xs">
           {isTigrinya ? (
             <Link
@@ -272,8 +269,10 @@ export default function Navigation() {
 
       {/* MOBILE MENU */}
       {mobileOpen && (
-        <nav className="max-h-[calc(100dvh-68px)] overflow-y-auto border-t border-white/20 bg-[#142b45] px-6 py-4 xl:hidden">
-
+        <nav
+          lang={isTigrinya ? "ti" : "en"}
+          className="max-h-[calc(100dvh-68px)] overflow-y-auto border-t border-white/20 bg-[#142b45] px-6 py-4 xl:hidden"
+        >
           {menus.map((menu) => (
             <Link
               key={menu.href}

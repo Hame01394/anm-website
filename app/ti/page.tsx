@@ -67,7 +67,6 @@ export default function TigrinyaHomePage() {
     <main
       lang="ti"
       className="min-h-screen bg-[#f8f5ed] text-[#142b45]"
-      style={{ fontFamily: "'Noto Sans Ethiopic', Nyala, serif" }}
     >
       {/* HERO SECTION */}
       <section className="relative flex min-h-[calc(100svh-80px)] items-center justify-center overflow-hidden bg-[#142b45] px-5 py-20 text-center text-white">
