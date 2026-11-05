@@ -1,7 +1,10 @@
-import CivicParticipation from "./CivicParticipation";
-import FutureVision from "./FutureVision";
-import VisionPillars from "./VisionPillars";
-import NationalStruggle from "./NationalStruggle";
+
+"use client";
+
+import CivicParticipation from "@/app/components/CivicParticipation";
+import FutureVision from "@/app/components/FutureVision";
+import VisionPillars from "@/app/components/VisionPillars";
+import NationalStruggle from "@/app/components/NationalStruggle";
 
 function MovementMetrics() {
   const metrics = [

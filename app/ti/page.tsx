@@ -31,17 +31,11 @@ function MovementMetricsTi() {
             ዝዓቢ ዘሎ ሃገራዊ ምንቅስቓስ
           </p>
 
-          <h2
-            className="text-2xl font-bold md:text-3xl"
-            style={{ fontFamily: "'Noto Sans Ethiopic', Nyala, serif" }}
-          >
+          <h2 className="text-2xl font-bold md:text-3xl">
             ዝተሓየለ ሃገራዊ ማሕበረሰብ ምህናጽ
           </h2>
 
-          <p
-            className="mx-auto mt-3 max-w-2xl text-sm leading-7 text-[#142b45]/70"
-            style={{ fontFamily: "'Noto Sans Ethiopic', Nyala, serif" }}
-          >
+          <p className="mx-auto mt-3 max-w-2xl text-sm leading-7 text-[#142b45]/70">
             ሓድነት ዘለዎ፡ ንጡፍን ሓበሬታ ዝረክብን ሃገራዊ ማሕበረሰብ ንምህናጽ።
           </p>
         </div>
@@ -53,17 +47,11 @@ function MovementMetricsTi() {
                 {metric.value}
               </div>
 
-              <h3
-                className="mt-3 text-sm font-bold text-[#142b45]"
-                style={{ fontFamily: "'Noto Sans Ethiopic', Nyala, serif" }}
-              >
+              <h3 className="mt-3 text-sm font-bold text-[#142b45]">
                 {metric.label}
               </h3>
 
-              <p
-                className="mt-2 text-xs leading-6 text-[#142b45]/65"
-                style={{ fontFamily: "'Noto Sans Ethiopic', Nyala, serif" }}
-              >
+              <p className="mt-2 text-xs leading-6 text-[#142b45]/65">
                 {metric.description}
               </p>
             </div>
@@ -77,6 +65,7 @@ function MovementMetricsTi() {
 export default function TigrinyaHomePage() {
   return (
     <main
+      lang="ti"
       className="min-h-screen bg-[#f8f5ed] text-[#142b45]"
       style={{ fontFamily: "'Noto Sans Ethiopic', Nyala, serif" }}
     >
