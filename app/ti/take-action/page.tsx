@@ -245,7 +245,9 @@ export default function TigrinyaTakeActionPage() {
                   ) : (
                     <button
                       type="button"
-                      onClick={() => openForm(action.subject)}
+                      onClick={() => {
+  if (action.subject) openForm(action.subject);
+}}
                       className="inline-flex items-center gap-3 border-b-2 border-[#c9a45c] pb-2 text-xs font-bold uppercase tracking-wider text-[#142b45] transition hover:gap-5 hover:text-[#a17d3d]"
                     >
                       {action.linkText}
