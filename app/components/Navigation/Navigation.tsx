@@ -83,10 +83,12 @@ export default function Navigation() {
   const isTigrinya =
     pathname === "/ti" || pathname.startsWith("/ti/");
 
+  // Corresponding English page
   const englishHref = isTigrinya
     ? pathname.replace(/^\/ti(?=\/|$)/, "") || "/"
     : pathname;
 
+  // Corresponding Tigrinya page
   const tigrinyaHref = isTigrinya
     ? pathname
     : pathname === "/"
@@ -233,31 +235,27 @@ export default function Navigation() {
           </Link>
         </div>
 
-        {/* ALWAYS VISIBLE LANGUAGE SELECTOR */}
-        <div className="flex shrink-0 items-center gap-1.5 whitespace-nowrap text-[11px] font-bold sm:gap-2 sm:text-xs xl:gap-2">
-          <Link
-            href={englishHref}
-            onClick={switchLanguage}
-            aria-current={!isTigrinya ? "page" : undefined}
-            className={`transition hover:text-[#c9a45c] ${
-              !isTigrinya ? "text-[#c9a45c]" : "text-white"
-            }`}
-          >
-            ENG
-          </Link>
-
-          <span className="text-white/50">|</span>
-
-          <Link
-            href={tigrinyaHref}
-            onClick={switchLanguage}
-            aria-current={isTigrinya ? "page" : undefined}
-            className={`transition hover:text-[#c9a45c] ${
-              isTigrinya ? "text-[#c9a45c]" : "text-white"
-            }`}
-          >
-            ትግርኛ
-          </Link>
+        {/* SINGLE LANGUAGE SWITCH — ALWAYS VISIBLE */}
+        <div className="flex shrink-0 items-center whitespace-nowrap text-[11px] font-bold sm:text-xs">
+          {isTigrinya ? (
+            <Link
+              href={englishHref}
+              onClick={switchLanguage}
+              aria-label="Switch to English"
+              className="transition hover:text-[#c9a45c]"
+            >
+              ENG
+            </Link>
+          ) : (
+            <Link
+              href={tigrinyaHref}
+              onClick={switchLanguage}
+              aria-label="Switch to Tigrinya"
+              className="transition hover:text-[#c9a45c]"
+            >
+              ትግርኛ
+            </Link>
+          )}
         </div>
 
         {/* MOBILE MENU BUTTON */}
@@ -301,7 +299,7 @@ export default function Navigation() {
           </Link>
 
           {/* SOCIAL MEDIA */}
-          <div className="border-t border-white/15 pt-5 pb-3 mt-5">
+          <div className="mt-5 border-t border-white/15 pt-5 pb-3">
             <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.16em] text-[#c9a45c]">
               {isTigrinya ? "ተኸታተሉና" : "CONNECT WITH ANM"}
             </p>
