@@ -63,9 +63,11 @@ const menus: NavigationMenu[] = [
   },
 ];
 
-// Add official ANM social media URLs when available.
 const socialLinks = [
-  { name: "Facebook", href: "https://www.facebook.com/AGAAZIANISRAEL" },
+  {
+    name: "Facebook",
+    href: "https://www.facebook.com/AGAAZIANISRAEL",
+  },
   { name: "Instagram", href: "" },
   { name: "YouTube", href: "" },
   { name: "X", href: "" },
@@ -81,12 +83,10 @@ export default function Navigation() {
   const isTigrinya =
     pathname === "/ti" || pathname.startsWith("/ti/");
 
-  // Corresponding English route
   const englishHref = isTigrinya
     ? pathname.replace(/^\/ti(?=\/|$)/, "") || "/"
     : pathname;
 
-  // Corresponding Tigrinya route
   const tigrinyaHref = isTigrinya
     ? pathname
     : pathname === "/"
@@ -131,21 +131,21 @@ export default function Navigation() {
           : ""
       }`}
     >
-      <div className="mx-auto flex min-h-[68px] max-w-[1800px] items-center justify-between gap-6 px-3 py-2 xl:min-h-[100px] xl:px-6 xl:py-4">
+      <div className="mx-auto flex min-h-[68px] max-w-[1800px] items-center justify-between gap-2 px-3 py-2 xl:min-h-[100px] xl:gap-6 xl:px-6 xl:py-4">
 
         {/* BRAND */}
         <Link
           href={isTigrinya ? "/ti" : "/"}
-          className="flex shrink-0 items-center gap-1"
+          className="flex min-w-0 shrink items-center gap-1"
         >
           <img
             src="/images/menorah.png.png"
             alt="Aga'azian National Movement"
-            className="h-14 w-14 shrink-0 object-contain brightness-150 contrast-125 drop-shadow-[0_0_8px_rgba(255,220,150,0.65)] xl:h-20 xl:w-20"
+            className="h-12 w-12 shrink-0 object-contain brightness-150 contrast-125 drop-shadow-[0_0_8px_rgba(255,220,150,0.65)] sm:h-14 sm:w-14 xl:h-20 xl:w-20"
           />
 
           <span className="flex min-w-0 flex-col">
-            <span className="grid w-full grid-cols-3 text-center text-4xl font-black leading-none tracking-normal text-white xl:text-6xl">
+            <span className="grid w-full grid-cols-3 text-center text-3xl font-black leading-none tracking-normal text-white sm:text-4xl xl:text-6xl">
               {isTigrinya ? (
                 <span className="col-span-3">ሃምኣ</span>
               ) : (
@@ -157,7 +157,7 @@ export default function Navigation() {
               )}
             </span>
 
-            <span className="mt-0.5 whitespace-nowrap text-[10px] font-extrabold tracking-wide text-white xl:mt-1 xl:text-sm">
+            <span className="mt-0.5 whitespace-nowrap text-[9px] font-extrabold tracking-wide text-white sm:text-[10px] xl:mt-1 xl:text-sm">
               {isTigrinya
                 ? "ምንቅስቓስ ሃገራዊ ኣጋኣዝያን"
                 : "Aga'azian National Movement"}
@@ -223,53 +223,50 @@ export default function Navigation() {
           </ul>
         </nav>
 
-        {/* SUPPORT AND LANGUAGE */}
-        <div className="hidden shrink-0 items-center gap-4 xl:flex">
+        {/* DESKTOP SUPPORT */}
+        <div className="hidden shrink-0 xl:flex">
           <Link
             href={supportHref}
             className="whitespace-nowrap rounded px-2 py-3 text-xs font-semibold transition hover:bg-white/10 hover:text-[#c9a45c] 2xl:px-3"
           >
             {supportLabel}
           </Link>
-
-          <div className="flex items-center gap-2 text-xs font-semibold">
-            <Link
-              href={englishHref}
-              onClick={switchLanguage}
-              aria-current={!isTigrinya ? "page" : undefined}
-              className={`transition hover:text-white ${
-                !isTigrinya
-                  ? "text-[#c9a45c]"
-                  : "text-white"
-              }`}
-            >
-              ENG
-            </Link>
-
-            <span>|</span>
-
-            <Link
-              href={tigrinyaHref}
-              onClick={switchLanguage}
-              aria-current={isTigrinya ? "page" : undefined}
-              className={`transition hover:text-[#c9a45c] ${
-                isTigrinya
-                  ? "text-[#c9a45c]"
-                  : "text-white"
-              }`}
-            >
-              ትግርኛ
-            </Link>
-          </div>
         </div>
 
-        {/* MOBILE BUTTON */}
+        {/* ALWAYS VISIBLE LANGUAGE SELECTOR */}
+        <div className="flex shrink-0 items-center gap-1.5 whitespace-nowrap text-[11px] font-bold sm:gap-2 sm:text-xs xl:gap-2">
+          <Link
+            href={englishHref}
+            onClick={switchLanguage}
+            aria-current={!isTigrinya ? "page" : undefined}
+            className={`transition hover:text-[#c9a45c] ${
+              !isTigrinya ? "text-[#c9a45c]" : "text-white"
+            }`}
+          >
+            ENG
+          </Link>
+
+          <span className="text-white/50">|</span>
+
+          <Link
+            href={tigrinyaHref}
+            onClick={switchLanguage}
+            aria-current={isTigrinya ? "page" : undefined}
+            className={`transition hover:text-[#c9a45c] ${
+              isTigrinya ? "text-[#c9a45c]" : "text-white"
+            }`}
+          >
+            ትግርኛ
+          </Link>
+        </div>
+
+        {/* MOBILE MENU BUTTON */}
         <button
           type="button"
           onClick={() => setMobileOpen(!mobileOpen)}
           aria-expanded={mobileOpen}
           aria-label={isTigrinya ? "መርበብ ክፈት" : "Toggle navigation"}
-          className="rounded-md border border-[#c9a45c] px-4 py-2 text-2xl text-[#c9a45c] xl:hidden"
+          className="shrink-0 rounded-md border border-[#c9a45c] px-3 py-1.5 text-xl text-[#c9a45c] xl:hidden"
         >
           {mobileOpen ? "×" : "☰"}
         </button>
@@ -303,29 +300,8 @@ export default function Navigation() {
             {supportLabel}
           </Link>
 
-          {/* LANGUAGE SELECTOR */}
-          <div className="flex items-center gap-4 py-5 text-sm font-semibold">
-            <Link
-              href={englishHref}
-              onClick={switchLanguage}
-              className={!isTigrinya ? "text-[#c9a45c]" : "text-white"}
-            >
-              ENG
-            </Link>
-
-            <span className="text-white/40">|</span>
-
-            <Link
-              href={tigrinyaHref}
-              onClick={switchLanguage}
-              className={isTigrinya ? "text-[#c9a45c]" : "text-white"}
-            >
-              ትግርኛ
-            </Link>
-          </div>
-
-          {/* MOBILE SOCIAL MEDIA */}
-          <div className="border-t border-white/15 pt-5 pb-3">
+          {/* SOCIAL MEDIA */}
+          <div className="border-t border-white/15 pt-5 pb-3 mt-5">
             <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.16em] text-[#c9a45c]">
               {isTigrinya ? "ተኸታተሉና" : "CONNECT WITH ANM"}
             </p>
