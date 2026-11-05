@@ -3,12 +3,14 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import {
-  Facebook,
-  Instagram,
-  Youtube,
-  Send,
-} from "lucide-react";
+
+const socialLinks = [
+  { name: "Facebook", href: "https://www.facebook.com/AGAAZIANISRAEL" },
+  { name: "Instagram", href: "" },
+  { name: "YouTube", href: "" },
+  { name: "X", href: "" },
+  { name: "Telegram", href: "" },
+];
 
 const mainNavigation = [
   { label: "About ANM", labelTi: "ብዛዕባ ANM", href: "/about" },
@@ -25,14 +27,22 @@ const legalLinks = [
   { label: "Terms of Use", labelTi: "ናይ ኣጠቓቕማ ስምምዕ", href: "/terms-of-use" },
 ];
 
-// Replace these placeholder URLs with ANM's official account URLs.
-const socialLinks = [
-  { name: "Facebook", href: "", Icon: Facebook },
-  { name: "Instagram", href: "", Icon: Instagram },
-  { name: "YouTube", href: "", Icon: Youtube },
-  { name: "X", href: "", Icon: null },
-  { name: "Telegram", href: "", Icon: Send },
-];
+function getSocialSymbol(name: string) {
+  switch (name) {
+    case "Facebook":
+      return "f";
+    case "Instagram":
+      return "◎";
+    case "YouTube":
+      return "▶";
+    case "X":
+      return "𝕏";
+    case "Telegram":
+      return "➤";
+    default:
+      return "";
+  }
+}
 
 export default function Footer() {
   const pathname = usePathname();
@@ -64,7 +74,7 @@ export default function Footer() {
               <span className="mt-1 block max-w-xs text-xs font-semibold tracking-wide text-white">
                 {isTigrinya
                   ? "ምንቅስቓስ ሃገራዊ ኣጋኣዝያን"
-                  : "AGA'AZIAN NATIONAL MOVEMENT"}
+                  : "TIGRINYA NATIONAL MOVEMENT"}
               </span>
             </Link>
 
@@ -82,8 +92,7 @@ export default function Footer() {
                 <>
                   Our Nation. Our Future.
                   <br />
-                  A movement committed to national renewal, dignity, freedom,
-                  and a democratic future.
+                  A movement dedicated to direct democracy, economic prosperity, and cultural revival.
                 </>
               )}
             </p>
@@ -115,12 +124,6 @@ export default function Footer() {
               {isTigrinya ? "ርክብን ምትእስሳርን" : "Contact & Connect"}
             </h2>
 
-            <p className="mt-4 max-w-xs text-xs leading-6 text-white/70">
-              {isTigrinya
-                ? "ብዋትስኣፕ ርኸቡና።"
-                : "Connect with the Aga'azian National Movement."}
-            </p>
-
             <a
               href="https://wa.me/972542366696"
               target="_blank"
@@ -136,7 +139,7 @@ export default function Footer() {
             </h3>
 
             <div className="mt-3 flex flex-wrap items-center gap-3">
-              {socialLinks.map(({ name, href, Icon }) => (
+              {socialLinks.map(({ name, href }) => (
                 <a
                   key={name}
                   href={href || undefined}
@@ -145,17 +148,21 @@ export default function Footer() {
                   aria-label={name}
                   title={name}
                   aria-disabled={!href}
-                  className={`flex h-10 w-10 items-center justify-center border border-[#c9a45c]/50 text-white transition-colors ${
-                    href
-                      ? "hover:border-[#c9a45c] hover:bg-[#c9a45c] hover:text-[#142b45]"
-                      : "cursor-not-allowed opacity-50"
-                  }`}
+                  className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-white bg-white transition-colors hover:border-[#c9a45c] hover:bg-[#c9a45c]"
                 >
-                  {name === "X" ? (
-                    <span className="text-lg font-bold">𝕏</span>
-                  ) : Icon ? (
-                    <Icon size={19} strokeWidth={1.8} />
-                  ) : null}
+                  <span
+                    style={{
+                      color: "#142b45",
+                      display: "block",
+                      fontSize: "20px",
+                      fontWeight: 900,
+                      lineHeight: "20px",
+                      fontFamily: "Arial, sans-serif",
+                      textAlign: "center",
+                    }}
+                  >
+                    {getSocialSymbol(name)}
+                  </span>
                 </a>
               ))}
             </div>
@@ -180,6 +187,7 @@ export default function Footer() {
               ))}
             </ul>
           </div>
+
         </div>
       </div>
 

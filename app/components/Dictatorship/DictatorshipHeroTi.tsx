@@ -3,7 +3,7 @@
 
 import { useRef, useState } from "react";
 
-export default function DictatorshipHeroTi() {
+export default function DictatorshipHero() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
 
@@ -32,6 +32,7 @@ export default function DictatorshipHeroTi() {
         playsInline
         preload="metadata"
         poster="/images/dictatorship-hero-poster.jpg"
+        onEnded={() => setIsPlaying(false)}
       >
         <source
           src="/videos/dictatorship-hero.mp4"
@@ -42,8 +43,8 @@ export default function DictatorshipHeroTi() {
       <div className="absolute inset-0 bg-[#101f35]/70" />
 
       <div className="relative z-10 mx-auto max-w-6xl px-6 text-center">
-        <h1 className="text-4xl font-black leading-tight tracking-wide md:text-6xl lg:text-7xl">
-          እቲ ሓቀኛ ገጽታ ናይ
+        <h1 className="text-4xl font-black uppercase leading-tight tracking-wide md:text-6xl lg:text-7xl">
+          እቲ ናይ ሓቂ ኩነታት
           <span className="mt-3 block text-[#e6c987]">
             ምልኪ
           </span>

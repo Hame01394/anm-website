@@ -16,80 +16,87 @@ const groups: Record<GroupId, Person[]> = {
     {
       name: "Isaias Afwerki",
       description:
-        "The central figure exercising personal control over the state and its institutions.",
+        "ኣብ ልዕሊ መንግስቲን ትካላቱን ውልቃዊ ቁጽጽር ዘካይድ ቀንዲ ሰብ።",
       image: "/images/isaias-afwerki-1.png",
     },
     {
       name: "Saba Haile",
       description:
-        "Wife of Isaias Afwerki and a member of the president's inner family circle.",
+        "በዓልቲ ቤት ኢሳያስ ኣፍወርቂ፡ ኣባል ናይቲ ኣብ ዙርያ ፕረዚደንት ዘሎ ናይ ስድራቤት ውሽጣዊ ክቢ።",
       image: "/images/wife.png",
     },
     {
       name: "Abraham Afewerki",
       description:
-        "Son of Dictator Isaias Afwerki and a member of the presidential family.",
+        "ወዲ ኢሳያስ ኣፍወርቂ፡ ኣባል ናይታ ፕረዚደንታዊት ስድራቤት።",
       image: "/images/son.png",
     },
   ],
   military: [
     {
       name: "Filipos Weldehyones",
-      description: "Chief of Staff, Defence Forces.",
+      description: "ሓላፊ ስታፍ ሓይልታት ምክልኻል።",
       image: "/images/military-filios-woldeyohannes.png",
     },
     {
       name: "Tekle Kiflay (Manjus)",
-      description: "Senior military commander.",
+      description: "ላዕለዋይ ኣዛዚ ወተሃደራዊ ሓይሊ።",
       image: "/images/military-tekle-manjus.png",
     },
     {
       name: "Military Commander 3",
-      description: "Senior military associate.",
+      description: "ላዕለዋይ ወተሃደራዊ መሻርኽቲ።",
       image: "/images/military-commander-3.png",
     },
   ],
   security: [
     {
       name: "Abraha Kassa Nemariam",
-      description: "National Security Chief.",
+      description: "ሓላፊ ሃገራዊ ጸጥታ።",
       image: "/images/security-abraha-kassa.png",
     },
     {
       name: "Security Official 2",
-      description: "A senior figure within the national security apparatus.",
+      description: "ላዕለዋይ ሰብ ኣብ መሓውር ሃገራዊ ጸጥታ።",
       image: "/images/security-official-2.png",
     },
     {
       name: "Security Official 3",
-      description: "A senior figure within the national security apparatus.",
+      description: "ላዕለዋይ ሰብ ኣብ መሓውር ሃገራዊ ጸጥታ።",
       image: "/images/security-official-3.png",
     },
   ],
   loyalists: [
     {
       name: "Yemane Gebreab",
-      description: "PFDJ Head of Political Affairs.",
+      description: "ሓላፊ ፖለቲካዊ ጉዳያት PFDJ።",
       image: "/images/political-yemane-gebreab.png",
     },
     {
       name: "Yemane Gebremeskel",
-      description: "Minister of Information.",
+      description: "ሚኒስተር ዜና።",
       image: "/images/political-yemane-gebremeskel.png",
     },
     {
       name: "Hagos Ghebrehiwot",
-      description: "PFDJ Head of Economic Affairs.",
+      description: "ሓላፊ ቁጠባዊ ጉዳያት PFDJ።",
       image: "/images/political-hagos-gebrehiwot.png",
     },
   ],
 };
 
 const circleLabels: Record<GroupId, string> = {
-  dictator: "The Dictator",
-  military: "Military Commanders",
-  security: "Security Apparatus",
-  loyalists: "Political Loyalists",
+  dictator: "ኣምባገነን",
+  military: "ወተሃደራዊ ኣዘዝቲ",
+  security: "መሓውር ጸጥታ",
+  loyalists: "ፖለቲካዊ ደገፍቲ",
+};
+
+const groupDescriptions: Record<GroupId, string> = {
+  dictator: "ኣምባገነንን ኣባላት ስድራቤቱን",
+  military: "ላዕለዎት ወተሃደራዊ ኣዘዝቲ",
+  security: "ላዕለዎት ሰበስልጣን ጸጥታ",
+  loyalists: "ላዕለዎት ፖለቲካዊ ደገፍቲ",
 };
 
 function Portrait({
@@ -100,7 +107,7 @@ function Portrait({
   featured?: boolean;
 }) {
   return (
-    <div className={`aop-person ${featured ? "aop-person-featured" : ""}`}>
+    <article className={`aop-person ${featured ? "aop-person-featured" : ""}`}>
       <div className="aop-photo">
         {person.image ? (
           <img src={person.image} alt={person.name} />
@@ -111,7 +118,7 @@ function Portrait({
 
       <h3>{person.name}</h3>
       <p>{person.description}</p>
-    </div>
+    </article>
   );
 }
 
@@ -129,9 +136,7 @@ function Circle({
   return (
     <button
       type="button"
-      className={`aop-circle aop-${group} ${
-        active ? "is-active" : ""
-      }`}
+      className={`aop-circle aop-${group} ${active ? "is-active" : ""}`}
       onMouseEnter={() => onHover(group)}
       onClick={onActivate}
       aria-pressed={active}
@@ -157,69 +162,44 @@ export default function ArchitectureOfPower() {
     }
   };
 
-  const handleMouseLeave = () => {
-    if (
-      typeof window !== "undefined" &&
-      window.matchMedia("(hover: hover)").matches
-    ) {
-      setActiveGroup(null);
-    }
-  };
-
-  const isFocused = activeGroup !== null;
-
   return (
     <>
-      {/* INTRODUCTION SECTION — WHITE BACKGROUND */}
+      {/* መእተዊ ክፋል */}
       <header className="bg-white px-5 py-16 text-center md:px-10 md:py-20">
         <p className="mb-4 text-sm font-bold uppercase tracking-[0.3em] text-[#9b7940]">
-          Dictator Isaias Afwerki
+          ኣምባገነን ኢሳያስ ኣፍወርቂ
         </p>
 
         <h2 className="text-3xl font-black uppercase leading-tight tracking-wide text-black md:text-5xl">
-          One Man Rule
+          ምልኪ ሓደ ሰብ
         </h2>
 
         <div className="mx-auto mt-7 h-[2px] w-24 bg-[#101f35]" />
       </header>
 
-      {/* ARCHITECTURE OF POWER SECTION */}
+      {/* መሓውር ስልጣን */}
       <section className="aop-section">
         <div className="aop-heading">
+          <h2>መሓውር ስልጣን</h2>
           <p>
-            Explore the relationships between the central leadership
-            and the institutions surrounding it.
+            ኣብ መንጎ ማእከላይ መሪሕነትን ኣብ ዙርያኡ ዘለዉ
+            ትካላትን ዘሎ ርክባት ዳህስሱ።
           </p>
         </div>
 
-        <div
-          className={`aop-stage ${isFocused ? "has-focus" : ""} ${
-            activeGroup ? `focus-${activeGroup}` : ""
-          }`}
-          onMouseLeave={handleMouseLeave}
-        >
-          {/* CONNECTOR LINES */}
+        <div className="aop-stage">
+          {/* መራኸቢ መስመራት */}
           <svg
             className="aop-connectors"
             viewBox="0 0 1000 600"
             preserveAspectRatio="none"
             aria-hidden="true"
           >
-            <path
-              className="line line-military"
-              d="M500 300 L150 105"
-            />
-            <path
-              className="line line-security"
-              d="M500 300 L850 105"
-            />
-            <path
-              className="line line-loyalists"
-              d="M500 300 L500 520"
-            />
+            <path className="line" d="M500 300 L150 105" />
+            <path className="line" d="M500 300 L850 105" />
+            <path className="line" d="M500 300 L500 520" />
           </svg>
 
-          {/* DICTATOR CIRCLE */}
           <div className="aop-node node-dictator">
             <Circle
               group="dictator"
@@ -229,7 +209,6 @@ export default function ArchitectureOfPower() {
             />
           </div>
 
-          {/* MILITARY CIRCLE */}
           <div className="aop-node node-military">
             <Circle
               group="military"
@@ -239,7 +218,6 @@ export default function ArchitectureOfPower() {
             />
           </div>
 
-          {/* SECURITY CIRCLE */}
           <div className="aop-node node-security">
             <Circle
               group="security"
@@ -249,7 +227,6 @@ export default function ArchitectureOfPower() {
             />
           </div>
 
-          {/* POLITICAL LOYALISTS CIRCLE */}
           <div className="aop-node node-loyalists">
             <Circle
               group="loyalists"
@@ -258,64 +235,44 @@ export default function ArchitectureOfPower() {
               onHover={handleMouseEnter}
             />
           </div>
-
-          {/* DICTATOR: WIFE, DICTATOR, SON */}
-          {activeGroup === "dictator" && (
-            <div className="aop-portrait-layout dictator-layout">
-              <Portrait person={groups.dictator[1]} />
-              <Portrait person={groups.dictator[0]} featured />
-              <Portrait person={groups.dictator[2]} />
-            </div>
-          )}
-
-          {/* MILITARY COMMANDERS */}
-          {activeGroup === "military" && (
-            <div className="aop-portrait-layout group-layout military-layout">
-              {groups.military.map((person) => (
-                <Portrait key={person.name} person={person} />
-              ))}
-            </div>
-          )}
-
-          {/* SECURITY APPARATUS */}
-          {activeGroup === "security" && (
-            <div className="aop-portrait-layout group-layout security-layout">
-              {groups.security.map((person) => (
-                <Portrait key={person.name} person={person} />
-              ))}
-            </div>
-          )}
-
-          {/* POLITICAL LOYALISTS */}
-          {activeGroup === "loyalists" && (
-            <div className="aop-portrait-layout group-layout loyalists-layout">
-              {groups.loyalists.map((person) => (
-                <Portrait key={person.name} person={person} />
-              ))}
-            </div>
-          )}
-
-          {/* BACK TO FULL STRUCTURE BUTTON */}
-          {activeGroup !== null && (
-            <button
-              type="button"
-              className="aop-reset-button"
-              onClick={() => setActiveGroup(null)}
-              aria-label="Return to the full architecture of power diagram"
-            >
-              <span className="aop-reset-arrow" aria-hidden="true">
-                ↶
-              </span>
-              <span>Back to Full Structure</span>
-            </button>
-          )}
         </div>
 
-        {/* INSTRUCTIONS */}
+        {/* ናይ ሰባት ስእልን መግለጺን */}
+        {activeGroup !== null && (
+          <div className="aop-details" key={activeGroup}>
+            <div className="aop-details-heading">
+              <div>
+                <p className="aop-eyebrow">ዝርዝር ሓበሬታ</p>
+                <h2>{groupDescriptions[activeGroup]}</h2>
+              </div>
+
+              <button
+                type="button"
+                className="aop-reset-button"
+                onClick={() => setActiveGroup(null)}
+                aria-label="ናብ ምሉእ መሓውር ስልጣን ተመለስ"
+              >
+                <span aria-hidden="true">×</span>
+                <span>ዕጸው</span>
+              </button>
+            </div>
+
+            <div className="aop-portrait-layout">
+              {groups[activeGroup].map((person, index) => (
+                <Portrait
+                  key={person.name}
+                  person={person}
+                  featured={activeGroup === "dictator" && index === 1}
+                />
+              ))}
+            </div>
+          </div>
+        )}
+
         <div className="aop-instructions">
           {activeGroup
-            ? "Use the Back to Full Structure button to return to the complete diagram."
-            : "Hover over a circle, or tap it on a mobile device, to explore its members."}
+            ? "ናብ ካልእ ክቢ ብምጥዋቕ ካልእ ጉጅለ ክትርእዩ ትኽእሉ። ንምዕጻው ድማ ዕጸው ዝብል ቁልፊ ጠውቑ።"
+            : "ኣብ ሓደ ክቢ ጠውቑ ወይ መዳፍኩም ኣብ ልዕሊኡ ኣንብሩ፡ ኣባላቱ ንምርኣይ።"}
         </div>
 
         <style jsx global>{`
@@ -325,11 +282,12 @@ export default function ArchitectureOfPower() {
             background: #10263d;
             color: #ffffff;
             overflow: hidden;
+            font-family: "Noto Sans Ethiopic", Nyala, serif;
           }
 
           .aop-heading {
             max-width: 850px;
-            margin: 0 auto 42px;
+            margin: 0 auto 35px;
             text-align: center;
           }
 
@@ -344,21 +302,19 @@ export default function ArchitectureOfPower() {
             margin: 0;
             color: #cbd5df;
             font-size: 16px;
-            line-height: 1.7;
+            line-height: 1.9;
           }
 
-          /* STAGE */
+          /* ዋና መድረኽ */
 
           .aop-stage {
             position: relative;
             width: 100%;
             max-width: 1150px;
-            min-height: 650px;
+            height: 600px;
             margin: 0 auto;
             isolation: isolate;
           }
-
-          /* CONNECTOR LINES */
 
           .aop-connectors {
             position: absolute;
@@ -367,7 +323,6 @@ export default function ArchitectureOfPower() {
             height: 100%;
             z-index: 0;
             pointer-events: none;
-            overflow: visible;
           }
 
           .aop-connectors .line {
@@ -375,10 +330,9 @@ export default function ArchitectureOfPower() {
             stroke: #c6a45c;
             stroke-width: 2;
             opacity: 0.75;
-            transition: opacity 0.45s ease, d 0.6s ease;
           }
 
-          /* CIRCLE POSITIONS */
+          /* ቦታ ናይ ክቢታት */
 
           .aop-node {
             position: absolute;
@@ -386,13 +340,6 @@ export default function ArchitectureOfPower() {
             display: flex;
             align-items: center;
             justify-content: center;
-            transition:
-              left 0.65s ease,
-              top 0.65s ease,
-              right 0.65s ease,
-              bottom 0.65s ease,
-              opacity 0.45s ease,
-              transform 0.65s ease;
           }
 
           .node-dictator {
@@ -417,7 +364,7 @@ export default function ArchitectureOfPower() {
             transform: translateX(-50%);
           }
 
-          /* WHITE CIRCLES */
+          /* ክቢታት */
 
           .aop-circle {
             display: flex;
@@ -434,19 +381,16 @@ export default function ArchitectureOfPower() {
             cursor: pointer;
             box-shadow: 0 8px 28px rgba(0, 0, 0, 0.22);
             transition:
-              background 0.35s ease,
-              border-color 0.35s ease,
-              color 0.35s ease,
-              transform 0.45s ease,
-              opacity 0.4s ease,
-              box-shadow 0.35s ease;
+              background 0.3s ease,
+              border-color 0.3s ease,
+              box-shadow 0.3s ease;
           }
 
           .aop-circle span {
             max-width: 115px;
             font-size: 15px;
             font-weight: 700;
-            line-height: 1.4;
+            line-height: 1.7;
           }
 
           .aop-circle:hover,
@@ -454,30 +398,59 @@ export default function ArchitectureOfPower() {
             background: #ffffff;
             border-color: #e4c47c;
             color: #10263d;
-            transform: scale(1.06);
             box-shadow: 0 0 0 8px rgba(198, 164, 92, 0.18);
           }
 
-          /* PORTRAITS */
+          .aop-circle:focus-visible {
+            outline: 3px solid #ffffff;
+            outline-offset: 5px;
+          }
+
+          /* ናይ ስእሊ ፓነል */
+
+          .aop-details {
+            width: 100%;
+            max-width: 1050px;
+            margin: 10px auto 0;
+            padding: 30px;
+            border-top: 1px solid rgba(198, 164, 92, 0.65);
+            animation: aopAppear 0.4s ease both;
+          }
+
+          .aop-details-heading {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 28px;
+          }
+
+          .aop-eyebrow {
+            margin: 0 0 8px;
+            color: #c6a45c;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+          }
+
+          .aop-details-heading h2 {
+            margin: 0;
+            color: #ffffff;
+            font-size: clamp(20px, 3vw, 28px);
+            font-weight: 700;
+          }
 
           .aop-portrait-layout {
-            position: absolute;
-            z-index: 2;
-            display: flex;
-            align-items: flex-start;
-            justify-content: center;
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            align-items: start;
             gap: clamp(16px, 3vw, 45px);
-            width: min(850px, 88%);
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            animation: aopAppear 0.55s ease both;
           }
 
           .aop-person {
-            flex: 1 1 0;
             min-width: 0;
             max-width: 245px;
+            margin: 0 auto;
             text-align: center;
             color: #ffffff;
           }
@@ -502,7 +475,7 @@ export default function ArchitectureOfPower() {
           .aop-photo-placeholder {
             width: 100%;
             height: 100%;
-            background: linear-gradient(145deg, #24445e, #142b41);
+            background: #1c3b55;
           }
 
           .aop-person h3 {
@@ -510,7 +483,8 @@ export default function ArchitectureOfPower() {
             color: #e4c47c;
             font-size: 17px;
             font-weight: 700;
-            line-height: 1.35;
+            line-height: 1.7;
+            overflow-wrap: anywhere;
           }
 
           .aop-person p {
@@ -518,11 +492,11 @@ export default function ArchitectureOfPower() {
             max-width: 245px;
             color: #d2dbe3;
             font-size: 13px;
-            line-height: 1.55;
+            line-height: 1.9;
           }
 
           .aop-person-featured {
-            transform: translateY(-15px);
+            transform: translateY(-10px);
           }
 
           .aop-person-featured .aop-photo {
@@ -530,158 +504,37 @@ export default function ArchitectureOfPower() {
             border-color: #e4c47c;
           }
 
-          /* DICTATOR VIEW */
-
-          .focus-dictator .node-dictator {
-            opacity: 0;
-            pointer-events: none;
-            transform: translate(-50%, -50%) scale(0.7);
-          }
-
-          .focus-dictator .node-military {
-            left: 2%;
-            top: 3%;
-            transform: scale(0.82);
-          }
-
-          .focus-dictator .node-security {
-            right: 2%;
-            top: 3%;
-            transform: scale(0.82);
-          }
-
-          .focus-dictator .node-loyalists {
-            bottom: 0;
-            transform: translateX(-50%) scale(0.82);
-          }
-
-          /* OTHER VIEWS: DICTATOR ABOVE PORTRAITS */
-
-          .focus-military .node-dictator,
-          .focus-security .node-dictator,
-          .focus-loyalists .node-dictator {
-            left: 50%;
-            top: 7%;
-            transform: translate(-50%, 0) scale(0.88);
-            z-index: 5;
-            opacity: 1;
-          }
-
-          /* SELECTED CIRCLE MOVES TO THE SIDE */
-
-          .focus-military .node-military,
-          .focus-security .node-security,
-          .focus-loyalists .node-loyalists {
-            top: 50%;
-            right: -2%;
-            left: auto;
-            bottom: auto;
-            transform: translateY(-50%) scale(0.85);
-            z-index: 5;
-            opacity: 1;
-          }
-
-          /* UNRELATED CIRCLES DISSOLVE */
-
-          .focus-security .node-military,
-          .focus-security .node-loyalists,
-          .focus-military .node-security,
-          .focus-military .node-loyalists,
-          .focus-loyalists .node-military,
-          .focus-loyalists .node-security {
-            opacity: 0;
-            pointer-events: none;
-            transform: scale(0.55);
-          }
-
-          /* PORTRAIT LAYOUTS */
-
-          .dictator-layout {
-            width: min(790px, 78%);
-            left: 53%;
-          }
-
-          .military-layout,
-          .security-layout,
-          .loyalists-layout {
-            width: min(760px, 70%);
-            left: 50%;
-            top: 58%;
-            transform: translate(-50%, -50%);
-          }
-
-          .focus-military .military-layout,
-          .focus-security .security-layout,
-          .focus-loyalists .loyalists-layout {
-            z-index: 2;
-          }
-
-          /* CONNECTOR VISIBILITY */
-
-          .focus-security .line-military,
-          .focus-security .line-loyalists,
-          .focus-military .line-security,
-          .focus-military .line-loyalists,
-          .focus-loyalists .line-military,
-          .focus-loyalists .line-security {
-            opacity: 0;
-          }
-
-          .focus-dictator .aop-connectors .line {
-            opacity: 0.3;
-          }
-
-          /* BACK TO FULL STRUCTURE BUTTON */
+          /* መዕጸዊ ቁልፊ */
 
           .aop-reset-button {
-            position: absolute;
-            z-index: 20;
-            bottom: 8px;
-            left: 50%;
-            transform: translateX(-50%);
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            min-height: 44px;
-            padding: 11px 21px;
+            gap: 9px;
+            min-height: 42px;
+            padding: 9px 17px;
             border: 1px solid rgba(228, 196, 124, 0.75);
             border-radius: 30px;
-            background: rgba(255, 255, 255, 0.12);
+            background: rgba(255, 255, 255, 0.1);
             color: #ffffff;
             font-size: 13px;
             font-weight: 700;
-            letter-spacing: 0.03em;
-            white-space: nowrap;
             cursor: pointer;
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            box-shadow: 0 5px 18px rgba(0, 0, 0, 0.18);
-            transition:
-              background 0.3s ease,
-              border-color 0.3s ease,
-              color 0.3s ease,
-              box-shadow 0.3s ease;
+            transition: background 0.3s ease, color 0.3s ease;
           }
 
           .aop-reset-button:hover {
             background: #c6a45c;
-            border-color: #e4c47c;
             color: #10263d;
-            box-shadow: 0 6px 22px rgba(198, 164, 92, 0.25);
           }
 
-          .aop-reset-button:focus-visible {
-            outline: 3px solid #ffffff;
-            outline-offset: 4px;
-          }
-
-          .aop-reset-arrow {
-            font-size: 21px;
+          .aop-reset-button span:first-child {
+            font-family: Arial, sans-serif;
+            font-size: 22px;
             line-height: 1;
           }
 
-          /* INSTRUCTIONS */
+          /* መብርሂ */
 
           .aop-instructions {
             min-height: 24px;
@@ -689,47 +542,40 @@ export default function ArchitectureOfPower() {
             color: #bdc9d4;
             text-align: center;
             font-size: 13px;
+            line-height: 1.9;
           }
 
           /* TABLET */
 
           @media (max-width: 900px) {
             .aop-stage {
-              min-height: 590px;
+              height: 540px;
             }
 
             .aop-circle {
               width: 120px;
               height: 120px;
+              padding: 12px;
             }
 
             .aop-circle span {
               font-size: 13px;
             }
 
+            .aop-details {
+              padding: 25px 10px;
+            }
+
             .aop-portrait-layout {
-              width: 75%;
               gap: 16px;
             }
 
             .aop-person h3 {
-              font-size: 15px;
+              font-size: 14px;
             }
 
             .aop-person p {
               font-size: 12px;
-            }
-
-            .focus-military .node-dictator,
-            .focus-security .node-dictator,
-            .focus-loyalists .node-dictator {
-              left: 50%;
-            }
-
-            .military-layout,
-            .security-layout,
-            .loyalists-layout {
-              width: 70%;
             }
           }
 
@@ -749,12 +595,14 @@ export default function ArchitectureOfPower() {
             }
 
             .aop-stage {
-              display: flex;
-              flex-direction: column;
+              display: grid;
+              grid-template-columns: repeat(2, minmax(0, 1fr));
+              justify-items: center;
               align-items: center;
-              gap: 20px;
+              gap: 22px 10px;
+              height: auto;
               min-height: 0;
-              padding: 10px 0 20px;
+              padding: 15px 0 25px;
             }
 
             .aop-connectors {
@@ -762,14 +610,23 @@ export default function ArchitectureOfPower() {
             }
 
             .aop-node {
-              position: relative;
-              inset: auto !important;
-              transform: none !important;
-              opacity: 1;
+              position: static;
+              inset: auto;
+              transform: none;
               width: 100%;
-              transition:
-                opacity 0.4s ease,
-                transform 0.4s ease;
+              display: flex;
+              justify-content: center;
+            }
+
+            .node-dictator,
+            .node-military,
+            .node-security,
+            .node-loyalists {
+              left: auto;
+              right: auto;
+              top: auto;
+              bottom: auto;
+              transform: none;
             }
 
             .aop-circle {
@@ -782,43 +639,31 @@ export default function ArchitectureOfPower() {
               font-size: 12px;
             }
 
-            /* DEFAULT MOBILE ORDER */
-
-            .node-dictator {
-              order: 1;
+            .aop-details {
+              margin-top: 5px;
+              padding: 22px 0;
             }
 
-            .node-military {
-              order: 2;
+            .aop-details-heading {
+              align-items: flex-start;
+              margin-bottom: 22px;
             }
 
-            .node-security {
-              order: 3;
+            .aop-details-heading h2 {
+              font-size: 19px;
+              line-height: 1.7;
             }
 
-            .node-loyalists {
-              order: 4;
+            .aop-reset-button {
+              flex-shrink: 0;
+              min-height: 40px;
+              padding: 8px 12px;
+              font-size: 11px;
             }
-
-            .aop-stage:not(.has-focus) .aop-node {
-              display: flex;
-            }
-
-            /* MOBILE PORTRAIT LAYOUT */
 
             .aop-portrait-layout {
-              position: relative;
-              inset: auto;
-              width: 100%;
-              left: auto;
-              top: auto;
-              transform: none;
-              display: grid;
               grid-template-columns: repeat(3, minmax(0, 1fr));
-              align-items: start;
-              gap: 10px;
-              order: 5;
-              animation: aopMobileAppear 0.4s ease both;
+              gap: 9px;
             }
 
             .aop-person {
@@ -832,13 +677,14 @@ export default function ArchitectureOfPower() {
 
             .aop-person h3 {
               margin-top: 9px;
-              font-size: 12px;
+              font-size: 11px;
+              line-height: 1.6;
               overflow-wrap: anywhere;
             }
 
             .aop-person p {
-              font-size: 11px;
-              line-height: 1.45;
+              font-size: 10px;
+              line-height: 1.7;
               overflow-wrap: anywhere;
             }
 
@@ -846,145 +692,14 @@ export default function ArchitectureOfPower() {
               transform: none;
             }
 
-            /* DICTATOR VIEW */
-
-            .dictator-layout {
-              order: 1;
-            }
-
-            .focus-dictator .node-dictator {
-              display: none;
-            }
-
-            .focus-dictator .node-military,
-            .focus-dictator .node-security,
-            .focus-dictator .node-loyalists {
-              opacity: 0.45;
-              transform: scale(0.9) !important;
-            }
-
-            /* MILITARY VIEW */
-
-            .focus-military .node-dictator,
-            .focus-military .node-military {
-              display: flex;
-            }
-
-            .focus-military .node-dictator {
-              order: 1;
-            }
-
-            .focus-military .node-military {
-              order: 2;
-            }
-
-            .focus-military .node-security,
-            .focus-military .node-loyalists,
-            .focus-security .node-military,
-            .focus-security .node-loyalists,
-            .focus-loyalists .node-military,
-            .focus-loyalists .node-security {
-              display: none;
-            }
-
-            .focus-military .military-layout {
-              order: 3;
-            }
-
-            /* SECURITY VIEW */
-
-            .focus-security .node-dictator,
-            .focus-security .node-security {
-              display: flex;
-            }
-
-            .focus-security .node-dictator {
-              order: 1;
-            }
-
-            .focus-security .node-security {
-              order: 2;
-            }
-
-            .focus-security .security-layout {
-              order: 3;
-            }
-
-            /* POLITICAL LOYALISTS VIEW */
-
-            .focus-loyalists .node-dictator,
-            .focus-loyalists .node-loyalists {
-              display: flex;
-            }
-
-            .focus-loyalists .node-dictator {
-              order: 1;
-            }
-
-            .focus-loyalists .node-loyalists {
-              order: 2;
-            }
-
-            .focus-loyalists .loyalists-layout {
-              order: 3;
-            }
-
-            /* MOBILE OVERRIDES FOR DESKTOP POSITIONS */
-
-            .focus-military .node-dictator,
-            .focus-security .node-dictator,
-            .focus-loyalists .node-dictator,
-            .focus-military .node-military,
-            .focus-security .node-security,
-            .focus-loyalists .node-loyalists {
-              left: auto;
-              right: auto;
-              top: auto;
-              bottom: auto;
-              transform: none;
-            }
-
-            .focus-military .military-layout,
-            .focus-security .security-layout,
-            .focus-loyalists .loyalists-layout {
-              width: 100%;
-              left: auto;
-              top: auto;
-              transform: none;
-            }
-
-            /* MOBILE RESET BUTTON */
-
-            .aop-reset-button {
-              position: relative;
-              inset: auto;
-              order: 6;
-              transform: none;
-              margin: 8px auto 0;
-              width: fit-content;
-              min-height: 46px;
-              padding: 12px 20px;
-              font-size: 12px;
-            }
-
             .aop-instructions {
-              line-height: 1.6;
+              font-size: 12px;
+              line-height: 1.8;
               padding: 0 8px;
             }
           }
 
           @keyframes aopAppear {
-            from {
-              opacity: 0;
-              transform: translate(-50%, -47%);
-            }
-            to {
-              opacity: 1;
-              transform: translate(-50%, -50%);
-            }
-          }
-
-          @keyframes aopMobileAppear {
             from {
               opacity: 0;
               transform: translateY(12px);
@@ -996,9 +711,9 @@ export default function ArchitectureOfPower() {
           }
 
           @media (prefers-reduced-motion: reduce) {
-            .aop-stage *,
-            .aop-stage *::before,
-            .aop-stage *::after {
+            .aop-section *,
+            .aop-section *::before,
+            .aop-section *::after {
               animation-duration: 0.01ms !important;
               transition-duration: 0.01ms !important;
             }

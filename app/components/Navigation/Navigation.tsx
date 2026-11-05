@@ -4,12 +4,6 @@
 import Link from "next/link";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
-import {
-  Facebook,
-  Instagram,
-  Youtube,
-  Send,
-} from "lucide-react";
 
 export interface MenuItem {
   href: string;
@@ -69,13 +63,13 @@ const menus: NavigationMenu[] = [
   },
 ];
 
-// Replace empty URLs with ANM's official social media addresses.
+// Add official ANM social media URLs when available.
 const socialLinks = [
-  { name: "Facebook", href: "", Icon: Facebook },
-  { name: "Instagram", href: "", Icon: Instagram },
-  { name: "YouTube", href: "", Icon: Youtube },
-  { name: "X", href: "", Icon: null },
-  { name: "Telegram", href: "", Icon: Send },
+  { name: "Facebook", href: "https://www.facebook.com/AGAAZIANISRAEL" },
+  { name: "Instagram", href: "" },
+  { name: "YouTube", href: "" },
+  { name: "X", href: "" },
+  { name: "Telegram", href: "" },
 ];
 
 export default function Navigation() {
@@ -87,10 +81,12 @@ export default function Navigation() {
   const isTigrinya =
     pathname === "/ti" || pathname.startsWith("/ti/");
 
+  // Corresponding English route
   const englishHref = isTigrinya
     ? pathname.replace(/^\/ti(?=\/|$)/, "") || "/"
     : pathname;
 
+  // Corresponding Tigrinya route
   const tigrinyaHref = isTigrinya
     ? pathname
     : pathname === "/"
@@ -109,6 +105,23 @@ export default function Navigation() {
   const supportLabel = isTigrinya
     ? "ደገፍን ወፈያን"
     : "Support and Donation";
+
+  const getSocialSymbol = (name: string) => {
+    switch (name) {
+      case "Facebook":
+        return "f";
+      case "Instagram":
+        return "◎";
+      case "YouTube":
+        return "▶";
+      case "X":
+        return "𝕏";
+      case "Telegram":
+        return "➤";
+      default:
+        return "";
+    }
+  };
 
   return (
     <header
@@ -281,6 +294,7 @@ export default function Navigation() {
             </Link>
           ))}
 
+          {/* SUPPORT BUTTON */}
           <Link
             href={supportHref}
             onClick={() => setMobileOpen(false)}
@@ -317,7 +331,7 @@ export default function Navigation() {
             </p>
 
             <div className="flex items-center gap-4">
-              {socialLinks.map(({ name, href, Icon }) => (
+              {socialLinks.map(({ name, href }) => (
                 <a
                   key={name}
                   href={href || undefined}
@@ -326,17 +340,20 @@ export default function Navigation() {
                   aria-label={name}
                   title={name}
                   aria-disabled={!href}
-                  className={`flex h-10 w-10 items-center justify-center border border-[#c9a45c]/50 text-white transition ${
-                    href
-                      ? "hover:bg-[#c9a45c] hover:text-[#142b45]"
-                      : "cursor-not-allowed opacity-50"
-                  }`}
+                  className="flex h-10 w-10 items-center justify-center rounded-full border border-white bg-white transition-colors hover:border-[#c9a45c] hover:bg-[#c9a45c]"
                 >
-                  {name === "X" ? (
-                    <span className="text-lg font-bold">𝕏</span>
-                  ) : Icon ? (
-                    <Icon size={19} strokeWidth={1.8} />
-                  ) : null}
+                  <span
+                    style={{
+                      color: "#142b45",
+                      display: "block",
+                      fontSize: "20px",
+                      fontWeight: 900,
+                      lineHeight: 1,
+                      fontFamily: "Arial, sans-serif",
+                    }}
+                  >
+                    {getSocialSymbol(name)}
+                  </span>
                 </a>
               ))}
             </div>
