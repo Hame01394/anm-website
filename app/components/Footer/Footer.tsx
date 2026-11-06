@@ -79,14 +79,14 @@ export default function Footer() {
             <p className="mt-3 max-w-xs text-xs leading-6 text-white/70">
               {isTigrinya ? (
                 <>
-                  ሃገርና። መጻኢና።
+                  ሃገርና። ክብረትና። መጻኢና።
                   <br />
                   ንሃገራዊ ሓድሽ ምሕዳስ፣ ክብሪ፣ ናጽነትን
                   ደሞክራስያዊ መጻኢን ዝተወፈየ ምንቅስቓስ።
                 </>
               ) : (
                 <>
-                  Our Nation. Our Future.
+                  Our Nation. Our Dignity. Our Future.
                   <br />
                   A movement dedicated to direct democracy, economic prosperity, and cultural revival.
                 </>
@@ -198,8 +198,8 @@ export default function Footer() {
 
           <p className="text-[11px] font-medium tracking-wide text-[#c9a45c]">
             {isTigrinya
-              ? "ሃገርና። መጻኢና።"
-              : "OUR NATION. OUR FUTURE."}
+              ? "ሃገርና። ኽብረትና። መጻኢና።"
+              : "OUR NATION. OUR DIGNITY. OUR FUTURE."}
           </p>
         </div>
       </div>

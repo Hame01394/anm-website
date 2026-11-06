@@ -315,24 +315,24 @@ export default function AboutPage() {
                     <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-2 sm:gap-5 lg:grid-cols-4">
             {[
               {
-                title: "Cultural Renaissance",
+                title: "Nation",
                 description:
                   "Preserving our history, Ge'ez language, culture, and Orit heritage.",
               },
               {
                 title: "Direct Democracy",
                 description:
-                  "Accountable leadership, constitutional government, and the rule of law.",
+                  "Popular sovereignty and accountable leadership.",
               },
               {
-                title: "Economic Prosperity",
+                title: "Economy",
                 description:
-                  "Free enterprise, industrialization, innovation, and national development.",
+                  "Enterprise, industrialization and prosperity.",
               },
               {
-                title: "National Sovereignty",
+                title: "Institutions",
                 description:
-                  "Recognizing the Tigrinya nation's right to self-determination, independence, and to shape its own political future.",
+                  "Constitutional government, rule of law and accountability.",
               },
             ].map((item) => (
               <div
