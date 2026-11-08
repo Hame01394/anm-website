@@ -66,7 +66,7 @@ const departments = [
     number: "04",
     name: "External Relations and Diplomacy",
     description: "International relations and external engagement.",
-    leader: "Asmerom Asmelash",
+    leader: "Asmerom Tesfahuney",
     position: "Head of External Relations",
     image: "/images/head-of-external-relations.png",
   },

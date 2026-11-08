@@ -58,9 +58,9 @@ const groups: Record<GroupId, Person[]> = {
       image: "/images/military-tekle-manjus.png",
     },
     {
-      name: "Military Commander 3",
+      name: "Teklai Habteselasie",
       description: "Senior military associate within the command structure.",
-      image: "/images/military-commander-3.png",
+      image: "/images/military-teklai-habteselasie.png",
     },
   ],
 
@@ -71,14 +71,14 @@ const groups: Record<GroupId, Person[]> = {
       image: "/images/security-abraha-kassa.png",
     },
     {
-      name: "Security Official 2",
+      name: "Weldezghi Bbahta",
       description: "Senior official within the national security apparatus.",
-      image: "/images/security-official-2.png",
+      image: "/images/security-col-weldezghi-bahta.png",
     },
     {
-      name: "Security Official 3",
+      name: "Ggaim Tesfamichael",
       description: "Senior official within the national security apparatus.",
-      image: "/images/security-official-3.png",
+      image: "/images/security-col-gaim-tesfamichael.png",
     },
   ],
 

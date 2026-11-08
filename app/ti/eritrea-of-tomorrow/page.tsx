@@ -1,1496 +1,965 @@
 "use client";
 
-import { useRef, useState } from "react";
+import React, { useId, useState } from "react";
 
-type GroupId = "dictator" | "military" | "security" | "loyalists";
+type DevelopmentArea = {
+  number: string;
+  title: string;
+  description: string;
+};
 
-type Person = {
-  name: string;
+type Pillar = {
+  number: string;
+  title: string;
+  subtitle: string;
   description: string;
   image: string;
+  areas: DevelopmentArea[];
 };
 
-type Category = {
-  id: string;
-  title: string;
-  subtopics: string[];
-};
-
-/* =========================================================
-   ኣቃውማ ስልጣን — ARCHITECTURE OF POWER
-========================================================= */
-
-const groups: Record<GroupId, Person[]> = {
-  dictator: [
-    {
-      name: "Isaias Afwerki",
-      description:
-        "ኣብ ልዕሊ መንግስቲን ትካላቱን ውልቃዊ ቁጽጽር ዘካይድ ቀንዲ ሰብ።",
-      image: "/images/isaias-afwerki-1.png",
-    },
-    {
-      name: "Saba Haile",
-      description:
-        "በዓልቲ ቤት ኢሳያስ ኣፈወርቂ፣ ኣብ ዙርያ ፕረዚደንት ዝርከብ ናይ ስድራቤት ውሽጣዊ ዓንኬል ኣባል።",
-      image: "/images/wife.png",
-    },
-    {
-      name: "Abraham Afewerki",
-      description:
-        "ወዲ ኢሳያስ ኣፈወርቂ፣ ኣባል ናይቲ ኣብ ዙርያ ፕረዚደንት ዝርከብ ስድራቤት።",
-      image: "/images/son.png",
-    },
-  ],
-
-  military: [
-    {
-      name: "Filipos Weldehyones",
-      description: "ሓለቓ ስታፍ ሓይልታት ምክልኻል።",
-      image: "/images/military-filios-woldeyohannes.png",
-    },
-    {
-      name: "Tekle Kiflay (Manjus)",
-      description: "ላዕለዋይ ወተሃደራዊ ኣዛዚ።",
-      image: "/images/military-tekle-manjus.png",
-    },
-    {
-      name: "Military Commander 3",
-      description: "ላዕለዋይ ወተሃደራዊ መሻርኽቲ ኣብ ኣወዳድባ ወተሃደራዊ ትእዛዝ።",
-      image: "/images/military-commander-3.png",
-    },
-  ],
-
-  security: [
-    {
-      name: "Abraha Kassa Nemariam",
-      description: "ሓላፊ ሃገራዊ ጸጥታ።",
-      image: "/images/security-abraha-kassa.png",
-    },
-    {
-      name: "Security Official 2",
-      description: "ላዕለዋይ ሓላፊ ኣብ መሓውር ሃገራዊ ጸጥታ።",
-      image: "/images/security-official-2.png",
-    },
-    {
-      name: "Security Official 3",
-      description: "ላዕለዋይ ሓላፊ ኣብ መሓውር ሃገራዊ ጸጥታ።",
-      image: "/images/security-official-3.png",
-    },
-  ],
-
-  loyalists: [
-    {
-      name: "Yemane Gebreab",
-      description: "ሓላፊ ፖለቲካዊ ጉዳያት ህግደፍ።",
-      image: "/images/political-yemane-gebreab.png",
-    },
-    {
-      name: "Yemane Gebremeskel",
-      description: "ሚኒስተር ዜና።",
-      image: "/images/political-yemane-gebremeskel.png",
-    },
-    {
-      name: "Hagos Ghebrehiwot",
-      description: "ሓላፊ ቁጠባዊ ጉዳያት ህግደፍ።",
-      image: "/images/political-hagos-gebrehiwot.png",
-    },
-  ],
-};
-
-const circleLabels: Record<GroupId, string> = {
-  dictator: "ኣምባገነንን ስድራቤቱን",
-  military: "ወተሃደራዊ ኣዘዝቲ",
-  security: "መሓውር ጸጥታ",
-  loyalists: "ፖለቲካዊ ደገፍቲ",
-};
-
-const groupDescriptions: Record<GroupId, string> = {
-  dictator: "ኣምባገነንን ስድራቤቱን",
-  military: "ላዕለዎት ወተሃደራዊ ኣዘዝቲ",
-  security: "ላዕለዎት ሓለፍቲ ጸጥታ",
-  loyalists: "ላዕለዎት ፖለቲካዊ ደገፍቲ",
-};
-
-/* =========================================================
-   ምፍራስ ኤርትራ — DESTRUCTION OF ERITREA
-========================================================= */
-
-const categories: Category[] = [
+const pillars: Pillar[] = [
   {
-    id: "social",
-    title: "ማሕበራዊ ዕንወት",
-    subtopics: [
-      "ምጉዳል ብዝሒ ህዝቢ",
-      "ምብትታን ስድራቤት",
-      "ምብትታን ገጠራትን ዓድታትን",
-      "ምጥፋእ ሰብኣዊ ዓቕሚ",
+    number: "01",
+    title: "ተኣማኖን ብቕዓት ዘለዎምን ትካላት",
+    subtitle:
+      "ተሓታትነት ዘለዎም፣ ሞያውያንን ናጻን ትካላት ምቛም",
+    description:
+      "ንረብሓ ውልቀሰባት ወይ ፖለቲካዊ ጉጅለታት ዘይኮነስ፣ ንህዝቢ ዘገልግሉ ትካላት ምህናጽ። እዚ ዓንዲ እዚ መሰረት ቅዋማዊ መንግስቲ፣ ሞያዊ ምምሕዳር ህዝባዊ ኣገልግሎት፣ ናጻ ፍትሒ፣ ግሉጽ ምምሕዳር ህዝባዊ ፋይናንስን ተሓታቲ ሃገራዊ መሪሕነትን ይምስርት።",
+    image: "/images/trustworthy-institutions.jpg",
+    areas: [
+      {
+        number: "01",
+        title: "ሃገራዊ መንግስቲ",
+        description:
+          "ስልጣኑ ብንጹር ዝተወሰነ፣ ደሞክራስያዊ ሕጋዊ መሰረት ዘለዎን ንህዝቢ ተሓታቲ ዝኾነን ቅዋማዊ ሃገራዊ መንግስቲ ምቛም።",
+      },
+      {
+        number: "02",
+        title: "ዞባዊ መንግስታት",
+        description:
+          "ንጹር ሓላፍነት፣ ናይ ከባቢ ውክልናን ብቑዕ ስልጣን ውሳነ ምሃብን ዘለዎም ሓያላት ዞባዊ መንግስታት ምምዕባል።",
+      },
+      {
+        number: "03",
+        title: "ከባቢያዊ ምምሕዳራትን ምምሕዳር ከተማታትን",
+        description:
+          "ንድሌታት ማሕበረሰባቶም ብቐጥታ ዝምልሱ ውጽኢታውያን ከባቢያዊ ምምሕዳራትን ምምሕዳር ከተማታትን ምቛም።",
+      },
+      {
+        number: "04",
+        title: "ሃገራዊ ባንክን ትካላት ፋይናንስን",
+        description:
+          "ርግኣት ገንዘብ፣ ወፍሪን ቁጠባዊ ምዕባለን ዝድግፉ ናጻን ሞያውያንን ትካላት ፋይናንስ ምህናጽ።",
+      },
+      {
+        number: "05",
+        title: "ህዝባዊ ቤት ሃብትን ሃገራዊ ባጀትን",
+        description:
+          "ግሉጽ ህዝባዊ ፋይናንስ፣ ሓላፍነታዊ ባጀት ምድላው፣ ተሓታቲ ወጻኢታትን ግቡእ ምምሕዳር ሃገራዊ ጸጋታትን ምርግጋጽ።",
+      },
+      {
+        number: "06",
+        title: "ናጻ ፍርዳዊ ስርዓት",
+        description:
+          "ቅዋማዊ መሰላት ዝሕሉ፣ ሕጊ ብማዕረ ዝትግብርን ንኹሉ ፍትሒ ክረክብ ዘረጋግጽን ናጻ ፍርዳዊ ስርዓት ምቛም።",
+      },
+      {
+        number: "07",
+        title: "ሞያዊ ሲቪላዊ ኣገልግሎት",
+        description:
+          "ብቕዓት፣ ፖለቲካዊ ገለልተኛነትን ብብቕዓት ዝምርኮስ ምምሕዳርን ዘለዎ፣ ውጽኢታዊ ህዝባዊ ኣገልግሎት ዝህብ ምምሕዳር ህዝባዊ ሰራሕተኛታት ምህናጽ።",
+      },
+      {
+        number: "08",
+        title: "ምክልኻል፣ ፖሊስን ጸጥታን",
+        description:
+          "ኣብ ትሕቲ ቅዋማዊ ሲቪላዊ ስልጣን ዝሰርሑ፣ ሞያውያንን ብሕጊ ተሓተትነት ዘለዎምን ትካላት ምክልኻል፣ ፖሊስን ጸጥታን ምቛም።",
+      },
+      {
+        number: "09",
+        title: "ናጻ ትካላት ምርጫ",
+        description:
+          "እሙናት፣ ግሉጻትን ተወዳዳሪን ምርጫታት ንምምሕዳር ሓላፍነት ዝወስዳ ገለልተኛ ትካላት ምርጫ ምቛም።",
+      },
+      {
+        number: "10",
+        title: "ናጻ ሚድያን ሓበሬታን",
+        description:
+          "ናጽነት ምግላጽ ሓሳብ ምሕላው፣ ናጻ ሚድያን ህዝባዊ ሓበሬታን ብናጽነት ክነጥፉ ዝኽእሉሉ ኩነታት ምፍጣር።",
+      },
+      {
+        number: "11",
+        title: "ሃገራዊ ትካላት ቁጽጽር",
+        description:
+          "ምምሕዳር ህዝባዊ ኣገልግሎት ዝቆጻጸራ፣ ጌጋ ኣጠቓቕማ ስልጣን ዝምርምራን ቅዋማዊ ምምሕዳር ዝሕልዋን ናጻ ትካላት ምቛም።",
+      },
+      {
+        number: "12",
+        title: "ህዝባዊ ተሓታትነት",
+        description:
+          "ህዝባዊ ሓለፍትን ትካላትን ብውሳነታቶም፣ ተግባራቶምን ኣጠቓቕማ ህዝባዊ ጸጋታትን ተሓተትቲ ምዃኖም ምርግጋጽ።",
+      },
     ],
   },
   {
-    id: "economic",
-    title: "ቁጠባዊ ዕንወት",
-    subtopics: [
-      "ሸለልትነት መሰረተ ልምዓት",
-      "ማይን ኤለክትሪክን",
-      "መጎዓዝያ",
-      "ቱሪዝም",
-      "ቁጠባዊ ምዝሕታል",
-      "ምምርኳስ ኣብ ገንዘብ ስደተኛታትን ማዕድንን",
+    number: "02",
+    title: "ሓያልን ብልጽግና ዝመልኦን ቁጠባ",
+    subtitle:
+      "ምህርታዊት፣ ዝተኣሳሰረትን ቁጠባዊ ናጽነት ዘለዋን ኤርትራ ምህናጽ",
+    description:
+      "ዕድላት ዝፈጥር፣ ስራሕ ዝፈጥርን ደረጃ ናብራ ዘመሓይሽን ዝተፈላለየ፣ ምህርታዊን ተወዳዳሪን ቁጠባ ምምዕባል። እዚ ዓንዲ እዚ ኣብ ኢንዱስትሪያዊ ምዕባለ፣ ዘመናዊ ትሕተ-ቅርጺ፣ ሕርሻ፣ ጸዓት፣ ንግዲ፣ ምዕባለ ባሕራዊ ንጥፈታትን ሓድሽ ቴክኖሎጂን ከም መሰረት ነዊሕ ግዜ ሃገራዊ ብልጽግና የተኩር።",
+    image: "/images/state-building.jpg",
+    areas: [
+      {
+        number: "01",
+        title: "ሃገራዊ ቁጠባ",
+        description:
+          "ስራሕ ዝፈጥር፣ ትካላት ንግዲ ዝተባብዕን ደረጃ ናብራ ዘመሓይሽን ዝተፈላለየ፣ ምህርታዊን ተወዳዳሪን ሃገራዊ ቁጠባ ምምዕባል።",
+      },
+      {
+        number: "02",
+        title: "ወደባትን ባሕራዊ ትሕተ-ቅርጽን",
+        description:
+          "ስትራተጂያዊ ገምገም ቀይሕ ባሕሪ ኤርትራ፣ ዘመናዊ ወደባት፣ ባሕራዊ ኣገልግሎታትን ኣህጉራዊ ትሕተ-ቅርጺ ንግድን ምምዕባል።",
+      },
+      {
+        number: "03",
+        title: "መዓርፎ ነፈርትን ኣቪየሽንን",
+        description:
+          "ኣህጉራዊ ርክባት ንምሕያል፣ መዓርፎ ነፈርቲ፣ ትሕተ-ቅርጺ ኣቪየሽንን ኣገልግሎታት መጓዓዝያ ኣየርን ምዝማን።",
+      },
+      {
+        number: "04",
+        title: "ፈኰስቲ ኢንዱስትሪታት",
+        description:
+          "ምፍራይ ኣቑሑት፣ ምምስራሕ ጥረ-ነገራት፣ ጨርቃጨርቂ፣ ምፍራይ መግብን ንኣሽቱን ማእከሎትን ኢንዱስትሪያዊ ትካላትን ምትብባዕ።",
+      },
+      {
+        number: "05",
+        title: "ከበድቲ ኢንዱስትሪታት",
+        description:
+          "ሓጺን፣ ናይ ህንጻ ንብረታት፣ ማሽነሪታትን ምምስራሕ ማዕድናትን ዝሓዘ ዓቢ ኢንዱስትሪያዊ ምዕባለ ዝድግፍ መሰረት ምህናጽ።",
+      },
+      {
+        number: "06",
+        title: "መጓዓዝያን ርክባትን",
+        description:
+          "ከተማታት፣ ከተማታት ንኡሳን፣ ወደባትን ገጠራዊ ማሕበረሰባትን ብዘመናዊ ጽርግያታት፣ ሓዲድ ባቡር፣ ህዝባዊ መጓዓዝያን መርበባት ሎጂስቲክስን ምትእስሳር።",
+      },
+      {
+        number: "07",
+        title: "ጸዓትን ትሕተ-ቅርጽን",
+        description:
+          "እሙን ኤሌክትሪክ፣ ተሓዳሲ ጸዓት፣ ስርዓታት ማይ፣ ቴሌኮሙኒኬሽንን ኣገደስቲ ሃገራዊ ትሕተ-ቅርጺታትን ምስፋሕ።",
+      },
+      {
+        number: "08",
+        title: "ሕርሻን ውሕስነት ምግብን",
+        description:
+          "ሃገራዊ ውሕስነት ምግቢ ንምሕያል፣ ሕርሻ፣ መስኖ፣ ምርባሕ እንስሳትን ምምስራሕ ምግብን ምዝማን።",
+      },
+      {
+        number: "09",
+        title: "ዲጂታላዊ ቁጠባ",
+        description:
+          "ዲጂታላዊ ትሕተ-ቅርጺ፣ ቴክኖሎጂ፣ ምህዞ፣ ዘመናዊ ርክባትን ኣብ ፍልጠት ዝተመርኮሰ ቁጠባ ዘለዉ ዕድላትን ምምዕባል።",
+      },
     ],
   },
   {
-    id: "military",
-    title: "ወተሃደራዊ ዕንወት",
-    subtopics: [
-      "ዘይተወሰነ ግዜ ሃገራዊ ኣገልግሎት",
-      "ዘይዘመነ ወተሃደራዊ ሓይሊ",
-      "ምስ ዕድመ ዝደፍኡ መራሕቲ",
-      "ሕጽረት ሞያዊ ምዕባለ",
-      "ዘይእኹል ደሞዝን ጡረታን",
-      "ምውታር ሕብረተሰብ",
-    ],
-  },
-  {
-    id: "environmental",
-    title: "ከባብያዊ ዕንወት",
-    subtopics: [
-      "ጉድኣት ማዕድን",
-      "ምብስባስ መሬት",
-      "ምጉዳል ሃብቲ ማይ",
-      "ብከላ",
-      "ምጥፋእ ብዙሕነት ህይወታዊ ዓይነታት",
-      "ተቓላዕነት ንለውጢ ክሊማ",
-      "ሸለልትነት ከባቢ",
-    ],
-  },
-  {
-    id: "rights",
-    title: "ምግሃስ ሰብኣዊ መሰላት",
-    subtopics: [
-      "ብዘይ ሕጋዊ መሰረት ምእሳር",
-      "ብግዲ ምስዋር ሰባት",
-      "ስቅያት",
-      "ፖለቲካዊ ማእሰርቲ",
-      "ምስጓግ ሃይማኖታት",
-      "ግዱድ ጉልበታዊ ስራሕ",
-      "ምጭፍላቕ ናጽነታት",
-      "ዘይምህላው ፍትሒ",
+    number: "03",
+    title: "ሃገራዊ ክብሪ፦ ባህላዊ ሕዳሰን ሃገራዊ ሓድነትን",
+    subtitle:
+      "ሃገራዊ መንነት፣ ባህላዊ ውርሻን ሓባራዊ ስምዒት ተወናንነትን ምሕዳስ",
+    description:
+      "ታሪኻዊ ዝኽሪ ብምዕቃብ፣ ትምህርቲ ብምሕያል፣ ባህላዊ ውርሻ ብምክልኻልን ፈጠራ ብምትብባዕን እምነት ዘለዋን ብባህሊ ህያውትን ሃገር ምህናጽ። ብልጽግና ዝመልኦ ሃገር ሓያል ስምዒት መንነት፣ ተወናንነት፣ ታሪኻዊ ንቕሓትን ሓባራዊ ባህላዊ ውርሻን ከም ዘድልዮ እዚ ዓንዲ የረጋግጽ።",
+    image: "/images/nation-building.jpg",
+    areas: [
+      {
+        number: "01",
+        title: "ባህላዊ ሕዳሰ",
+        description:
+          "ባህላዊ ልውውጥን ፈጠራን እናተባብዐ፣ ባህላዊ ህይወት፣ ልምድታት፣ ቋንቋታትን ኣእምሮኣዊ ውርሻን ኤርትራ ምሕዳስ።",
+      },
+      {
+        number: "02",
+        title: "ሙዚየማትን ሃገራዊ ውርሻን",
+        description:
+          "ታሪኻዊን ኣርኪዮሎጂያዊን ውርሻ ሃገር ንምዕቃብን ንምቕራብን ሙዚየማትን ትካላት ውርሻን ምቛምን ምምዕባልን።",
+      },
+      {
+        number: "03",
+        title: "ቤተ-መጻሕፍትን ሃገራዊ መዛግብትን",
+        description:
+          "ፍልጠት፣ ሰነዳትን ታሪኻዊ መዛግብትን ንምዕቃብ ክፉታት ቤተ-መጻሕፍቲ፣ ማእከላት ምርምርን ሃገራዊ መዛግብትን ምቛም።",
+      },
+      {
+        number: "04",
+        title: "ሃይማኖታዊ ውርሻ",
+        description:
+          "ታሪኻውያን ሃይማኖታዊ ትካላት፣ ልምድታት፣ ቅዱሳት ቦታታትን ኣበርክቶኦም ኣብ ባህላዊ ውርሻ ሃገርን ምሕላው።",
+      },
+      {
+        number: "05",
+        title: "ታሪኽን ትምህርትን",
+        description:
+          "ታሪኻዊ ምርምር፣ ጽሬት ዘለዎ ትምህርትን ብዛዕባ ሕሉፍ ታሪኽ ሃገርን ኣብ ዓለም ዘለዋ ቦታን ዝዓሞቐ ርድኢትን ምትብባዕ።",
+      },
+      {
+        number: "06",
+        title: "ስነ-ጥበብን ፈጠራን",
+        description:
+          "ስነ-ጽሑፍ፣ ሙዚቃ፣ ስነ-ጥበብ ምስሊ፣ ፊልም፣ ህንጻን ካልኦት ዓይነታት ስነ-ጥበባዊን ባህላዊን መግለጺታትን ምድጋፍ።",
+      },
+      {
+        number: "07",
+        title: "ሃገራዊ መንነትን ሓድነትን",
+        description:
+          "ኣብ ታሪኻዊ ንቕሓት፣ ባህላዊ ብዙሕነት፣ ሲቪካዊ ተወናንነትን ሓድሕዳዊ ኣኽብሮትን ዝተመርኮሰ ሓባራዊ ሃገራዊ መንነት ምሕያል።",
+      },
     ],
   },
 ];
 
-/* =========================================================
-   ስእላዊ መግለጺ ሰባት
-========================================================= */
+type CircleItem = {
+  title: string;
+  shortTitle: string;
+  secondLine: string;
+  description: string;
+  path: string;
+  textX: number;
+  textY: number;
+  descriptionX: number;
+  descriptionY: number;
+  moveX: number;
+  moveY: number;
+  target: string;
+};
 
-function Portrait({
-  person,
+function SectionLabel({
+  children,
 }: {
-  person: Person;
+  children: React.ReactNode;
 }) {
   return (
-    <article className="aop-person">
-      <div className="aop-photo">
-        <img src={person.image} alt={person.name} />
+    <p className="mb-4 text-xs font-bold uppercase tracking-[0.25em] text-[#a77d32]">
+      {children}
+    </p>
+  );
+}
+
+// FULL-WIDTH WHITE FRAMEWORK HEADING
+function NationalFrameworkHeading() {
+  return (
+    <section className="w-full border-b border-[#e7e0d3] bg-white px-5 py-14 md:px-10 md:py-20">
+      <div className="mx-auto max-w-7xl text-center">
+        <SectionLabel>ንኤርትራ ክንሃንጻ ኢና</SectionLabel>
+
+        <h2 className="text-3xl font-bold leading-tight text-[#142b45] md:text-5xl">
+          ሓያል ቁጠባ። ሃገራዊ ክብሪ። ተኣማኖን ብቕዓት ዘለዎምን ትካላት።
+        </h2>
+
+        <div className="mx-auto mt-6 h-1 w-20 bg-[#c9a45c]" />
+
+        <p className="mx-auto mt-6 max-w-3xl text-base leading-8 text-[#596779] md:text-lg">
+          ቁጠባ ኤርትራ ክንሃንጽ፣ ሃገራዊ መንነትና ከነሐድስ፣
+          ክብርና ክንመልስ፣ ደሞክራስያዊ ትካላት ክንምስርት
+          ንህዝቢ ዘገልግሉን ህዝቢ ዘበርትዑን።
+        </p>
+      </div>
+    </section>
+  );
+}
+
+// INTERACTIVE THREE-PILLAR CIRCLE
+function ThreePillarCircle() {
+  const [hovered, setHovered] = useState<number | null>(null);
+  const [selected, setSelected] = useState<number | null>(null);
+
+  const uniqueId = useId().replace(/:/g, "");
+  const clipId = `eritreaCircleClip-${uniqueId}`;
+  const shadowId = `threePillarShadow-${uniqueId}`;
+
+  const activePillar = hovered ?? selected;
+
+  const circleItems: CircleItem[] = [
+    {
+      title: pillars[0].title,
+      shortTitle: "ተኣማኒ",
+      secondLine: "ትካላት",
+      description:
+        "ቅዋማዊ መንግስቲ፣ ናጻ ትካላት፣ ሞያዊ ህዝባዊ ኣገልግሎትን ህዝባዊ ተሓታትነትን።",
+      path: "M250 250 L250 40 A210 210 0 0 1 431.9 355 Z",
+      textX: 345,
+      textY: 165,
+      descriptionX: 285,
+      descriptionY: 125,
+      moveX: 155,
+      moveY: -125,
+      target: "pillar-01",
+    },
+    {
+      title: pillars[1].title,
+      shortTitle: "ሓያል",
+      secondLine: "ቁጠባ",
+      description:
+        "ኢንዱስትሪያዊ ምዕባለ፣ ትሕተ-ቅርጺ፣ ሕርሻ፣ ንግዲ፣ ጸዓትን ቁጠባዊ ዕድላትን።",
+      path: "M250 250 L431.9 355 A210 210 0 0 1 68.1 355 Z",
+      textX: 250,
+      textY: 345,
+      descriptionX: 170,
+      descriptionY: 265,
+      moveX: 0,
+      moveY: 165,
+      target: "pillar-02",
+    },
+    {
+      title: pillars[2].title,
+      shortTitle: "ሃገራዊ",
+      secondLine: "ክብሪ",
+      description:
+        "ባህላዊ ውርሻ፣ ሃገራዊ መንነት፣ ታሪኻዊ ዝኽሪ፣ ትምህርትን ሓባራዊ ተወናንነትን።",
+      path: "M250 250 L68.1 355 A210 210 0 0 1 250 40 Z",
+      textX: 165,
+      textY: 165,
+      descriptionX: 55,
+      descriptionY: 125,
+      moveX: -155,
+      moveY: -125,
+      target: "pillar-03",
+    },
+  ];
+
+  const goToPillar = (target: string) => {
+    document.getElementById(target)?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  };
+
+  const handlePillarClick = (index: number) => {
+    const item = circleItems[index];
+
+    if (selected === index) {
+      setSelected(null);
+      setHovered(null);
+      goToPillar(item.target);
+      return;
+    }
+
+    setSelected(index);
+    setHovered(index);
+  };
+
+  return (
+    <section className="w-full overflow-visible bg-[#142b45] px-5 py-16 md:px-10 md:py-24">
+      <div className="mx-auto max-w-7xl">
+        <div className="flex flex-col items-center">
+          <div
+            className="relative w-full max-w-[950px]"
+            onPointerLeave={() => setHovered(null)}
+          >
+            <svg
+              viewBox="0 0 500 500"
+              className="h-auto w-full overflow-visible"
+              overflow="visible"
+              role="group"
+              aria-label="ኣብ ሰለስተ ዓንድታት ዝተመርኮሰ ተሳታፊ ስእላዊ መግለጺ"
+            >
+              <defs>
+                <clipPath id={clipId}>
+                  <circle cx="250" cy="250" r="210" />
+                </clipPath>
+
+                <filter
+                  id={shadowId}
+                  x="-80%"
+                  y="-80%"
+                  width="260%"
+                  height="260%"
+                >
+                  <feDropShadow
+                    dx="0"
+                    dy="8"
+                    stdDeviation="8"
+                    floodColor="#000000"
+                    floodOpacity="0.35"
+                  />
+                </filter>
+              </defs>
+
+              {/* ERITREA MAP BACKGROUND */}
+              <g clipPath={`url(#${clipId})`}>
+                <image
+                  href="https://upload.wikimedia.org/wikipedia/commons/3/32/SVG-Koort_Eritrea.svg"
+                  x="105"
+                  y="55"
+                  width="290"
+                  height="390"
+                  preserveAspectRatio="xMidYMid meet"
+                  opacity="0.30"
+                  style={{
+                    filter:
+                      "brightness(0) saturate(100%) invert(72%) sepia(33%) saturate(550%) hue-rotate(7deg) brightness(95%) contrast(90%)",
+                  }}
+                />
+
+                <rect
+                  x="40"
+                  y="40"
+                  width="420"
+                  height="420"
+                  fill="#142b45"
+                  opacity="0.12"
+                />
+              </g>
+
+              {/* DESCRIPTIONS UNDER THE SECTORS */}
+              {circleItems.map((item, index) => {
+                const isActive = activePillar === index;
+
+                return (
+                  <g
+                    key={`description-${index}`}
+                    opacity={isActive ? 1 : 0}
+                    pointerEvents="none"
+                    style={{
+                      transition: "opacity 450ms ease",
+                    }}
+                  >
+                    <foreignObject
+                      x={item.descriptionX}
+                      y={item.descriptionY}
+                      width="160"
+                      height="150"
+                    >
+                      <div
+                        className="flex h-full w-full flex-col items-center justify-center px-2 py-2 text-center"
+                        style={{
+                          boxSizing: "border-box",
+                          overflow: "hidden",
+                        }}
+                      >
+                        <p
+                          style={{
+                            color: "#e6c987",
+                            fontSize: "12px",
+                            fontWeight: 800,
+                            lineHeight: 1.3,
+                            marginBottom: "8px",
+                          }}
+                        >
+                          {item.title}
+                        </p>
+
+                        <p
+                          style={{
+                            color: "#ffffff",
+                            fontSize: "10px",
+                            lineHeight: 1.5,
+                            fontWeight: 500,
+                          }}
+                        >
+                          {item.description}
+                        </p>
+                      </div>
+                    </foreignObject>
+                  </g>
+                );
+              })}
+
+              {/* THREE OUTWARD-MOVING WHITE SECTORS */}
+              {circleItems.map((item, index) => {
+                const isActive = activePillar === index;
+
+                return (
+                  <g key={`sector-${index}`}>
+                    <g
+                      style={{
+                        transform: isActive
+                          ? `translate(${(item.moveX / 500) * 100}%, ${(item.moveY / 500) * 100}%)`
+                          : "translate(0%, 0%)",
+                        transformBox: "view-box",
+                        transformOrigin: "center",
+                        transition:
+                          "transform 750ms cubic-bezier(0.2, 0.8, 0.2, 1)",
+                        filter: isActive
+                          ? `url(#${shadowId})`
+                          : "none",
+                      }}
+                    >
+                      <path
+                        d={item.path}
+                        fill="#ffffff"
+                        stroke="#c9a45c"
+                        strokeWidth="3"
+                        strokeLinejoin="round"
+                      />
+
+                      {!isActive && (
+                        <>
+                          <text
+                            x={item.textX}
+                            y={item.textY}
+                            fill="#142b45"
+                            textAnchor="middle"
+                            dominantBaseline="middle"
+                            fontSize="12"
+                            fontWeight="800"
+                            letterSpacing="1"
+                            pointerEvents="none"
+                          >
+                            {item.shortTitle}
+                          </text>
+
+                          <text
+                            x={item.textX}
+                            y={item.textY + 19}
+                            fill="#142b45"
+                            textAnchor="middle"
+                            dominantBaseline="middle"
+                            fontSize="10"
+                            fontWeight="800"
+                            letterSpacing="0.6"
+                            pointerEvents="none"
+                          >
+                            {item.secondLine}
+                          </text>
+                        </>
+                      )}
+                    </g>
+                  </g>
+                );
+              })}
+
+              {/* FIXED INTERACTION AREAS */}
+              {circleItems.map((item, index) => (
+                <path
+                  key={`interaction-${index}`}
+                  d={item.path}
+                  fill="transparent"
+                  stroke="transparent"
+                  role="button"
+                  tabIndex={0}
+                  aria-label={`ዳህስስ ${item.title}`}
+                  aria-pressed={selected === index}
+                  style={{ cursor: "pointer" }}
+                  onPointerEnter={() => setHovered(index)}
+                  onFocus={() => setHovered(index)}
+                  onBlur={() => setHovered(null)}
+                  onClick={() => handlePillarClick(index)}
+                  onKeyDown={(event) => {
+                    if (event.key === "Enter" || event.key === " ") {
+                      event.preventDefault();
+                      handlePillarClick(index);
+                    }
+                  }}
+                />
+              ))}
+            </svg>
+          </div>
+
+          <p className="mt-7 max-w-xl text-center text-xs leading-6 tracking-wide text-white/65">
+            ነፍሲ ወከፍ ዓንዲ ዳህስሱ። እንሃንጾ መጻኢ ንምርኣይ ሓደ ክፋል ምረጹ።
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// DEVELOPMENT AREA CARD
+function DevelopmentAreaCard({
+  area,
+}: {
+  area: DevelopmentArea;
+}) {
+  return (
+    <article className="border border-[#e7e0d3] bg-[#f8f5ed] p-5 transition duration-300 hover:border-[#c9a45c] hover:shadow-sm md:p-6">
+      <div className="mb-4 flex items-center gap-3">
+        <span className="text-xs font-bold tracking-[0.15em] text-[#a77d32]">
+          {area.number}
+        </span>
+
+        <div className="h-px flex-1 bg-[#ded8ca]" />
       </div>
 
-      <h3>{person.name}</h3>
-      <p>{person.description}</p>
+      <h4 className="mb-3 text-lg font-bold text-[#142b45]">
+        {area.title}
+      </h4>
+
+      <p className="text-sm leading-7 text-[#596779]">
+        {area.description}
+      </p>
     </article>
   );
 }
 
-/* =========================================================
-   ክቢ መምረጺ
-========================================================= */
-
-function Circle({
-  group,
-  active,
-  onActivate,
-  onHover,
+// EXPANDABLE PILLAR SECTION
+function PillarSection({
+  pillar,
+  isOpen,
+  onToggle,
 }: {
-  group: GroupId;
-  active: boolean;
-  onActivate: () => void;
-  onHover: (group: GroupId) => void;
+  pillar: Pillar;
+  isOpen: boolean;
+  onToggle: () => void;
 }) {
   return (
-    <button
-      type="button"
-      className={`aop-circle aop-${group} ${
-        active ? "is-active" : ""
-      }`}
-      onMouseEnter={() => onHover(group)}
-      onClick={onActivate}
-      aria-pressed={active}
-      aria-label={`ን${circleLabels[group]} ዳህስ`}
+    <article
+      id={`pillar-${pillar.number}`}
+      className="w-full scroll-mt-24 overflow-hidden"
     >
-      <span>{circleLabels[group]}</span>
-    </button>
+      {/* WHITE HORIZONTAL RECTANGLE */}
+      <button
+        type="button"
+        onClick={onToggle}
+        aria-expanded={isOpen}
+        aria-controls={`pillar-content-${pillar.number}`}
+        className="group flex min-h-[88px] w-full items-center justify-between gap-5 bg-white px-5 py-5 text-left transition-colors duration-300 hover:bg-[#f8f5ed] md:min-h-[100px] md:px-9"
+      >
+        <div className="flex min-w-0 items-center gap-5 md:gap-8">
+          <span className="shrink-0 text-sm font-bold tracking-[0.2em] text-[#a77d32]">
+            {pillar.number}
+          </span>
+
+          <h2 className="text-lg font-bold leading-snug text-[#142b45] md:text-2xl">
+            {pillar.title}
+          </h2>
+        </div>
+
+        {/* GOLD INVERTED-L CONTROL */}
+        <span
+          className="flex h-10 w-10 shrink-0 items-center justify-center bg-[#c9a45c] transition-colors duration-300 group-hover:bg-[#d8b873] md:h-12 md:w-12"
+          aria-hidden="true"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            className={`h-6 w-6 text-[#142b45] transition-transform duration-500 ${
+              isOpen ? "rotate-90" : "rotate-0"
+            }`}
+            fill="none"
+          >
+            <path
+              d="M6 5 H18 V17"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinecap="square"
+              strokeLinejoin="miter"
+            />
+          </svg>
+        </span>
+      </button>
+
+      {/* EXPANDABLE CONTENT */}
+      <div
+        id={`pillar-content-${pillar.number}`}
+        className={`grid transition-[grid-template-rows,opacity] duration-700 ease-in-out ${
+          isOpen
+            ? "grid-rows-[1fr] opacity-100"
+            : "grid-rows-[0fr] opacity-0"
+        }`}
+        aria-hidden={!isOpen}
+        inert={!isOpen}
+      >
+        <div className="min-h-0 overflow-hidden">
+          <div className="border-t border-[#e7e0d3] bg-white">
+            {/* PILLAR IMAGE */}
+            <div className="relative h-64 overflow-hidden bg-[#10263d] md:h-80">
+              <img
+                src={pillar.image}
+                alt={pillar.title}
+                className="h-full w-full object-cover"
+                loading="lazy"
+              />
+
+              <div className="absolute inset-0 bg-gradient-to-t from-[#091725]/65 to-transparent" />
+
+              <div className="absolute bottom-6 left-6 md:bottom-8 md:left-10">
+                <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#e2c47e]">
+                  ኤርትራ ናይ ጽባሕ
+                </span>
+              </div>
+            </div>
+
+            {/* STRATEGIC VISION */}
+            <div className="px-6 py-9 md:px-10 md:py-12">
+              <div className="mb-10 max-w-4xl">
+                <SectionLabel>ስትራተጂያዊ ራእይ</SectionLabel>
+
+                <p className="text-base leading-8 text-[#42536a] md:text-lg">
+                  {pillar.description}
+                </p>
+              </div>
+
+              {/* DEVELOPMENT FRAMEWORK */}
+              <div className="mb-7 flex flex-col gap-3 border-b border-[#ded8ca] pb-5 sm:flex-row sm:items-end sm:justify-between">
+                <div>
+                  <SectionLabel>ማዕቀፍ ምዕባለ</SectionLabel>
+
+                  <h3 className="text-2xl font-bold text-[#142b45] md:text-3xl">
+                    ቀንዲ ዓውድታት ምዕባለ
+                  </h3>
+                </div>
+
+                <p className="text-sm text-[#8a795b]">
+                  {pillar.areas.length} ስትራተጂያዊ ዓውድታት
+                </p>
+              </div>
+
+              {/* DEVELOPMENT AREA CARDS */}
+              <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+                {pillar.areas.map((area) => (
+                  <DevelopmentAreaCard
+                    key={`${pillar.number}-${area.number}`}
+                    area={area}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
   );
 }
 
-/* =========================================================
-   ቀንዲ ገጽ — DICTATORSHIP
-========================================================= */
+// MAIN PAGE
+export default function EritreaOfTomorrow() {
+  const videoSrc = "/videos/eritrea-of-tomorrow.mp4";
 
-export default function DictatorshipPage() {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
+  // ONE OPEN PILLAR AT A TIME
+  const [openPillar, setOpenPillar] = useState<string | null>(null);
 
-  const playVideo = async () => {
-    if (!videoRef.current) return;
-
-    try {
-      await videoRef.current.play();
-      setIsPlaying(true);
-    } catch (error) {
-      console.error("Video playback could not start:", error);
-    }
-  };
-
-  const [activeGroup, setActiveGroup] = useState<GroupId | null>(null);
-
-  const activate = (group: GroupId) => {
-    setActiveGroup((current) =>
-      current === group ? null : group
+  const togglePillar = (number: string) => {
+    setOpenPillar((current) =>
+      current === number ? null : number
     );
   };
 
-  const handleMouseEnter = (group: GroupId) => {
-    if (
-      typeof window !== "undefined" &&
-      window.matchMedia("(hover: hover)").matches
-    ) {
-      setActiveGroup(group);
-    }
-  };
-
-  const [activeCategory, setActiveCategory] = useState<string | null>(
-    null
-  );
-
-  const [activeTopic, setActiveTopic] = useState<string | null>(null);
-
-  const selectedCategory = categories.find(
-    (category) => category.id === activeCategory
-  );
-
   return (
-    <main className="w-full overflow-hidden">
-      {/* =====================================================
-          1 — ሓፈሻዊ መእተዊ
-      ===================================================== */}
-
-      <section className="relative flex min-h-screen w-full items-center justify-center overflow-hidden bg-[#101f35] text-white">
+    <main className="min-h-screen bg-white text-[#142b45]">
+      {/* FULL-WIDTH VIDEO HERO */}
+      <section
+        className="relative flex min-h-[75svh] w-full items-center justify-center overflow-hidden bg-[#091725] md:min-h-[85svh]"
+        aria-labelledby="tomorrow-hero-title"
+      >
         <video
-          ref={videoRef}
           className="absolute inset-0 h-full w-full object-cover"
+          src={videoSrc}
+          autoPlay
           muted
           loop
           playsInline
           preload="metadata"
-          poster="/images/dictatorship-hero-poster.jpg"
-          onPause={() => setIsPlaying(false)}
-        >
-          <source
-            src="/videos/dictatorship-hero.mp4"
-            type="video/mp4"
-          />
-        </video>
+          poster="/images/eritrea-of-tomorrow-poster.jpg"
+        />
 
-        <div className="absolute inset-0 bg-[#101f35]/70" />
+        <div className="absolute inset-0 bg-[#091725]/65" />
 
-        <div className="relative z-10 mx-auto max-w-6xl px-6 text-center">
-          <h1 className="text-4xl font-black uppercase leading-tight tracking-wide md:text-6xl lg:text-7xl">
-            እቲ ሓቀኛ ኩነታት
-            <span className="mt-3 block text-[#e6c987]">
-              ምልኪ
-            </span>
+        <div className="absolute inset-0 bg-gradient-to-t from-[#091725]/80 via-transparent to-[#091725]/30" />
+
+        <div className="relative z-10 mx-auto max-w-5xl px-6 py-20 text-center text-white">
+          <p className="mb-6 text-xs font-bold uppercase tracking-[0.35em] text-[#d5b46b] md:text-sm">
+            ሃገራዊ ምንቅስቓስ ኣጋኣዝያን
+          </p>
+
+          <h1
+            id="tomorrow-hero-title"
+            className="text-4xl font-extrabold leading-tight tracking-tight sm:text-6xl md:text-7xl lg:text-8xl"
+          >
+            ኤርትራ ናይ ጽባሕ
           </h1>
 
-          <div className="mx-auto mt-8 h-1 w-24 bg-white" />
-        </div>
-
-        {!isPlaying && (
-          <button
-            type="button"
-            onClick={playVideo}
-            aria-label="ቪድዮ ኣጻውት"
-            className="absolute left-1/2 top-[70%] z-20 flex h-20 w-20 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-2 border-white bg-white/20 text-white shadow-xl backdrop-blur-sm transition hover:scale-110 hover:bg-white/30 md:h-24 md:w-24"
-          >
-            <svg
-              viewBox="0 0 24 24"
-              className="ml-1 h-10 w-10 fill-current md:h-12 md:w-12"
-              aria-hidden="true"
-            >
-              <path d="M8 5.5v13l10-6.5z" />
-            </svg>
-          </button>
-        )}
-      </section>
-
-      {/* =====================================================
-          2 — ኣቃውማ ስልጣን
-      ===================================================== */}
-
-      <header className="bg-white px-5 py-16 text-center text-[#101f35] md:px-10 md:py-20">
-        <p className="mb-4 text-sm font-bold tracking-[0.2em] text-[#9b7940]">
-          ኣምባገነን ኢሳያስ ኣፈወርቂ
-        </p>
-
-        <h2 className="text-3xl font-black leading-tight md:text-5xl">
-          ውልቃዊ ምልኪ
-        </h2>
-
-        <div className="mx-auto mt-7 h-[2px] w-24 bg-[#101f35]" />
-      </header>
-
-      <section className="aop-section">
-        <div className="aop-heading">
-          <h2>ኣቃውማ ስልጣን</h2>
-
-          <p>
-            ኣብ መንጎ ማእከላይ መሪሕነትን ኣብ ዙርያኡ ዝርከቡ
-            ትካላትን ውልቀሰባትን ዘሎ ርክባት ዳህስሱ።
-          </p>
-        </div>
-
-        <div className="aop-stage">
-          <svg
-            className="aop-connectors"
-            viewBox="0 0 1000 600"
-            preserveAspectRatio="none"
-            aria-hidden="true"
-          >
-            <path className="line" d="M500 300 L150 105" />
-            <path className="line" d="M500 300 L850 105" />
-            <path className="line" d="M500 300 L500 520" />
-          </svg>
-
-          <div className="aop-node node-dictator">
-            <Circle
-              group="dictator"
-              active={activeGroup === "dictator"}
-              onActivate={() => activate("dictator")}
-              onHover={handleMouseEnter}
-            />
-          </div>
-
-          <div className="aop-node node-military">
-            <Circle
-              group="military"
-              active={activeGroup === "military"}
-              onActivate={() => activate("military")}
-              onHover={handleMouseEnter}
-            />
-          </div>
-
-          <div className="aop-node node-security">
-            <Circle
-              group="security"
-              active={activeGroup === "security"}
-              onActivate={() => activate("security")}
-              onHover={handleMouseEnter}
-            />
-          </div>
-
-          <div className="aop-node node-loyalists">
-            <Circle
-              group="loyalists"
-              active={activeGroup === "loyalists"}
-              onActivate={() => activate("loyalists")}
-              onHover={handleMouseEnter}
-            />
-          </div>
-        </div>
-
-        {activeGroup !== null && (
-          <div className="aop-details" key={activeGroup}>
-            <div className="aop-details-heading">
-              <div>
-                <p className="aop-eyebrow">ዝርዝር ጉጅለ</p>
-
-                <h2>{groupDescriptions[activeGroup]}</h2>
-              </div>
-
-              <button
-                type="button"
-                className="aop-reset-button"
-                onClick={() => setActiveGroup(null)}
-                aria-label="ዝርዝር ዕጸው"
-              >
-                <span aria-hidden="true">×</span>
-                <span>ዕጸው</span>
-              </button>
-            </div>
-
-            <div className="aop-portrait-layout">
-              {groups[activeGroup].map((person) => (
-                <Portrait key={person.name} person={person} />
-              ))}
-            </div>
-          </div>
-        )}
-
-        <div className="aop-instructions">
-          {activeGroup
-            ? "ካልእ ክቢ ብምምራጽ ንኻልእ ጉጅለ ዳህስሱ፣ ወይ ነቲ ዝርዝር ንምሕባእ 'ዕጸው' ዝብል ጠውቑ።"
-            : "ኣባላት ነፍሲ ወከፍ ጉጅለ ንምርኣይ ኣብ ሓደ ካብቶም ክቢታት ጠውቑ ወይ ማውስ ኣብ ልዕሊኡ ኣንብሩ።"}
+          <div className="mx-auto mt-7 h-1 w-24 bg-[#c9a45c]" />
         </div>
       </section>
 
-      {/* =====================================================
-          3 — ምፍራስ ኤርትራ
-      ===================================================== */}
+      {/* FULL-WIDTH WHITE INTRODUCTION */}
+      <NationalFrameworkHeading />
 
-      <section
-        id="destruction-of-eritrea"
-        className="w-full bg-white text-[#101f35]"
-      >
-        <header className="bg-white px-5 py-16 text-center md:px-10 md:py-20">
-          <p className="mb-4 text-sm font-bold tracking-[0.2em] text-[#9b7940]">
-            ሳዕቤናት ምልኪ
-          </p>
+      {/* INTERACTIVE THREE-PILLAR CIRCLE */}
+      <div id="national-pillars">
+        <ThreePillarCircle />
+      </div>
 
-          <h2 className="text-3xl font-black leading-tight md:text-5xl">
-            ምፍራስ ኤርትራ
-          </h2>
-
-          <div className="mx-auto mt-7 h-[2px] w-24 bg-[#101f35]" />
-        </header>
-
-        <div className="w-full bg-[#101f35] px-5 py-16 text-white md:px-10 md:py-20 lg:px-16">
-          <div className="mx-auto max-w-7xl">
-            {/* ምድባት */}
-
-            <nav
-              aria-label="ምድባት ዕንወት"
-              className="mb-10 flex gap-3 overflow-x-auto pb-4 lg:grid lg:grid-cols-5 lg:overflow-visible"
-            >
-              {categories.map((category, index) => {
-                const isActive = activeCategory === category.id;
-
-                return (
-                  <button
-                    key={category.id}
-                    type="button"
-                    aria-expanded={isActive}
-                    onClick={() => {
-                      setActiveCategory(
-                        isActive ? null : category.id
-                      );
-                      setActiveTopic(null);
-                    }}
-                    className={`min-h-[112px] min-w-[190px] flex-1 border px-5 py-5 text-left transition-colors duration-200 lg:min-w-0 ${
-                      isActive
-                        ? "border-[#d9bd82] bg-[#d9bd82] text-[#101f35]"
-                        : "border-white/35 bg-transparent text-white hover:border-[#d9bd82] hover:bg-white/10"
-                    }`}
-                  >
-                    <span className="mb-3 block text-xs font-bold tracking-[0.2em] opacity-70">
-                      0{index + 1}
-                    </span>
-
-                    <span className="block text-sm font-extrabold leading-6">
-                      {category.title}
-                    </span>
-
-                    <span className="mt-3 block text-xs font-bold">
-                      {isActive ? "− ዕጸው" : "+ ዳህስስ"}
-                    </span>
-                  </button>
-                );
-              })}
-            </nav>
-
-            {/* ዝተመርጸ ምድብ */}
-
-            {selectedCategory && (
-              <div className="border border-[#e3ddcf] bg-white p-6 text-[#101f35] md:p-9">
-                <div className="mb-7 flex flex-wrap items-center justify-between gap-4">
-                  <div>
-                    <p className="mb-2 text-xs font-bold tracking-[0.2em] text-[#9b7940]">
-                      ሳዕቤናት ዳህስሱ
-                    </p>
-
-                    <h3 className="text-2xl font-black md:text-3xl">
-                      {selectedCategory.title}
-                    </h3>
-                  </div>
-
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setActiveCategory(null);
-                      setActiveTopic(null);
-                    }}
-                    className="border border-[#101f35]/40 px-4 py-2 text-xs font-bold text-[#101f35] transition hover:border-[#9b7940] hover:text-[#9b7940]"
-                  >
-                    ምድብ ዕጸው ×
-                  </button>
-                </div>
-
-                {/* ንኡሳን ኣርእስቲ */}
-
-                <div className="grid gap-3 md:grid-cols-2">
-                  {selectedCategory.subtopics.map((topic, index) => {
-                    const isSelected = activeTopic === topic;
-
-                    return (
-                      <button
-                        key={topic}
-                        type="button"
-                        aria-expanded={isSelected}
-                        onClick={() =>
-                          setActiveTopic(
-                            isSelected ? null : topic
-                          )
-                        }
-                        className={`flex items-center justify-between gap-4 border px-5 py-5 text-left transition duration-200 ${
-                          isSelected
-                            ? "border-[#c9a45c] bg-[#f8f5ed] text-[#101f35]"
-                            : "border-[#e3ddcf] bg-white text-[#101f35] hover:border-[#c9a45c] hover:bg-[#fcfaf5]"
-                        }`}
-                      >
-                        <span className="flex items-center gap-4">
-                          <span className="text-sm font-bold text-[#9b7940]">
-                            {String(index + 1).padStart(2, "0")}
-                          </span>
-
-                          <span className="text-sm font-bold">
-                            {topic}
-                          </span>
-                        </span>
-
-                        <span className="text-xl text-[#9b7940]">
-                          {isSelected ? "−" : "+"}
-                        </span>
-                      </button>
-                    );
-                  })}
-                </div>
-
-                {/* ዝርዝር መግለጺ */}
-
-                {activeTopic && (
-                  <article
-                    className="mt-8 border border-[#e3ddcf] bg-white p-6 text-[#101f35] md:p-9"
-                    aria-live="polite"
-                  >
-                    <p className="mb-3 text-xs font-bold tracking-[0.2em] text-[#9b7940]">
-                      {selectedCategory.title}
-                    </p>
-
-                    <h4 className="mb-6 text-xl font-black md:text-2xl">
-                      {activeTopic}
-                    </h4>
-
-                    <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr]">
-                      <div>
-                        <h5 className="mb-3 text-sm font-bold text-[#9b7940]">
-                          መብርሂን መርትዖን
-                        </h5>
-
-                        <p className="text-sm leading-8 text-slate-600">
-                          ብዛዕባ {activeTopic} ዝምልከት መጽናዕቲ፣
-                          ዝተረጋገጸ መርትዖን ዝርዝር መብርሂን
-                          ኣብዚ ክቐርብ እዩ።
-                        </p>
-
-                        <p className="mt-5 text-sm leading-8 text-slate-600">
-                          እዚ ክፋል እዚ ንዝተመዝገቡ ሓቅታት፣
-                          ዝተረጋገጹ ስታቲስቲክስን መረዳእታን፣
-                          ቀጥታዊ ምስክርነታትን ካብ እሙናት
-                          ምንጭታት ዝተወስዱ ጸብጻባትን
-                          ንምቕራብ ዝተዳለወ እዩ።
-                        </p>
-                      </div>
-
-                      <div className="border-t border-[#e3ddcf] pt-6 lg:border-l lg:border-t-0 lg:pl-8 lg:pt-0">
-                        <h5 className="mb-3 text-sm font-bold text-[#9b7940]">
-                          ደገፍቲ መረዳእታታት
-                        </h5>
-
-                        <ul className="space-y-3 text-sm leading-7 text-slate-600">
-                          <li>• እቲ ጉዳይ ዝምልከቶ ስእልታት</li>
-                          <li>• ዝተረጋገጹ ስታቲስቲክስን መረዳእታን</li>
-                          <li>• ምስክርነታትን ውልቃዊ ተመኩሮታትን</li>
-                          <li>• ደገፍቲ ጸብጻባትን ምንጭታትን</li>
-                        </ul>
-                      </div>
-                    </div>
-                  </article>
-                )}
-              </div>
-            )}
-          </div>
+      {/* EXPANDABLE THREE-PILLAR POLICY FRAMEWORK */}
+      <section className="w-full bg-[#142b45] px-5 py-14 md:px-10 md:py-20">
+        <div className="mx-auto max-w-7xl space-y-4">
+          {pillars.map((pillar) => (
+            <PillarSection
+              key={pillar.number}
+              pillar={pillar}
+              isOpen={openPillar === pillar.number}
+              onToggle={() => togglePillar(pillar.number)}
+            />
+          ))}
         </div>
       </section>
 
-      {/* =====================================================
-          4 — መደምደምታ: ርክብ ክልቲኦም ክፋላት
-      ===================================================== */}
-
-      <section
-        id="relationship-between-sections"
-        className="relationship-section"
-      >
-        <div className="relationship-container">
-          <div className="relationship-heading">
-            <p>ንስርዓቱ ምርዳእ</p>
-
-            <h2>
-              ካብ ውልቃዊ ምልኪ
-              <span>ናብ ሃገራዊ ዕንወት</span>
+      {/* THE THREE PILLARS WORKING TOGETHER */}
+      <section className="relative overflow-hidden bg-[#101f35] px-5 py-16 text-white md:px-10 md:py-24">
+        <div className="mx-auto max-w-6xl">
+          <div className="mb-12 text-center">
+            <p className="mb-4 text-xs font-bold uppercase tracking-[0.3em] text-[#d5b46b]">
+              ሓደ ሃገራዊ ራእይ
+            </p>
+            <h2 className="text-3xl font-extrabold leading-tight md:text-5xl">
+              ሰለስተ ዓንድታት። ሓንቲ ኤርትራ።
             </h2>
+            <div className="mx-auto mt-6 h-1 w-20 bg-[#c9a45c]" />
+          </div>
 
-            <div className="relationship-divider" />
-
-            <p className="relationship-intro">
-              ምእካብ ፖለቲካዊ ስልጣን ኣብ ሓደ ሰብ እቲ ምልኪ
-              ብኸመይ ቁጽጽር ከም ዝገብር የብርህ። ሳዕቤናቱ
-              ድማ እቲ ስርዓት ኣብ ልዕሊ ሃገርን ህዝብን ዘስዕቦ
-              ጉድኣት የርኢ።
+          {/* TRUSTWORTHY INSTITUTIONS — THE FOUNDATION */}
+          <div className="mx-auto max-w-3xl border border-[#c9a45c] bg-[#234467] px-6 py-8 text-center shadow-xl md:px-10 md:py-9">
+            <div className="mb-3 flex justify-center">
+              <svg
+                viewBox="0 0 48 48"
+                className="h-10 w-10 text-[#e2c47e]"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path
+                  d="M5 18 24 7l19 11H5Z M9 21h30 M12 21v16m8-16v16m8-16v16m8-16v16M7 40h34"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="square"
+                  strokeLinejoin="miter"
+                />
+              </svg>
+            </div>
+            <h3 className="text-xl font-extrabold uppercase tracking-wide md:text-2xl">
+              Trustworthy Institutions
+            </h3>
+            <p className="mt-2 text-sm font-medium text-white/85 md:text-base">
+              መሰረት ጽቡቕ ምምሕዳር
             </p>
           </div>
 
-          <div className="relationship-diagram">
-            {/* ውልቃዊ ምልኪ */}
+          {/* BRANCHING CONNECTION TO THE TWO COMPLEMENTARY PILLARS */}
+          <div
+            className="mx-auto h-16 w-full max-w-3xl"
+            aria-hidden="true"
+          >
+            <svg
+              viewBox="0 0 720 64"
+              className="h-full w-full"
+              preserveAspectRatio="none"
+            >
+              <path
+                d="M360 0 V25 H180 V62 M360 25 H540 V62"
+                fill="none"
+                stroke="#c9a45c"
+                strokeWidth="2.5"
+              />
+              <circle cx="360" cy="25" r="4" fill="#c9a45c" />
+            </svg>
+          </div>
 
-            <div className="relationship-block">
-              <div className="relationship-main">
-                <span className="relationship-number">01</span>
-
-                <h3>ውልቃዊ ምልኪ</h3>
-
-                <p className="relationship-subtitle">
-                  ምእካብ ፖለቲካዊ ስልጣን
-                </p>
-              </div>
-
-              <div className="relationship-detail">
-                <span className="relationship-detail-label">
-                  ኣወዳድባ ስልጣን
-                </span>
-
-                <h4>ኣቃውማ ስልጣን</h4>
-
-                <p>
-                  ወተሃደራዊ <span>·</span> ጸጥታ <span>·</span>{" "}
-                  ፖለቲካዊ ደገፍቲ
-                </p>
-              </div>
-
-              <div className="relationship-detail relationship-breakdown">
-                <span className="relationship-detail-label">
-                  ትካላዊ ሳዕቤን
-                </span>
-
-                <h4>ምፍራስ ትካላት</h4>
-
-                <p>
-                  ናጻ ተሓታትነትን ውጽኢታዊ ምቁጽጻር ስልጣንን
-                  ዘይምህላው።
-                </p>
-              </div>
-            </div>
-
-            {/* መራኸቢ ምልክት */}
-
-            <div className="relationship-connector">
-              <div className="relationship-line" />
-
-              <div className="relationship-arrow">
+          <div className="grid gap-5 md:grid-cols-2 md:gap-8">
+            <article className="flex min-h-[190px] flex-col items-center justify-center border border-white/20 bg-[#1b3552] px-6 py-8 text-center md:min-h-[220px] md:px-10">
+              <div
+                className="mb-4 flex h-12 w-12 items-center justify-center border border-[#c9a45c] text-[#e2c47e]"
+                aria-hidden="true"
+              >
                 <svg
-                  viewBox="0 0 24 24"
+                  viewBox="0 0 48 48"
+                  className="h-7 w-7"
                   fill="none"
-                  aria-hidden="true"
                 >
                   <path
-                    d="M5 12H19M12 5L19 12L12 19"
+                    d="M7 40h34M10 40V19h28v21M7 19l17-11 17 11M17 25v5m7-5v5m7-5v5M17 40V33h14v7"
                     stroke="currentColor"
                     strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
+                    strokeLinecap="square"
+                    strokeLinejoin="miter"
                   />
                 </svg>
               </div>
+              <h3 className="text-xl font-extrabold uppercase tracking-wide md:text-2xl">
+                A Strong Economy
+              </h3>
+              <p className="mt-3 max-w-sm text-sm leading-7 text-white/80 md:text-base">
+                ብልጽግናን ዕድላትን ይፈጥር።
+              </p>
+            </article>
 
-              <span>ሳዕቤናት</span>
-            </div>
-
-            {/* ምፍራስ ኤርትራ */}
-
-            <div className="relationship-block relationship-destruction">
-              <div className="relationship-main">
-                <span className="relationship-number">02</span>
-
-                <h3>ምፍራስ ኤርትራ</h3>
-
-                <p className="relationship-subtitle">
-                  ኣብ ልዕሊ ሃገር ዝወርድ ሳዕቤናት
-                </p>
+            <article className="flex min-h-[190px] flex-col items-center justify-center border border-white/20 bg-[#1b3552] px-6 py-8 text-center md:min-h-[220px] md:px-10">
+              <div
+                className="mb-4 flex h-12 w-12 items-center justify-center border border-[#c9a45c] text-[#e2c47e]"
+                aria-hidden="true"
+              >
+                <svg
+                  viewBox="0 0 48 48"
+                  className="h-7 w-7"
+                  fill="none"
+                >
+                  <path
+                    d="M24 5 39 11v12c0 10-6 16-15 20C15 39 9 33 9 23V11L24 5Z M17 24l5 5 10-11"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="square"
+                    strokeLinejoin="miter"
+                  />
+                </svg>
               </div>
-
-              <div className="relationship-detail relationship-impact">
-                <span className="relationship-detail-label">
-                  ሃገራዊ ጽልዋ
-                </span>
-
-                <div className="relationship-impact-list">
-                  <span>ማሕበራዊ</span>
-                  <span>ቁጠባዊ</span>
-                  <span>ወተሃደራዊ</span>
-                  <span>ከባብያዊ</span>
-                  <span>ሰብኣዊ መሰላት</span>
-                </div>
-              </div>
-            </div>
+              <h3 className="text-xl font-extrabold uppercase tracking-wide md:text-2xl">
+                ሃገራዊ ክብሪ
+              </h3>
+              <p className="mt-3 max-w-sm text-sm leading-7 text-white/80 md:text-base">
+                መንነትና፣ ውርሻናን ባህላዊ ቀጻልነትናን ይሕሉ።
+              </p>
+            </article>
           </div>
 
-          {/* መደምደምታ */}
+          {/* THE SHARED NATIONAL OUTCOME */}
+          <div
+            className="mx-auto mt-10 h-8 w-full max-w-3xl"
+            aria-hidden="true"
+          >
+            <svg
+              viewBox="0 0 720 32"
+              className="h-full w-full"
+              preserveAspectRatio="none"
+            >
+              <path
+                d="M180 0 V12 H360 V30 M540 0 V12 H360"
+                fill="none"
+                stroke="#c9a45c"
+                strokeWidth="2.5"
+              />
+              <path
+                d="m352 23 8 8 8-8"
+                fill="none"
+                stroke="#c9a45c"
+                strokeWidth="2.5"
+              />
+            </svg>
+          </div>
 
-          <div className="relationship-conclusion">
-            <p>
-              ካብ ምእካብ ስልጣን ኣብ ሓደ ሰብ ክሳብ ምፍራስ ሓንቲ
-              ሃገር።
+          <div className="bg-white px-5 py-9 text-center text-[#142b45] shadow-xl md:px-10 md:py-12">
+            <p className="mb-3 text-xs font-extrabold uppercase tracking-[0.25em] text-[#a77d32]">
+              ብሓባር እንሃንጾ መጻኢ
             </p>
-
-            <h3>
-              ንስርዓቱ ምርዳእ፡ ንሳዕቤናቱ ምርዳእ ማለት እዩ።
+            <h3 className="text-2xl font-black leading-tight md:text-4xl">
+              ደሞክራስያዊትን ብልጽግና ዝመልኣን ኤርትራ
             </h3>
+            <div className="mx-auto my-5 h-1 w-16 bg-[#c9a45c]" />
+            <p className="text-xs font-bold uppercase tracking-[0.12em] text-[#42536a] md:text-sm md:tracking-[0.2em]">
+              ሓርነት{" "}
+              <span className="px-1 text-[#a77d32]">·</span> ዕድል{" "}
+              <span className="px-1 text-[#a77d32]">·</span> ክብሪ{" "}
+              <span className="px-1 text-[#a77d32]">·</span> ሃገራዊ ክብሪ
+            </p>
           </div>
         </div>
       </section>
 
-      {/* =====================================================
-          STYLES
-      ===================================================== */}
-
-      <style jsx global>{`
-        /* ARCHITECTURE OF POWER */
-
-        .aop-section {
-          width: 100%;
-          padding: 65px 24px 75px;
-          background: #10263d;
-          color: #ffffff;
-          overflow: hidden;
-        }
-
-        .aop-heading {
-          max-width: 850px;
-          margin: 0 auto 35px;
-          text-align: center;
-        }
-
-        .aop-heading h2 {
-          margin: 0 0 14px;
-          color: #ffffff;
-          font-size: clamp(28px, 4vw, 42px);
-          font-weight: 800;
-        }
-
-        .aop-heading p {
-          margin: 0;
-          color: #cbd5df;
-          font-size: 16px;
-          line-height: 1.9;
-        }
-
-        .aop-stage {
-          position: relative;
-          width: 100%;
-          max-width: 1150px;
-          height: 600px;
-          margin: 0 auto;
-          isolation: isolate;
-        }
-
-        .aop-connectors {
-          position: absolute;
-          inset: 0;
-          width: 100%;
-          height: 100%;
-          z-index: 0;
-          pointer-events: none;
-        }
-
-        .aop-connectors .line {
-          fill: none;
-          stroke: #c6a45c;
-          stroke-width: 2;
-          opacity: 0.75;
-        }
-
-        .aop-node {
-          position: absolute;
-          z-index: 3;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-
-        .node-dictator {
-          left: 50%;
-          top: 50%;
-          transform: translate(-50%, -50%);
-        }
-
-        .node-military {
-          left: 7%;
-          top: 7%;
-        }
-
-        .node-security {
-          right: 7%;
-          top: 7%;
-        }
-
-        .node-loyalists {
-          left: 50%;
-          bottom: 3%;
-          transform: translateX(-50%);
-        }
-
-        .aop-circle {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: 145px;
-          height: 145px;
-          padding: 18px;
-          border: 2px solid #c6a45c;
-          border-radius: 50%;
-          background: #ffffff;
-          color: #10263d;
-          text-align: center;
-          cursor: pointer;
-          box-shadow: 0 8px 28px rgba(0, 0, 0, 0.22);
-          transition:
-            background 0.3s ease,
-            border-color 0.3s ease,
-            box-shadow 0.3s ease;
-        }
-
-        .aop-circle span {
-          max-width: 115px;
-          font-size: 15px;
-          font-weight: 800;
-          line-height: 1.6;
-        }
-
-        .aop-circle:hover,
-        .aop-circle.is-active {
-          background: #ffffff;
-          border-color: #e4c47c;
-          color: #10263d;
-          box-shadow: 0 0 0 8px rgba(198, 164, 92, 0.18);
-        }
-
-        .aop-circle:focus-visible {
-          outline: 3px solid #ffffff;
-          outline-offset: 5px;
-        }
-
-        .aop-details {
-          width: 100%;
-          max-width: 1050px;
-          margin: 10px auto 0;
-          padding: 30px;
-          border-top: 1px solid rgba(198, 164, 92, 0.65);
-          animation: aopAppear 0.4s ease both;
-        }
-
-        .aop-details-heading {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 20px;
-          margin-bottom: 28px;
-        }
-
-        .aop-eyebrow {
-          margin: 0 0 8px;
-          color: #c6a45c;
-          font-size: 12px;
-          font-weight: 700;
-          letter-spacing: 0.12em;
-        }
-
-        .aop-details-heading h2 {
-          margin: 0;
-          color: #ffffff;
-          font-size: clamp(20px, 3vw, 28px);
-          font-weight: 700;
-        }
-
-        .aop-portrait-layout {
-          display: grid;
-          grid-template-columns: repeat(3, minmax(0, 1fr));
-          align-items: start;
-          gap: clamp(16px, 3vw, 45px);
-        }
-
-        .aop-person {
-          min-width: 0;
-          max-width: 245px;
-          margin: 0 auto;
-          text-align: center;
-          color: #ffffff;
-        }
-
-        .aop-photo {
-          width: 100%;
-          aspect-ratio: 4 / 5;
-          overflow: hidden;
-          border: 2px solid #c6a45c;
-          border-radius: 5px;
-          background: #1c3b55;
-          box-shadow: 0 10px 28px rgba(0, 0, 0, 0.25);
-        }
-
-        .aop-photo img {
-          display: block;
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-        }
-
-        .aop-person h3 {
-          margin: 13px 0 7px;
-          color: #e4c47c;
-          font-size: 17px;
-          font-weight: 700;
-          line-height: 1.7;
-          overflow-wrap: anywhere;
-        }
-
-        .aop-person p {
-          margin: 0 auto;
-          max-width: 245px;
-          color: #d2dbe3;
-          font-size: 13px;
-          line-height: 1.9;
-        }
-
-        .aop-reset-button {
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          gap: 9px;
-          min-height: 42px;
-          padding: 9px 17px;
-          border: 1px solid rgba(228, 196, 124, 0.75);
-          border-radius: 30px;
-          background: rgba(255, 255, 255, 0.1);
-          color: #ffffff;
-          font-size: 13px;
-          font-weight: 700;
-          cursor: pointer;
-          transition:
-            background 0.3s ease,
-            color 0.3s ease;
-        }
-
-        .aop-reset-button:hover {
-          background: #c6a45c;
-          color: #10263d;
-        }
-
-        .aop-reset-button span:first-child {
-          font-family: Arial, sans-serif;
-          font-size: 22px;
-          line-height: 1;
-        }
-
-        .aop-instructions {
-          min-height: 24px;
-          margin: 25px auto 0;
-          color: #bdc9d4;
-          text-align: center;
-          font-size: 13px;
-          line-height: 1.9;
-        }
-
-        @keyframes aopAppear {
-          from {
-            opacity: 0;
-            transform: translateY(12px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        /* FINAL RELATIONSHIP DIAGRAM */
-
-        .relationship-section {
-          width: 100%;
-          padding: 90px 24px;
-          background: #101f35;
-          color: #ffffff;
-        }
-
-        .relationship-container {
-          width: 100%;
-          max-width: 1150px;
-          margin: 0 auto;
-        }
-
-        .relationship-heading {
-          max-width: 850px;
-          margin: 0 auto 60px;
-          text-align: center;
-        }
-
-        .relationship-heading > p:first-child {
-          margin: 0 0 18px;
-          color: #c6a45c;
-          font-size: 12px;
-          font-weight: 800;
-          letter-spacing: 0.25em;
-        }
-
-        .relationship-heading h2 {
-          margin: 0;
-          color: #ffffff;
-          font-size: clamp(28px, 4.5vw, 48px);
-          font-weight: 900;
-          line-height: 1.4;
-        }
-
-        .relationship-heading h2 span {
-          display: block;
-          margin-top: 10px;
-          color: #e6c987;
-        }
-
-        .relationship-divider {
-          width: 80px;
-          height: 3px;
-          margin: 28px auto;
-          background: #c6a45c;
-        }
-
-        .relationship-intro {
-          max-width: 700px;
-          margin: 0 auto;
-          color: #d2dbe3;
-          font-size: 16px;
-          line-height: 2;
-        }
-
-        .relationship-diagram {
-          display: grid;
-          grid-template-columns: minmax(0, 1fr) 90px minmax(0, 1fr);
-          align-items: center;
-          gap: 20px;
-        }
-
-        .relationship-block {
-          min-width: 0;
-          border: 1px solid rgba(198, 164, 92, 0.7);
-          background: #142b45;
-        }
-
-        .relationship-main {
-          min-height: 190px;
-          padding: 35px 25px;
-          border-bottom: 1px solid rgba(198, 164, 92, 0.55);
-          text-align: center;
-        }
-
-        .relationship-number {
-          display: block;
-          margin-bottom: 15px;
-          color: #c6a45c;
-          font-size: 13px;
-          font-weight: 800;
-          letter-spacing: 0.2em;
-        }
-
-        .relationship-main h3 {
-          margin: 0;
-          color: #e6c987;
-          font-size: clamp(22px, 2.5vw, 31px);
-          font-weight: 900;
-          line-height: 1.5;
-        }
-
-        .relationship-subtitle {
-          margin: 15px 0 0;
-          color: #ffffff;
-          font-size: 14px;
-          line-height: 1.9;
-        }
-
-        .relationship-detail {
-          padding: 25px;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-          text-align: center;
-        }
-
-        .relationship-detail:last-child {
-          border-bottom: 0;
-        }
-
-        .relationship-detail-label {
-          display: block;
-          margin-bottom: 12px;
-          color: #c6a45c;
-          font-size: 10px;
-          font-weight: 800;
-          letter-spacing: 0.2em;
-        }
-
-        .relationship-detail h4 {
-          margin: 0 0 10px;
-          color: #ffffff;
-          font-size: 18px;
-          font-weight: 800;
-        }
-
-        .relationship-detail p {
-          margin: 0;
-          color: #d2dbe3;
-          font-size: 13px;
-          line-height: 2;
-        }
-
-        .relationship-detail p span {
-          color: #e6c987;
-          padding: 0 4px;
-        }
-
-        .relationship-breakdown {
-          background: rgba(0, 0, 0, 0.13);
-        }
-
-        .relationship-connector {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          gap: 12px;
-          color: #e6c987;
-        }
-
-        .relationship-line {
-          width: 100%;
-          height: 2px;
-          background: #c6a45c;
-        }
-
-        .relationship-arrow {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: 45px;
-          height: 45px;
-          margin-top: -35px;
-          border: 1px solid #c6a45c;
-          border-radius: 50%;
-          background: #101f35;
-        }
-
-        .relationship-arrow svg {
-          width: 22px;
-          height: 22px;
-        }
-
-        .relationship-connector > span {
-          font-size: 9px;
-          font-weight: 800;
-          text-align: center;
-        }
-
-        .relationship-impact {
-          min-height: 160px;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-        }
-
-        .relationship-impact-list {
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: center;
-          gap: 9px;
-        }
-
-        .relationship-impact-list span {
-          padding: 9px 12px;
-          border: 1px solid rgba(198, 164, 92, 0.65);
-          color: #ffffff;
-          font-size: 11px;
-          font-weight: 700;
-        }
-
-        .relationship-conclusion {
-          max-width: 900px;
-          margin: 65px auto 0;
-          padding: 35px 20px 0;
-          border-top: 1px solid rgba(198, 164, 92, 0.55);
-          text-align: center;
-        }
-
-        .relationship-conclusion p {
-          margin: 0 0 16px;
-          color: #c6a45c;
-          font-size: 12px;
-          font-weight: 800;
-          line-height: 2;
-        }
-
-        .relationship-conclusion h3 {
-          margin: 0;
-          color: #ffffff;
-          font-size: clamp(20px, 3vw, 28px);
-          font-weight: 700;
-          line-height: 1.8;
-        }
-
-        /* TABLET */
-
-        @media (max-width: 900px) {
-          .aop-stage {
-            height: 540px;
-          }
-
-          .aop-circle {
-            width: 120px;
-            height: 120px;
-            padding: 12px;
-          }
-
-          .aop-circle span {
-            font-size: 13px;
-          }
-
-          .aop-details {
-            padding: 25px 10px;
-          }
-
-          .aop-portrait-layout {
-            gap: 16px;
-          }
-
-          .aop-person h3 {
-            font-size: 14px;
-          }
-
-          .aop-person p {
-            font-size: 12px;
-          }
-
-          .relationship-diagram {
-            grid-template-columns: minmax(0, 1fr) 55px minmax(0, 1fr);
-            gap: 12px;
-          }
-
-          .relationship-main {
-            padding: 28px 16px;
-          }
-
-          .relationship-detail {
-            padding: 20px 14px;
-          }
-        }
-
-        /* MOBILE */
-
-        @media (max-width: 600px) {
-          .aop-section {
-            padding: 45px 15px 50px;
-          }
-
-          .aop-heading {
-            margin-bottom: 25px;
-          }
-
-          .aop-heading p {
-            font-size: 14px;
-          }
-
-          .aop-stage {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            justify-items: center;
-            align-items: center;
-            gap: 22px 10px;
-            height: auto;
-            min-height: 0;
-            padding: 15px 0 25px;
-          }
-
-          .aop-connectors {
-            display: none;
-          }
-
-          .aop-node {
-            position: static;
-            inset: auto;
-            transform: none;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-          }
-
-          .node-dictator,
-          .node-military,
-          .node-security,
-          .node-loyalists {
-            left: auto;
-            right: auto;
-            top: auto;
-            bottom: auto;
-            transform: none;
-          }
-
-          .aop-circle {
-            width: 112px;
-            height: 112px;
-            padding: 12px;
-          }
-
-          .aop-circle span {
-            font-size: 12px;
-          }
-
-          .aop-details {
-            margin-top: 5px;
-            padding: 22px 0;
-          }
-
-          .aop-details-heading {
-            align-items: flex-start;
-            margin-bottom: 22px;
-          }
-
-          .aop-details-heading h2 {
-            font-size: 19px;
-            line-height: 1.7;
-          }
-
-          .aop-reset-button {
-            flex-shrink: 0;
-            min-height: 40px;
-            padding: 8px 12px;
-            font-size: 11px;
-          }
-
-          .aop-portrait-layout {
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 9px;
-          }
-
-          .aop-person {
-            width: 100%;
-            max-width: none;
-          }
-
-          .aop-photo {
-            aspect-ratio: 3 / 4;
-          }
-
-          .aop-person h3 {
-            margin-top: 9px;
-            font-size: 11px;
-            line-height: 1.6;
-            overflow-wrap: anywhere;
-          }
-
-          .aop-person p {
-            font-size: 10px;
-            line-height: 1.7;
-            overflow-wrap: anywhere;
-          }
-
-          .aop-instructions {
-            font-size: 12px;
-            line-height: 1.8;
-            padding: 0 8px;
-          }
-
-          .relationship-section {
-            padding: 60px 17px;
-          }
-
-          .relationship-heading {
-            margin-bottom: 40px;
-          }
-
-          .relationship-intro {
-            font-size: 14px;
-          }
-
-          .relationship-diagram {
-            grid-template-columns: 1fr;
-            gap: 15px;
-          }
-
-          .relationship-main {
-            min-height: 155px;
-            padding: 25px 16px;
-          }
-
-          .relationship-main h3 {
-            font-size: 24px;
-          }
-
-          .relationship-detail {
-            padding: 22px 15px;
-          }
-
-          .relationship-connector {
-            min-height: 70px;
-            gap: 7px;
-          }
-
-          .relationship-line {
-            width: 2px;
-            height: 24px;
-          }
-
-          .relationship-arrow {
-            width: 42px;
-            height: 42px;
-            margin-top: -2px;
-            transform: rotate(90deg);
-          }
-
-          .relationship-connector > span {
-            font-size: 9px;
-          }
-
-          .relationship-impact {
-            min-height: 150px;
-          }
-
-          .relationship-conclusion {
-            margin-top: 45px;
-            padding: 28px 5px 0;
-          }
-
-          .relationship-conclusion p {
-            font-size: 10px;
-          }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-          .aop-section *,
-          .aop-section *::before,
-          .aop-section *::after {
-            animation-duration: 0.01ms !important;
-            transition-duration: 0.01ms !important;
-          }
-        }
-      `}</style>
+      {/* WHITE SEPARATOR BEFORE SHARED WEBSITE FOOTER */}
+      <div
+        className="h-16 w-full bg-white md:h-20"
+        aria-hidden="true"
+      />
     </main>
   );
 }
