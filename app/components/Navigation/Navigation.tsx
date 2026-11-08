@@ -252,27 +252,28 @@ export default function Navigation() {
         </div>
 
         {/* LANGUAGE SWITCH */}
-        <div className="flex shrink-0 items-center whitespace-nowrap text-[11px] font-bold sm:text-xs">
-          {isTigrinya ? (
-            <Link
-              href={englishHref}
-              onClick={switchLanguage}
-              aria-label="Switch to English"
-              className="transition hover:text-[#c9a45c]"
-            >
-              ENG
-            </Link>
-          ) : (
-            <Link
-              href={tigrinyaHref}
-              onClick={switchLanguage}
-              aria-label="Switch to Tigrinya"
-              className="transition hover:text-[#c9a45c]"
-            >
-              ትግርኛ
-            </Link>
-          )}
-        </div>
+<div className="flex shrink-0 items-center whitespace-nowrap text-[11px] font-bold sm:text-xs">
+  {isTigrinya ? (
+    <Link
+      href={englishHref}
+      onClick={switchLanguage}
+      aria-label="Switch to English"
+      className="transition hover:text-[#c9a45c]"
+    >
+      ENG
+    </Link>
+  ) : (
+    <button
+      type="button"
+      disabled
+      aria-label="Tigrinya translation coming soon"
+      title="Tigrinya translation is currently under development"
+      className="cursor-not-allowed opacity-100"
+    >
+      ትግርኛ
+    </button>
+  )}
+</div>
 
         {/* MOBILE MENU BUTTON */}
         <button
