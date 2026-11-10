@@ -1,3 +1,9 @@
+
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+import Player from "@vimeo/player";
+
 import FutureVision from "./FutureVision";
 import VisionPillars from "./VisionPillars";
 import NationalStruggle from "./NationalStruggle";
@@ -66,18 +72,71 @@ function MovementMetrics() {
 }
 
 export default function HomeExperience() {
-  const heroVideoEmbed = `https://player.vimeo.com/video/${VIMEO_VIDEO_ID}?background=1&autoplay=1&muted=1&loop=1&controls=0&title=0&byline=0&portrait=0`;
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+  const playerRef = useRef<Player | null>(null);
 
-  const heroVideoLink = `https://vimeo.com/${VIMEO_VIDEO_ID}`;
+  const [isMuted, setIsMuted] = useState(true);
+
+  const heroVideoEmbed =
+    `https://player.vimeo.com/video/${VIMEO_VIDEO_ID}?autoplay=1&muted=1&loop=1&controls=0&title=0&byline=0&portrait=0&playsinline=1`;
+
+  // INITIALIZE VIMEO PLAYER
+
+  useEffect(() => {
+    const iframe = iframeRef.current;
+
+    if (!iframe) return;
+
+    const player = new Player(iframe);
+
+    playerRef.current = player;
+
+    player.ready()
+      .then(() => player.setVolume(1))
+      .catch((error) => {
+        console.error("Vimeo player initialization failed:", error);
+      });
+
+    return () => {
+      playerRef.current = null;
+
+      void player.destroy().catch(() => undefined);
+    };
+  }, []);
+
+  // TURN VIDEO SOUND ON AND OFF
+
+  const toggleSound = async () => {
+    const player = playerRef.current;
+
+    if (!player) return;
+
+    try {
+      if (isMuted) {
+        await Promise.all([
+          player.setVolume(1),
+          player.setMuted(false),
+        ]);
+
+        setIsMuted(false);
+      } else {
+        await player.setMuted(true);
+
+        setIsMuted(true);
+      }
+    } catch (error) {
+      console.error("Unable to change video audio:", error);
+    }
+  };
 
   return (
     <div className="bg-[#f8f5ed] text-[#142b45]">
 
-      {/* HERO SECTION — INTRODUCTORY FILM */}
+      {/* HERO SECTION — FULLSCREEN VIMEO VIDEO */}
 
       <section
-        className="relative flex min-h-[calc(100svh-80px)] items-center justify-center overflow-hidden bg-[#142b45] px-5 py-20 text-center text-white"
-        aria-labelledby="hero-title"
+        className="relative flex min-h-[calc(100svh-80px)] items-center justify-center overflow-hidden bg-[#142b45]"
+        aria-label="ANM introductory video"
       >
 
         {/* VIMEO VIDEO BACKGROUND */}
@@ -85,22 +144,60 @@ export default function HomeExperience() {
         <div className="pointer-events-none absolute inset-0 overflow-hidden">
 
           <iframe
+            ref={iframeRef}
             src={heroVideoEmbed}
-            title="ANM introductory film: Eritrea Today and Eritrea Tomorrow"
+            title="Aga'azian National Movement introductory film"
             className="absolute left-1/2 top-1/2 h-[56.25vw] min-h-full w-[177.78vh] min-w-full -translate-x-1/2 -translate-y-1/2"
-            allow="autoplay; fullscreen; picture-in-picture"
+            allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
             allowFullScreen
           />
 
         </div>
 
-        {/* DARK OVERLAY */}
+        {/* DARK VIDEO OVERLAY */}
 
-        <div className="absolute inset-0 bg-[#091725]/65" />
+        <div className="pointer-events-none absolute inset-0 bg-[#091725]/65" />
 
-        {/* HERO CONTENT */}
+        {/* SOUND CONTROL */}
 
-        
+        <button
+          type="button"
+          onClick={toggleSound}
+          aria-label={isMuted ? "Turn video sound on" : "Mute video"}
+          aria-pressed={!isMuted}
+          className="absolute bottom-6 right-6 z-20 inline-flex items-center gap-3 rounded-full border border-[#d5b46b]/60 bg-[#142b45]/90 px-5 py-3 text-sm font-bold text-[#d5b46b] shadow-xl backdrop-blur-sm transition duration-300 hover:bg-[#d5b46b] hover:text-[#142b45]"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="h-5 w-5"
+            aria-hidden="true"
+          >
+            <path d="M11 5 6 9H2v6h4l5 4V5Z" />
+
+            {isMuted ? (
+              <>
+                <path d="m17 9 5 6" />
+                <path d="m22 9-5 6" />
+              </>
+            ) : (
+              <>
+                <path d="M15.5 8.5a5 5 0 0 1 0 7" />
+                <path d="M19 5a10 10 0 0 1 0 14" />
+              </>
+            )}
+          </svg>
+
+          <span>
+            {isMuted ? "ENABLE SOUND" : "MUTE SOUND"}
+          </span>
+        </button>
+
       </section>
 
       {/* ANM GROWTH STATISTICS */}
