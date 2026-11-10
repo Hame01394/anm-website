@@ -33,7 +33,7 @@ export const nationalLeadership: OrganizationPerson[] = [
     bio: "Coordinates public communications, media engagement and the presentation of the movement's positions.",
   },
   {
-    name: "Asmerom Asmelash",
+    name: "Asmerom Tesfahuney",
     position: "Head of External Relations",
     image: "/images/head-of-external-relations.png",
     bio: "Coordinates relations with international organizations, institutions and external partners.",
@@ -109,7 +109,7 @@ export const departments: OrganizationUnit[] = [
       "Support diplomatic and international advocacy initiatives.",
     ],
     head: {
-      name: "Asmerom Asmelash",
+      name: "Asmerom Tesfahuney",
       position: "Head of External Relations",
       image: "/images/head-of-external-relations.png",
       bio: "Leads external relations and coordinates engagement with international organizations and partners.",
