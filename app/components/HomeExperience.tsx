@@ -1,9 +1,8 @@
-
-import CivicParticipation from "./CivicParticipation";
 import FutureVision from "./FutureVision";
 import VisionPillars from "./VisionPillars";
 import NationalStruggle from "./NationalStruggle";
 
+const VIMEO_VIDEO_ID = "1245375007";
 
 function MovementMetrics() {
   const metrics = [
@@ -66,82 +65,60 @@ function MovementMetrics() {
   );
 }
 
-
 export default function HomeExperience() {
-  const heroVideoSrc = "";
+  const heroVideoEmbed = `https://player.vimeo.com/video/${VIMEO_VIDEO_ID}?background=1&autoplay=1&muted=1&loop=1&controls=0&title=0&byline=0&portrait=0`;
+
+  const heroVideoLink = `https://vimeo.com/${VIMEO_VIDEO_ID}`;
 
   return (
     <div className="bg-[#f8f5ed] text-[#142b45]">
 
       {/* HERO SECTION — INTRODUCTORY FILM */}
+
       <section
         className="relative flex min-h-[calc(100svh-80px)] items-center justify-center overflow-hidden bg-[#142b45] px-5 py-20 text-center text-white"
         aria-labelledby="hero-title"
       >
-        {/* VIDEO BACKGROUND */}
-        {heroVideoSrc ? (
-          <video
-            className="absolute inset-0 h-full w-full object-cover"
-            src={heroVideoSrc}
-            autoPlay
-            muted
-            playsInline
-            preload="metadata"
-            aria-label="ANM introductory film: Eritrea Today and Eritrea Tomorrow"
+
+        {/* VIMEO VIDEO BACKGROUND */}
+
+        <div className="pointer-events-none absolute inset-0 overflow-hidden">
+
+          <iframe
+            src={heroVideoEmbed}
+            title="ANM introductory film: Eritrea Today and Eritrea Tomorrow"
+            className="absolute left-1/2 top-1/2 h-[56.25vw] min-h-full w-[177.78vh] min-w-full -translate-x-1/2 -translate-y-1/2"
+            allow="autoplay; fullscreen; picture-in-picture"
+            allowFullScreen
           />
-        ) : (
-          <div className="absolute inset-0 bg-gradient-to-br from-[#091725] via-[#142b45] to-[#80683e]" />
-        )}
+
+        </div>
 
         {/* DARK OVERLAY */}
+
         <div className="absolute inset-0 bg-[#091725]/65" />
 
         {/* HERO CONTENT */}
-        <div className="relative z-10 mx-auto max-w-5xl">
-          <p className="mb-6 text-xs font-bold uppercase tracking-[0.3em] text-[#d5b46b] sm:text-sm">
-            Aga'azian National Movement
-          </p>
 
-          <h1
-            id="hero-title"
-            className="text-4xl font-extrabold leading-tight sm:text-5xl md:text-7xl lg:text-8xl"
-          >
-            Eritrea Today.
-            <span className="mt-2 block text-[#d5b46b]">
-              Eritrea Tomorrow.
-            </span>
-          </h1>
-
-          {/* PLAY VIDEO BUTTON */}
-          <div className="mt-12 flex justify-center">
-            <button
-              type="button"
-              className="inline-flex items-center gap-4 rounded-full bg-[#d5b46b] px-9 py-4 font-bold text-[#142b45] shadow-xl transition duration-300 hover:scale-105 hover:bg-white"
-            >
-              <span className="flex h-11 w-11 items-center justify-center rounded-full bg-[#142b45] text-lg text-white">
-                ▶
-              </span>
-
-              <span className="text-base uppercase tracking-wider">
-                Play Video
-              </span>
-            </button>
-          </div>
-        </div>
+        
       </section>
 
-      {/* ANM GROWTH STATISTICS — WHITE BACKGROUND */}
+      {/* ANM GROWTH STATISTICS */}
+
       <MovementMetrics />
 
-      {/* THE FOUR PILLARS — NAVY BLUE BACKGROUND */}
+      {/* THE FOUR PILLARS */}
+
       <div className="w-full bg-[#142b45] text-white">
         <VisionPillars />
       </div>
 
       {/* NATIONAL STRUGGLE */}
+
       <NationalStruggle />
 
       {/* THE FUTURE — DEMOCRATIC DEVELOPMENT */}
+
       <FutureVision />
 
     </div>

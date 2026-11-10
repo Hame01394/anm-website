@@ -153,25 +153,25 @@ export default function AboutPage() {
   return (
     <main className="min-h-screen overflow-hidden bg-[#142b45] text-white">
 
+      
       {/* HERO */}
       <section className="relative w-full overflow-hidden bg-[#142b45] text-white">
         <div className="relative min-h-[320px] w-full sm:min-h-[600px] lg:min-h-[700px]">
-          <video
-            className="absolute inset-0 h-full w-full object-cover"
-            controls
-            playsInline
-            preload="metadata"
-            poster="/images/anm-activities-poster.jpg"
-          >
-            <source
-              src="/videos/anm-activities.mp4"
-              type="video/mp4"
-            />
-            Your browser does not support the video element.
-          </video>
 
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-[#142b45]/65 via-[#142b45]/30 to-[#142b45]/75" />
+          {/* VIMEO VIDEO */}
+          <iframe
+            src="https://player.vimeo.com/video/1245373976?title=0&byline=0&portrait=0"
+            className="absolute inset-0 h-full w-full"
+            allow="autoplay; fullscreen; picture-in-picture"
+            allowFullScreen
+            loading="lazy"
+            title="Aga'azian National Movement – About"
+          />
 
+          {/* DARK OVERLAY */}
+          <div className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-b from-[#142b45]/65 via-[#142b45]/30 to-[#142b45]/75" />
+
+          {/* HERO TITLE */}
           <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center px-3 pb-8 text-center sm:px-5 sm:pb-16">
             <div className="max-w-5xl">
               <h1 className="text-2xl font-extrabold leading-tight text-white drop-shadow-lg sm:text-5xl lg:text-7xl">
@@ -181,8 +181,10 @@ export default function AboutPage() {
               <div className="mx-auto my-6 h-1 w-20 rounded-full bg-[#c9a45c]" />
             </div>
           </div>
+
         </div>
       </section>
+
 
       {/* WHO WE ARE */}
       <section
