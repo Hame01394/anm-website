@@ -727,8 +727,7 @@ function PillarSection({
 
 // MAIN PAGE
 export default function EritreaOfTomorrow() {
-  const videoSrc = "/videos/eritrea-of-tomorrow.mp4";
-
+  
   // ONE OPEN PILLAR AT A TIME
   const [openPillar, setOpenPillar] = useState<string | null>(null);
 
@@ -741,41 +740,52 @@ export default function EritreaOfTomorrow() {
   return (
     <main className="min-h-screen bg-white text-[#142b45]">
 
-      {/* FULL-WIDTH VIDEO HERO */}
-      <section
-        className="relative flex min-h-[75svh] w-full items-center justify-center overflow-hidden bg-[#091725] md:min-h-[85svh]"
-        aria-labelledby="tomorrow-hero-title"
-      >
-        <video
-          className="absolute inset-0 h-full w-full object-cover"
-          src={videoSrc}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          poster="/images/eritrea-of-tomorrow-poster.jpg"
-        />
+      
+{/* FULL-WIDTH VIMEO VIDEO HERO */}
 
-        <div className="absolute inset-0 bg-[#091725]/65" />
+<section
+  className="relative flex min-h-[75svh] w-full items-center justify-center overflow-hidden bg-[#091725] md:min-h-[85svh]"
+  aria-labelledby="tomorrow-hero-title"
+>
 
-        <div className="absolute inset-0 bg-gradient-to-t from-[#091725]/80 via-transparent to-[#091725]/30" />
+  {/* VIMEO VIDEO BACKGROUND */}
 
-        <div className="relative z-10 mx-auto max-w-5xl px-6 py-20 text-center text-white">
-          <p className="mb-6 text-xs font-bold uppercase tracking-[0.35em] text-[#d5b46b] md:text-sm">
-            Aga'azian National Movement
-          </p>
+  <div className="absolute inset-0 overflow-hidden">
 
-          <h1
-            id="tomorrow-hero-title"
-            className="text-4xl font-extrabold leading-tight tracking-tight sm:text-6xl md:text-7xl lg:text-8xl"
-          >
-            Eritrea of Tomorrow
-          </h1>
+    <iframe
+      src="https://player.vimeo.com/video/1245400007?autoplay=1&muted=1&loop=1&controls=1&title=0&byline=0&portrait=0&playsinline=1"
+      title="Eritrea of Tomorrow — Aga'azian National Movement"
+      className="absolute left-1/2 top-1/2 h-[56.25vw] min-h-full w-[177.78vh] min-w-full -translate-x-1/2 -translate-y-1/2"
+      allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
+      allowFullScreen
+    />
 
-          <div className="mx-auto mt-7 h-1 w-24 bg-[#c9a45c]" />
-        </div>
-      </section>
+  </div>
+
+  {/* DARK OVERLAY */}
+
+  <div className="pointer-events-none absolute inset-0 bg-[#091725]/65" />
+
+  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#091725]/80 via-transparent to-[#091725]/30" />
+
+  {/* HERO HEADING */}
+
+  <div className="pointer-events-none relative z-10 mx-auto max-w-5xl px-6 py-20 text-center text-white">
+
+    
+    <h1
+      id="tomorrow-hero-title"
+      className="text-4xl font-extrabold leading-tight tracking-tight sm:text-6xl md:text-7xl lg:text-8xl"
+    >
+      Eritrea of Tomorrow
+    </h1>
+
+    <div className="mx-auto mt-7 h-1 w-24 bg-[#c9a45c]" />
+
+  </div>
+
+</section>
+
 
       {/* FULL-WIDTH WHITE INTRODUCTION */}
       <NationalFrameworkHeading />

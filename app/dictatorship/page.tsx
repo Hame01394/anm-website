@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useState } from "react";
 
 /* =========================================================
    TYPES
@@ -288,8 +288,9 @@ export default function DictatorshipPage() {
       ===================================================== */}
 
       
+
 {/* =====================================================
-    SECTION 1 — HERO: VIMEO INTRODUCTORY VIDEO
+    SECTION 1 — HERO: DICTATORSHIP DOCUMENTARY
 ===================================================== */}
 
 <section className="relative flex min-h-screen w-full items-center justify-center overflow-hidden bg-[#101f35] text-white">
@@ -312,23 +313,16 @@ export default function DictatorshipPage() {
 
   <div className="pointer-events-none absolute inset-0 bg-[#101f35]/70" />
 
-  {/* HERO HEADING */}
+  {/* HERO CONTENT */}
 
   <div className="pointer-events-none relative z-10 mx-auto max-w-6xl px-6 text-center">
-
-    <h1 className="text-4xl font-black uppercase leading-tight tracking-wide md:text-6xl lg:text-7xl">
-      THE REALITY OF
-
-      <span className="mt-3 block text-[#e6c987]">
-        DICTATORSHIP
-      </span>
-    </h1>
 
     <div className="mx-auto mt-8 h-1 w-24 bg-white" />
 
   </div>
 
 </section>
+
 
 
       {/* =====================================================
