@@ -3,7 +3,20 @@
 
 import { useRef, useState } from "react";
 
-const documentaries = [
+type Documentary = {
+  id: string;
+  number: string;
+  title: string;
+  category: string;
+  description: string;
+  videoUrl: string;
+  vimeoId?: string;
+  poster: string;
+  subtitleUrl: string;
+  sourceUrl: string;
+};
+
+const documentaries: Documentary[] = [
   {
     id: "governance",
     number: "01",
@@ -12,6 +25,7 @@ const documentaries = [
     description:
       "Examine the structure of political power, the concentration of authority and the absence or weakness of independent political institutions.",
     videoUrl: "",
+    vimeoId: "1245387887",
     poster: "",
     subtitleUrl: "",
     sourceUrl: "",
@@ -116,6 +130,7 @@ const documentaries = [
 
 export default function NationalStruggle() {
   const [selectedId, setSelectedId] = useState("governance");
+
   const thumbnailRow = useRef<HTMLDivElement>(null);
 
   const activeDocumentary =
@@ -136,27 +151,44 @@ export default function NationalStruggle() {
     >
       <div className="mx-auto max-w-7xl">
 
-        {/* SECTION INTRODUCTION - WHITE BAND */}
-<div className="relative left-1/2 mb-8 w-screen -translate-x-1/2 bg-white px-5 py-6 text-center sm:px-8 lg:py-8">
-  <div className="mx-auto max-w-4xl text-center">
-    <p className="mb-2 text-sm font-bold uppercase tracking-[0.25em] text-[#a77d32]">
-      Eritrea Under Dictatorship
-    </p>
+        {/* SECTION INTRODUCTION */}
 
-    <h2 className="text-3xl font-extrabold leading-tight text-[#142b45] sm:text-4xl lg:text-5xl">
-      The Challenges We Must Confront
-    </h2>
+        <div className="relative left-1/2 mb-8 w-screen -translate-x-1/2 bg-white px-5 py-6 text-center sm:px-8 lg:py-8">
+          <div className="mx-auto max-w-4xl text-center">
 
-    <p className="mx-auto mt-3 max-w-2xl text-base leading-7 text-[#526174] sm:text-lg">
-      Severe social, economic, demographic, environmental and human rights crises.
-    </p>
-  </div>
-</div>
+            <p className="mb-2 text-sm font-bold uppercase tracking-[0.25em] text-[#a77d32]">
+              Eritrea Under Dictatorship
+            </p>
+
+            <h2 className="text-3xl font-extrabold leading-tight text-[#142b45] sm:text-4xl lg:text-5xl">
+              The Challenges We Must Confront
+            </h2>
+
+            <p className="mx-auto mt-3 max-w-2xl text-base leading-7 text-[#526174] sm:text-lg">
+              Severe social, economic, demographic, environmental and human rights crises.
+            </p>
+
+          </div>
+        </div>
 
         {/* FEATURED DOCUMENTARY */}
+
         <div className="overflow-hidden rounded-xl border border-[#142b45]/15 bg-[#172b42] shadow-2xl">
-          <div className="relative aspect-video w-full bg-black">
-            {activeDocumentary.videoUrl ? (
+
+          {/* VIDEO DISPLAY */}
+
+          <div className="relative aspect-video w-full overflow-hidden bg-black">
+
+            {activeDocumentary.vimeoId ? (
+              <iframe
+                key={activeDocumentary.vimeoId}
+                src={`https://player.vimeo.com/video/${activeDocumentary.vimeoId}?autoplay=0&muted=0&loop=0&controls=1&title=0&byline=0&portrait=0&playsinline=1`}
+                title={`ANM Documentary — ${activeDocumentary.title}`}
+                className="absolute inset-0 h-full w-full"
+                allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
+                allowFullScreen
+              />
+            ) : activeDocumentary.videoUrl ? (
               <video
                 key={activeDocumentary.id}
                 className="h-full w-full object-contain"
@@ -195,6 +227,7 @@ export default function NationalStruggle() {
                     : undefined
                 }
               >
+
                 <div className="mb-5 flex h-16 w-16 items-center justify-center rounded-full border border-[#c9a45c] text-[#c9a45c]">
                   <svg
                     viewBox="0 0 24 24"
@@ -218,13 +251,18 @@ export default function NationalStruggle() {
                   Documentary footage will appear here when a video is
                   added to this topic.
                 </p>
+
               </div>
             )}
+
           </div>
 
           {/* FEATURED VIDEO INFORMATION */}
+
           <div className="grid gap-6 p-6 text-white sm:p-8 lg:grid-cols-[1fr_auto] lg:items-center">
+
             <div>
+
               <p className="mb-2 text-xs font-bold uppercase tracking-[0.2em] text-[#c9a45c]">
                 {activeDocumentary.category}
               </p>
@@ -236,6 +274,7 @@ export default function NationalStruggle() {
               <p className="mt-4 max-w-3xl text-sm leading-7 text-gray-300 sm:text-base">
                 {activeDocumentary.description}
               </p>
+
             </div>
 
             {activeDocumentary.sourceUrl && (
@@ -248,13 +287,20 @@ export default function NationalStruggle() {
                 Supporting source ↗
               </a>
             )}
+
           </div>
         </div>
 
         {/* DOCUMENTARY LIBRARY */}
+
         <div className="mt-12">
+
+          {/* LIBRARY HEADING AND NAVIGATION */}
+
           <div className="mb-5 flex items-center justify-between gap-4">
+
             <div>
+
               <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#a77d32]">
                 Explore the Library
               </p>
@@ -262,9 +308,11 @@ export default function NationalStruggle() {
               <h3 className="mt-2 text-xl font-bold text-[#142b45] sm:text-2xl">
                 Documentary Topics
               </h3>
+
             </div>
 
             <div className="hidden gap-2 sm:flex">
+
               <button
                 type="button"
                 onClick={() => scrollThumbnails("left")}
@@ -282,14 +330,19 @@ export default function NationalStruggle() {
               >
                 →
               </button>
+
             </div>
+
           </div>
+
+          {/* DOCUMENTARY THUMBNAILS */}
 
           <div
             ref={thumbnailRow}
             className="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-5"
             style={{ scrollbarWidth: "thin" }}
           >
+
             {documentaries.map((documentary) => {
               const isSelected = selectedId === documentary.id;
 
@@ -305,6 +358,9 @@ export default function NationalStruggle() {
                       : "border-white/15 bg-[#172b42] hover:border-white/50"
                   }`}
                 >
+
+                  {/* THUMBNAIL IMAGE */}
+
                   <div
                     className="relative flex aspect-video items-center justify-center bg-gradient-to-br from-[#34516d] to-[#0b1828]"
                     style={
@@ -317,6 +373,7 @@ export default function NationalStruggle() {
                         : undefined
                     }
                   >
+
                     <span className="absolute left-3 top-3 text-xs font-bold tracking-widest text-[#e6c987]">
                       {documentary.number}
                     </span>
@@ -330,9 +387,13 @@ export default function NationalStruggle() {
                         Selected
                       </span>
                     )}
+
                   </div>
 
+                  {/* THUMBNAIL INFORMATION */}
+
                   <div className="p-4">
+
                     <p className="mb-2 text-[10px] font-bold uppercase tracking-wider text-[#e6c987]">
                       {documentary.category}
                     </p>
@@ -344,19 +405,22 @@ export default function NationalStruggle() {
                     <p className="mt-2 text-xs text-gray-400">
                       View documentary topic →
                     </p>
+
                   </div>
+
                 </button>
               );
             })}
+
           </div>
 
           <p className="mt-1 text-xs text-[#64748b]">
             Select a topic to feature it above. Swipe horizontally on mobile
             to explore the library.
           </p>
+
         </div>
 
-        
       </div>
     </section>
   );

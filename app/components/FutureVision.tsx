@@ -3,7 +3,19 @@
 
 import { useRef, useState } from "react";
 
-const futureTopics = [
+type FutureTopic = {
+  id: string;
+  number: string;
+  title: string;
+  category: string;
+  description: string;
+  videoUrl: string;
+  vimeoId?: string;
+  poster: string;
+  subtitleUrl: string;
+};
+
+const futureTopics: FutureTopic[] = [
   {
     id: "industrialization",
     number: "01",
@@ -12,6 +24,7 @@ const futureTopics = [
     description:
       "Explore the potential for productive industries, manufacturing, processing facilities and industrial zones. Investment, skilled workers, reliable infrastructure, energy and effective institutions can all contribute to sustainable industrial development.",
     videoUrl: "",
+    vimeoId: "1245390741",
     poster: "",
     subtitleUrl: "",
   },
@@ -107,6 +120,7 @@ const futureTopics = [
 
 export default function FutureVision() {
   const [selectedId, setSelectedId] = useState("industrialization");
+
   const thumbnailRow = useRef<HTMLDivElement>(null);
 
   const activeTopic =
@@ -128,29 +142,51 @@ export default function FutureVision() {
       <div className="mx-auto max-w-7xl">
 
         {/* SECTION INTRODUCTION - WHITE BAND */}
-<div className="relative left-1/2 mb-8 w-screen -translate-x-1/2 bg-white px-5 py-6 text-center sm:px-8 lg:py-8">
-  <div className="mx-auto max-w-4xl text-center">
-    <p className="mb-2 text-sm font-bold uppercase tracking-[0.25em] text-[#a77d32]">
-      The Future
-    </p>
 
-    <h2 className="w-full text-center text-3xl font-extrabold leading-tight text-[#142b45] sm:text-4xl lg:text-5xl">
-      <span className="block">Strong Institutions · Prosperity</span>
-      <span className="block">Cultural Renaissance</span>
-    </h2>
+        <div className="relative left-1/2 mb-8 w-screen -translate-x-1/2 bg-white px-5 py-6 text-center sm:px-8 lg:py-8">
+          <div className="mx-auto max-w-4xl text-center">
 
-    <p className="mx-auto mt-3 max-w-2xl text-base leading-7 text-[#526174] sm:text-lg">
-      Ending dictatorship is only the beginning. The task is to build
-      strong institutions, create lasting prosperity, and revive the
-      nation's cultural heritage.
-    </p>
-  </div>
-</div>
+            <p className="mb-2 text-sm font-bold uppercase tracking-[0.25em] text-[#a77d32]">
+              The Future
+            </p>
 
-        {/* FEATURED VIDEO */}
+            <h2 className="w-full text-center text-3xl font-extrabold leading-tight text-[#142b45] sm:text-4xl lg:text-5xl">
+              <span className="block">
+                Strong Institutions · Prosperity
+              </span>
+
+              <span className="block">
+                Cultural Renaissance
+              </span>
+            </h2>
+
+            <p className="mx-auto mt-3 max-w-2xl text-base leading-7 text-[#526174] sm:text-lg">
+              Ending dictatorship is only the beginning. The task is to build
+              strong institutions, create lasting prosperity, and revive the
+              nation's cultural heritage.
+            </p>
+
+          </div>
+        </div>
+
+        {/* FEATURED VIDEO AND INFORMATION */}
+
         <div className="overflow-hidden rounded-xl border border-white/20 bg-white shadow-xl">
-          <div className="relative aspect-video w-full bg-[#142b45]">
-            {activeTopic.videoUrl ? (
+
+          {/* VIDEO DISPLAY */}
+
+          <div className="relative aspect-video w-full overflow-hidden bg-[#142b45]">
+
+            {activeTopic.vimeoId ? (
+              <iframe
+                key={activeTopic.vimeoId}
+                src={`https://player.vimeo.com/video/${activeTopic.vimeoId}?autoplay=0&muted=0&loop=0&controls=1&title=0&byline=0&portrait=0&playsinline=1`}
+                title={`${activeTopic.title} — ANM Future Development`}
+                className="absolute inset-0 h-full w-full"
+                allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
+                allowFullScreen
+              />
+            ) : activeTopic.videoUrl ? (
               <video
                 key={activeTopic.id}
                 className="h-full w-full object-contain"
@@ -189,6 +225,7 @@ export default function FutureVision() {
                     : undefined
                 }
               >
+
                 <div className="mb-5 flex h-16 w-16 items-center justify-center rounded-full border-2 border-[#142b45] text-[#142b45]">
                   <svg
                     viewBox="0 0 24 24"
@@ -212,13 +249,17 @@ export default function FutureVision() {
                   Illustrative video presentation will appear here when
                   footage is added to this topic.
                 </p>
+
               </div>
             )}
+
           </div>
 
           {/* VIDEO INFORMATION */}
+
           <div className="grid gap-6 p-6 sm:p-8">
             <div>
+
               <p className="mb-2 text-xs font-bold uppercase tracking-[0.2em] text-[#a77d32]">
                 {activeTopic.category}
               </p>
@@ -230,13 +271,20 @@ export default function FutureVision() {
               <p className="mt-4 max-w-4xl text-sm leading-7 text-[#526174] sm:text-base">
                 {activeTopic.description}
               </p>
+
             </div>
           </div>
+
         </div>
 
         {/* DEVELOPMENT TOPICS */}
+
         <div className="mt-12">
+
+          {/* TOPIC HEADING AND NAVIGATION */}
+
           <div className="mb-5 flex items-center justify-between gap-4">
+
             <div>
               <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#c9a45c]">
                 Building Tomorrow
@@ -247,7 +295,10 @@ export default function FutureVision() {
               </h3>
             </div>
 
+            {/* THUMBNAIL SCROLL BUTTONS */}
+
             <div className="hidden gap-2 sm:flex">
+
               <button
                 type="button"
                 onClick={() => scrollThumbnails("left")}
@@ -265,14 +316,19 @@ export default function FutureVision() {
               >
                 →
               </button>
+
             </div>
+
           </div>
+
+          {/* DEVELOPMENT TOPIC THUMBNAILS */}
 
           <div
             ref={thumbnailRow}
             className="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-5"
             style={{ scrollbarWidth: "thin" }}
           >
+
             {futureTopics.map((topic) => {
               const isSelected = selectedId === topic.id;
 
@@ -288,6 +344,9 @@ export default function FutureVision() {
                       : "border-white/20 bg-white hover:border-[#a77d32]"
                   }`}
                 >
+
+                  {/* TOPIC THUMBNAIL */}
+
                   <div
                     className="relative flex aspect-video items-center justify-center bg-gradient-to-br from-[#d8c9a8] to-[#8fa7a4]"
                     style={
@@ -300,6 +359,7 @@ export default function FutureVision() {
                         : undefined
                     }
                   >
+
                     <span className="absolute left-3 top-3 text-xs font-bold tracking-widest text-[#142b45]">
                       {topic.number}
                     </span>
@@ -313,9 +373,13 @@ export default function FutureVision() {
                         Selected
                       </span>
                     )}
+
                   </div>
 
+                  {/* TOPIC INFORMATION */}
+
                   <div className="p-4">
+
                     <p className="mb-2 text-[10px] font-bold uppercase tracking-wider text-[#a77d32]">
                       {topic.category}
                     </p>
@@ -327,26 +391,28 @@ export default function FutureVision() {
                     <p className="mt-2 text-xs text-[#64748b]">
                       Explore this possibility →
                     </p>
+
                   </div>
+
                 </button>
               );
             })}
+
           </div>
 
           <p className="mt-1 text-xs text-white/70">
             Select a development topic to feature it above. Swipe
             horizontally on mobile to explore.
           </p>
+
         </div>
 
+      </div>
 
-        
-            </div>
+      {/* WHITE SEPARATION ABOVE FOOTER */}
 
-      {/* White separation above footer */}
       <div className="relative left-1/2 mt-20 h-16 w-screen -translate-x-1/2 bg-white" />
+
     </section>
-    
   );
 }
-
