@@ -154,36 +154,32 @@ export default function AboutPage() {
     <main className="min-h-screen overflow-hidden bg-[#142b45] text-white">
 
       
-      {/* HERO */}
-      <section className="relative w-full overflow-hidden bg-[#142b45] text-white">
-        <div className="relative min-h-[320px] w-full sm:min-h-[600px] lg:min-h-[700px]">
+      
+      {/* FULL-SCREEN VIDEO HERO */}
+      <section className="relative h-[100svh] min-h-[600px] w-full overflow-hidden bg-black text-white">
+        <iframe
+          src="https://player.vimeo.com/video/1245373976?autoplay=1&muted=1&loop=1&background=1&controls=0&title=0&byline=0&portrait=0"
+          className="absolute left-1/2 top-1/2 h-[56.25vw] min-h-full w-[177.78vh] min-w-full -translate-x-1/2 -translate-y-1/2 border-0"
+          allow="autoplay; fullscreen; picture-in-picture"
+          allowFullScreen
+          title="Aga'azian National Movement – About"
+        />
 
-          {/* VIMEO VIDEO */}
-          <iframe
-            src="https://player.vimeo.com/video/1245373976?title=0&byline=0&portrait=0"
-            className="absolute inset-0 h-full w-full"
-            allow="autoplay; fullscreen; picture-in-picture"
-            allowFullScreen
-            loading="lazy"
-            title="Aga'azian National Movement – About"
-          />
+        {/* DARK OVERLAY */}
+        <div className="pointer-events-none absolute inset-0 z-[1] bg-black/35" />
 
-          {/* DARK OVERLAY */}
-          <div className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-b from-[#142b45]/65 via-[#142b45]/30 to-[#142b45]/75" />
+        {/* HERO TITLE */}
+        <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center px-4 text-center">
+          <div className="max-w-5xl">
+            <h1 className="text-3xl font-extrabold leading-tight text-white drop-shadow-lg sm:text-5xl lg:text-7xl">
+              Aga'azian National Movement
+            </h1>
 
-          {/* HERO TITLE */}
-          <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center px-3 pb-8 text-center sm:px-5 sm:pb-16">
-            <div className="max-w-5xl">
-              <h1 className="text-2xl font-extrabold leading-tight text-white drop-shadow-lg sm:text-5xl lg:text-7xl">
-                Aga'azian National Movement
-              </h1>
-
-              <div className="mx-auto my-6 h-1 w-20 rounded-full bg-[#c9a45c]" />
-            </div>
+            <div className="mx-auto my-6 h-1 w-20 rounded-full bg-[#c9a45c]" />
           </div>
-
         </div>
       </section>
+
 
 
       {/* WHO WE ARE */}
@@ -202,8 +198,7 @@ export default function AboutPage() {
             <p className="text-xs font-semibold leading-6 text-white/85 sm:text-lg sm:leading-8">
               The Aga'azian National Movement (ANM) is a national
               political movement of the Tigrinya nation, committed
-              to direct democracy, national self-determination,
-              and a prosperous future.
+              to direct democracy and a prosperous future.
             </p>
           </div>
 
@@ -246,9 +241,8 @@ export default function AboutPage() {
           </div>
 
           <p className="mx-auto mt-6 max-w-4xl text-center text-xs leading-6 text-white/65 sm:mt-10 sm:text-base sm:leading-7">
-            ANM carries forward a historical legacy of national
-            cultural identity and self-determination, advancing it
-            through democratic institutions, economic development,
+            ANM carries forward a historical legacy of the Tigrinya national
+            cultural identity, advancing this heritage through democratic institutions, economic development,
             modernization, and cultural renewal.
           </p>
         </div>

@@ -817,7 +817,7 @@ export default function EritreaOfTomorrow() {
               One national vision
             </p>
             <h2 className="text-3xl font-extrabold leading-tight md:text-5xl">
-              THREE PILLARS. ONE ERITREA.
+              THREE PILLARS
             </h2>
             <div className="mx-auto mt-6 h-1 w-20 bg-[#c9a45c]" />
           </div>

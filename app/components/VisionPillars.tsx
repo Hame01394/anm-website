@@ -18,7 +18,7 @@ const pillars = [
     lines: ["The", "Economy"],
     color: "#ffffff",
     description:
-      "A prosperous nation needs an economy in which people are free to create, invest, compete and contribute. We envision competitive markets, private enterprise, entrepreneurship, innovation, industrialisation and genuine economic opportunity.",
+      "A prosperous nation requires an economy where people are free to create, invest, compete, innovate, and contribute. We envision a competitive market economy driven by private enterprise, entrepreneurship, industrialisation, urbanisation, and digitalisation. We will leverage our strategic location, peace, stability, and regional labour resources while attracting Western capital, markets, technology, and know-how to build a productive, competitive, and prosperous nation.",
   },
   {
     id: "democracy",
@@ -26,7 +26,7 @@ const pillars = [
     lines: ["Direct", "Democracy"],
     color: "#ffffff",
     description:
-      "Citizens must have meaningful opportunities to shape public decisions, influence national priorities and hold those in power accountable. Political freedom, citizen participation, public oversight and constitutional protections are essential.",
+      "Our vision of direct democracy is rooted in the traditions of our villages, where people participate in economic, political, and social affairs, share land and resources, elect local representatives, and freely express their views. These practices foster community responsibility and social trust. We seek to adapt this tradition to modern urban society through constitutional local governance, ensuring citizen participation, accountability, and a meaningful voice in decisions affecting their lives.",
   },
   {
     id: "institutions",
@@ -34,7 +34,7 @@ const pillars = [
     lines: ["Institution", "Building"],
     color: "#ffffff",
     description:
-      "National renewal requires durable, professional institutions that serve the public under constitutional law. Independent courts, transparent administration, accountability and the rule of law protect individual rights and ensure responsible government.",
+      "A nation cannot prosper, its economy cannot grow, and democracy cannot function without trustworthy and competent institutions. We envision professional, efficient, and results-driven institutions that protect property rights, enforce contracts, uphold the rule of law, provide reliable public services, and create a predictable environment for investment and enterprise. Government must be capable, accountable, transparent, and measured by results.",
   },
 ];
 
@@ -202,8 +202,8 @@ export default function VisionPillars() {
 
                         <div
                           style={{
-                            fontSize: "9px",
-                            lineHeight: 1.4,
+                            fontSize: "7.5px",
+                            lineHeight: 1.35,
                             fontWeight: 500,
                             overflowWrap: "break-word",
                             wordBreak: "normal",

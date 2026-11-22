@@ -1,6 +1,7 @@
+
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 /* =========================================================
    TYPES
@@ -108,13 +109,6 @@ const circleLabels: Record<GroupId, string> = {
   loyalists: "Political Loyalists",
 };
 
-const groupDescriptions: Record<GroupId, string> = {
-  dictator: "The Dictator and Family",
-  military: "Senior Military Commanders",
-  security: "Senior Security Officials",
-  loyalists: "Senior Political Loyalists",
-};
-
 /* =========================================================
    DESTRUCTION OF ERITREA DATA
 ========================================================= */
@@ -189,17 +183,13 @@ const categories: Category[] = [
 
 function Portrait({
   person,
-  featured = false,
+  className = "",
 }: {
   person: Person;
-  featured?: boolean;
+  className?: string;
 }) {
   return (
-    <article
-      className={`aop-person ${
-        featured ? "aop-person-featured" : ""
-      }`}
-    >
+    <article className={`aop-person ${className}`}>
       <div className="aop-photo">
         <img src={person.image} alt={person.name} />
       </div>
@@ -217,13 +207,13 @@ function Portrait({
 function Circle({
   group,
   active,
-  onActivate,
   onHover,
+  onSelect,
 }: {
   group: GroupId;
   active: boolean;
-  onActivate: () => void;
   onHover: (group: GroupId) => void;
+  onSelect: (group: GroupId) => void;
 }) {
   return (
     <button
@@ -232,7 +222,8 @@ function Circle({
         active ? "is-active" : ""
       }`}
       onMouseEnter={() => onHover(group)}
-      onClick={onActivate}
+      onFocus={() => onHover(group)}
+      onClick={() => onSelect(group)}
       aria-pressed={active}
       aria-label={`Explore ${circleLabels[group]}`}
     >
@@ -246,35 +237,30 @@ function Circle({
 ========================================================= */
 
 export default function DictatorshipPage() {
-  /* Hero video */
-
-  
-
-  /* Architecture of Power */
-
   const [activeGroup, setActiveGroup] = useState<GroupId | null>(null);
+const hoverLock = useRef(false);
 
-  const activate = (group: GroupId) => {
-    setActiveGroup((current) =>
-      current === group ? null : group
-    );
-  };
+const handleMouseEnter = (group: GroupId) => {
+  if (
+    typeof window !== "undefined" &&
+    window.matchMedia("(hover: hover)").matches &&
+    !hoverLock.current
+  ) {
+    hoverLock.current = true;
+    setActiveGroup(group);
+  }
+};
 
-  const handleMouseEnter = (group: GroupId) => {
-    if (
-      typeof window !== "undefined" &&
-      window.matchMedia("(hover: hover)").matches
-    ) {
-      setActiveGroup(group);
-    }
-  };
+const handleMobileSelect = (group: GroupId) => {
+  if (
+    typeof window !== "undefined" &&
+    !window.matchMedia("(hover: hover)").matches
+  ) {
+    setActiveGroup((current) => (current === group ? null : group));
+  }
+};
 
-  /* Destruction of Eritrea */
-
-  const [activeCategory, setActiveCategory] = useState<string | null>(
-    null
-  );
-
+  const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [activeTopic, setActiveTopic] = useState<string | null>(null);
 
   const selectedCategory = categories.find(
@@ -287,43 +273,23 @@ export default function DictatorshipPage() {
           SECTION 1 — HERO
       ===================================================== */}
 
-      
+      <section className="relative flex min-h-screen w-full items-center justify-center overflow-hidden bg-[#101f35] text-white">
+        <div className="absolute inset-0 overflow-hidden">
+          <iframe
+            src="https://player.vimeo.com/video/1245387887?autoplay=1&muted=1&loop=1&controls=1&title=0&byline=0&portrait=0&playsinline=1"
+            title="The Reality of Dictatorship — Eritrea"
+            className="absolute left-1/2 top-1/2 h-[56.25vw] min-h-full w-[177.78vh] min-w-full -translate-x-1/2 -translate-y-1/2"
+            allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
+            allowFullScreen
+          />
+        </div>
 
-{/* =====================================================
-    SECTION 1 — HERO: DICTATORSHIP DOCUMENTARY
-===================================================== */}
+        <div className="pointer-events-none absolute inset-0 bg-[#101f35]/70" />
 
-<section className="relative flex min-h-screen w-full items-center justify-center overflow-hidden bg-[#101f35] text-white">
-
-  {/* VIMEO VIDEO BACKGROUND */}
-
-  <div className="absolute inset-0 overflow-hidden">
-
-    <iframe
-      src="https://player.vimeo.com/video/1245387887?autoplay=1&muted=1&loop=1&controls=1&title=0&byline=0&portrait=0&playsinline=1"
-      title="The Reality of Dictatorship — Eritrea"
-      className="absolute left-1/2 top-1/2 h-[56.25vw] min-h-full w-[177.78vh] min-w-full -translate-x-1/2 -translate-y-1/2"
-      allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
-      allowFullScreen
-    />
-
-  </div>
-
-  {/* DARK OVERLAY */}
-
-  <div className="pointer-events-none absolute inset-0 bg-[#101f35]/70" />
-
-  {/* HERO CONTENT */}
-
-  <div className="pointer-events-none relative z-10 mx-auto max-w-6xl px-6 text-center">
-
-    <div className="mx-auto mt-8 h-1 w-24 bg-white" />
-
-  </div>
-
-</section>
-
-
+        <div className="pointer-events-none relative z-10 mx-auto max-w-6xl px-6 text-center">
+          <div className="mx-auto mt-8 h-1 w-24 bg-white" />
+        </div>
+      </section>
 
       {/* =====================================================
           SECTION 2 — ARCHITECTURE OF POWER
@@ -344,15 +310,26 @@ export default function DictatorshipPage() {
       <section className="aop-section">
         <div className="aop-heading">
           <h2>THE ARCHITECTURE OF POWER</h2>
-
           <p>
-            Explore the relationships between the central leadership
-            and the institutions and individuals surrounding it.
+            Explore the individuals surrounding the central leadership
+            and the structures through which power is exercised.
           </p>
         </div>
 
-        <div className="aop-stage">
-          <svg
+        <div
+  className={`aop-stage ${activeGroup ? "has-selection" : ""}`}
+  data-active={activeGroup ?? "none"}
+  onMouseLeave={() => {
+    if (
+      typeof window !== "undefined" &&
+      window.matchMedia("(hover: hover)").matches
+    ) {
+      hoverLock.current = false;
+      setActiveGroup(null);
+    }
+  }}
+>
+              <svg
             className="aop-connectors"
             viewBox="0 0 1000 600"
             preserveAspectRatio="none"
@@ -363,12 +340,14 @@ export default function DictatorshipPage() {
             <path className="line" d="M500 300 L500 520" />
           </svg>
 
+          {/* FOUR CIRCLES — ALWAYS VISIBLE */}
+
           <div className="aop-node node-dictator">
             <Circle
               group="dictator"
               active={activeGroup === "dictator"}
-              onActivate={() => activate("dictator")}
               onHover={handleMouseEnter}
+              onSelect={handleMobileSelect}
             />
           </div>
 
@@ -376,8 +355,8 @@ export default function DictatorshipPage() {
             <Circle
               group="military"
               active={activeGroup === "military"}
-              onActivate={() => activate("military")}
               onHover={handleMouseEnter}
+              onSelect={handleMobileSelect}
             />
           </div>
 
@@ -385,8 +364,8 @@ export default function DictatorshipPage() {
             <Circle
               group="security"
               active={activeGroup === "security"}
-              onActivate={() => activate("security")}
               onHover={handleMouseEnter}
+              onSelect={handleMobileSelect}
             />
           </div>
 
@@ -394,50 +373,62 @@ export default function DictatorshipPage() {
             <Circle
               group="loyalists"
               active={activeGroup === "loyalists"}
-              onActivate={() => activate("loyalists")}
               onHover={handleMouseEnter}
+              onSelect={handleMobileSelect}
             />
           </div>
-        </div>
 
-        {activeGroup !== null && (
-          <div className="aop-details" key={activeGroup}>
-            <div className="aop-details-heading">
-              <div>
-                <p className="aop-eyebrow">GROUP PROFILE</p>
+          {/* GROUP-SPECIFIC PORTRAIT ARRANGEMENTS */}
 
-                <h2>{groupDescriptions[activeGroup]}</h2>
-              </div>
+          {activeGroup !== null && (
+            <div
+              className={`aop-selected-view aop-layout-${activeGroup}`}
+              key={activeGroup}
+            >
+              {activeGroup === "dictator" ? (
+                <>
+                  <h2 className="aop-selected-title">
+                    DICTATOR AND FAMILY
+                  </h2>
 
-              <button
-                type="button"
-                className="aop-reset-button"
-                onClick={() => setActiveGroup(null)}
-                aria-label="Close group details"
-              >
-                <span aria-hidden="true">×</span>
-                <span>Close</span>
-              </button>
+                  <div className="aop-family-portraits">
+                    {groups.dictator.map((person, index) => (
+                      <Portrait
+                        key={person.name}
+                        person={person}
+                        className={`aop-family-${index + 1}`}
+                      />
+                    ))}
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="aop-leader">
+                    <p className="aop-leader-label">CENTRAL LEADERSHIP</p>
+
+                    <Portrait
+                      person={groups.dictator[0]}
+                      className="aop-leader-person"
+                    />
+                  </div>
+
+                  <h2 className="aop-selected-title">
+                    {circleLabels[activeGroup].toUpperCase()}
+                  </h2>
+
+                  <div className="aop-portrait-layout">
+                    {groups[activeGroup].map((person, index) => (
+                      <Portrait
+                        key={person.name}
+                        person={person}
+                        className={`aop-group-person aop-group-person-${index + 1}`}
+                      />
+                    ))}
+                  </div>
+                </>
+              )}
             </div>
-
-            <div className="aop-portrait-layout">
-              {groups[activeGroup].map((person, index) => (
-                <Portrait
-                  key={person.name}
-                  person={person}
-                  featured={
-                    activeGroup === "dictator" && index === 1
-                  }
-                />
-              ))}
-            </div>
-          </div>
-        )}
-
-        <div className="aop-instructions">
-          {activeGroup
-            ? "Select another circle to explore a different group, or use the Close button to hide the details."
-            : "Select or hover over a circle to explore the individuals in each group."}
+          )}
         </div>
       </section>
 
@@ -463,8 +454,6 @@ export default function DictatorshipPage() {
 
         <div className="w-full bg-[#101f35] px-5 py-16 text-white md:px-10 md:py-20 lg:px-16">
           <div className="mx-auto max-w-7xl">
-            {/* Category navigation */}
-
             <nav
               aria-label="Destruction categories"
               className="mb-10 flex gap-3 overflow-x-auto pb-4 lg:grid lg:grid-cols-5 lg:overflow-visible"
@@ -478,9 +467,7 @@ export default function DictatorshipPage() {
                     type="button"
                     aria-expanded={isActive}
                     onClick={() => {
-                      setActiveCategory(
-                        isActive ? null : category.id
-                      );
+                      setActiveCategory(isActive ? null : category.id);
                       setActiveTopic(null);
                     }}
                     className={`min-h-[112px] min-w-[190px] flex-1 border px-5 py-5 text-left transition-colors duration-200 lg:min-w-0 ${
@@ -504,8 +491,6 @@ export default function DictatorshipPage() {
                 );
               })}
             </nav>
-
-            {/* Selected category */}
 
             {selectedCategory && (
               <div className="border border-[#e3ddcf] bg-white p-6 text-[#101f35] md:p-9">
@@ -532,8 +517,6 @@ export default function DictatorshipPage() {
                   </button>
                 </div>
 
-                {/* Subtopics */}
-
                 <div className="grid gap-3 md:grid-cols-2">
                   {selectedCategory.subtopics.map((topic, index) => {
                     const isSelected = activeTopic === topic;
@@ -544,9 +527,7 @@ export default function DictatorshipPage() {
                         type="button"
                         aria-expanded={isSelected}
                         onClick={() =>
-                          setActiveTopic(
-                            isSelected ? null : topic
-                          )
+                          setActiveTopic(isSelected ? null : topic)
                         }
                         className={`flex items-center justify-between gap-4 border px-5 py-5 text-left transition duration-200 ${
                           isSelected
@@ -572,8 +553,6 @@ export default function DictatorshipPage() {
                   })}
                 </div>
 
-                {/* Topic details */}
-
                 {activeTopic && (
                   <article
                     className="mt-8 border border-[#e3ddcf] bg-white p-6 text-[#101f35] md:p-9"
@@ -595,15 +574,14 @@ export default function DictatorshipPage() {
 
                         <p className="text-sm leading-8 text-slate-600">
                           Research, verified evidence and a detailed
-                          explanation of {activeTopic.toLowerCase()}{" "}
-                          will be presented here.
+                          explanation of {activeTopic.toLowerCase()} will
+                          be presented here.
                         </p>
 
                         <p className="mt-5 text-sm leading-8 text-slate-600">
-                          This section is reserved for documented
-                          facts, relevant statistics, firsthand
-                          testimonies and references to credible
-                          supporting reports.
+                          This section is reserved for documented facts,
+                          relevant statistics, firsthand testimonies and
+                          references to credible supporting reports.
                         </p>
                       </div>
 
@@ -655,8 +633,6 @@ export default function DictatorshipPage() {
           </div>
 
           <div className="relationship-diagram">
-            {/* One-man rule */}
-
             <div className="relationship-block">
               <div className="relationship-main">
                 <span className="relationship-number">01</span>
@@ -695,17 +671,11 @@ export default function DictatorshipPage() {
               </div>
             </div>
 
-            {/* Connecting arrow */}
-
             <div className="relationship-connector">
               <div className="relationship-line" />
 
               <div className="relationship-arrow">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  aria-hidden="true"
-                >
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <path
                     d="M5 12H19M12 5L19 12L12 19"
                     stroke="currentColor"
@@ -718,8 +688,6 @@ export default function DictatorshipPage() {
 
               <span>CONSEQUENCES</span>
             </div>
-
-            {/* Destruction of Eritrea */}
 
             <div className="relationship-block relationship-destruction">
               <div className="relationship-main">
@@ -748,8 +716,6 @@ export default function DictatorshipPage() {
             </div>
           </div>
 
-          {/* Closing statement */}
-
           <div className="relationship-conclusion">
             <p>
               FROM THE CONCENTRATION OF POWER TO THE DESTRUCTION OF A
@@ -765,7 +731,7 @@ export default function DictatorshipPage() {
       </section>
 
       {/* =====================================================
-          GLOBAL STYLES
+          PAGE STYLES
       ===================================================== */}
 
       <style jsx global>{`
@@ -776,7 +742,7 @@ export default function DictatorshipPage() {
           padding: 65px 24px 75px;
           background: #10263d;
           color: #ffffff;
-          overflow: hidden;
+          overflow: visible;
         }
 
         .aop-heading {
@@ -806,6 +772,11 @@ export default function DictatorshipPage() {
           height: 600px;
           margin: 0 auto;
           isolation: isolate;
+          overflow: visible;
+        }
+
+        .aop-stage.has-selection {
+          height: 780px;
         }
 
         .aop-connectors {
@@ -830,7 +801,15 @@ export default function DictatorshipPage() {
           display: flex;
           align-items: center;
           justify-content: center;
+          transition:
+            left 0.4s ease,
+            right 0.4s ease,
+            top 0.4s ease,
+            bottom 0.4s ease,
+            transform 0.4s ease;
         }
+
+        /* INITIAL CIRCLE POSITIONS */
 
         .node-dictator {
           left: 50%;
@@ -894,55 +873,44 @@ export default function DictatorshipPage() {
           outline-offset: 5px;
         }
 
-        .aop-details {
-          width: 100%;
-          max-width: 1050px;
-          margin: 10px auto 0;
-          padding: 30px;
-          border-top: 1px solid rgba(198, 164, 92, 0.65);
-          animation: aopAppear 0.4s ease both;
+        /* PORTRAIT COMPONENTS */
+
+        .aop-selected-view {
+          position: absolute;
+          inset: 0;
+          z-index: 2;
+          pointer-events: none;
+          animation: aopAppear 0.3s ease both;
         }
 
-        .aop-details-heading {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 20px;
-          margin-bottom: 28px;
-        }
-
-        .aop-eyebrow {
-          margin: 0 0 8px;
-          color: #c6a45c;
-          font-size: 12px;
-          font-weight: 700;
-          letter-spacing: 0.12em;
-        }
-
-        .aop-details-heading h2 {
+        .aop-selected-title {
+          position: absolute;
+          top: 185px;
+          left: 50%;
+          width: max-content;
+          max-width: 80%;
+          transform: translateX(-50%);
           margin: 0;
-          color: #ffffff;
-          font-size: clamp(20px, 3vw, 28px);
-          font-weight: 700;
-        }
-
-        .aop-portrait-layout {
-          display: grid;
-          grid-template-columns: repeat(3, minmax(0, 1fr));
-          align-items: start;
-          gap: clamp(16px, 3vw, 45px);
+          color: #e4c47c;
+          font-size: 17px;
+          font-weight: 800;
+          letter-spacing: 0.12em;
+          text-align: center;
         }
 
         .aop-person {
+          width: 125px;
+          max-width: 125px;
           min-width: 0;
-          max-width: 245px;
-          margin: 0 auto;
+          margin: 0;
           text-align: center;
           color: #ffffff;
+          pointer-events: auto;
         }
 
         .aop-photo {
           width: 100%;
+          max-height: 125px;
           aspect-ratio: 4 / 5;
           overflow: hidden;
           border: 2px solid #c6a45c;
@@ -959,75 +927,233 @@ export default function DictatorshipPage() {
         }
 
         .aop-person h3 {
-          margin: 13px 0 7px;
+          margin: 7px 0 3px;
           color: #e4c47c;
-          font-size: 17px;
+          font-size: 12px;
           font-weight: 700;
-          line-height: 1.7;
+          line-height: 1.45;
           overflow-wrap: anywhere;
         }
 
         .aop-person p {
           margin: 0 auto;
-          max-width: 245px;
+          max-width: 125px;
           color: #d2dbe3;
-          font-size: 13px;
-          line-height: 1.9;
+          font-size: 10px;
+          line-height: 1.5;
         }
 
-        .aop-person-featured {
-          transform: translateY(-10px);
-        }
-
-        .aop-person-featured .aop-photo {
-          border-width: 3px;
-          border-color: #e4c47c;
-        }
-
-        .aop-reset-button {
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          gap: 9px;
-          min-height: 42px;
-          padding: 9px 17px;
-          border: 1px solid rgba(228, 196, 124, 0.75);
-          border-radius: 30px;
-          background: rgba(255, 255, 255, 0.1);
-          color: #ffffff;
-          font-size: 13px;
-          font-weight: 700;
-          cursor: pointer;
-          transition:
-            background 0.3s ease,
-            color 0.3s ease;
-        }
-
-        .aop-reset-button:hover {
-          background: #c6a45c;
-          color: #10263d;
-        }
-
-        .aop-reset-button span:first-child {
-          font-family: Arial, sans-serif;
-          font-size: 22px;
-          line-height: 1;
-        }
-
-        .aop-instructions {
-          min-height: 24px;
-          margin: 25px auto 0;
-          color: #bdc9d4;
+        .aop-leader-label {
+          margin: 0 0 8px;
+          color: #c6a45c;
+          font-size: 10px;
+          font-weight: 800;
+          letter-spacing: 0.12em;
           text-align: center;
-          font-size: 13px;
-          line-height: 1.9;
         }
+
+        .aop-leader-person {
+          margin: 0 auto;
+        }
+
+        /* DICTATOR AND FAMILY
+           Isaias in the centre, wife on the left, son on the right.
+        */
+
+        .aop-stage[data-active="dictator"] .node-dictator {
+          left: 50%;
+          top: 4%;
+          transform: translateX(-50%);
+        }
+
+        .aop-stage[data-active="dictator"] .node-loyalists {
+          left: auto;
+          right: 5%;
+          top: 38%;
+          bottom: auto;
+          transform: none;
+        }
+
+        .aop-layout-dictator .aop-selected-title {
+          top: 190px;
+        }
+
+        .aop-family-portraits {
+          position: absolute;
+          top: 235px;
+          left: 50%;
+          display: grid;
+          grid-template-columns: repeat(3, 125px);
+          gap: 25px;
+          transform: translateX(-50%);
+        }
+
+        .aop-family-1 {
+          grid-column: 2;
+          grid-row: 1;
+        }
+
+        .aop-family-2 {
+          grid-column: 1;
+          grid-row: 1;
+        }
+
+        .aop-family-3 {
+          grid-column: 3;
+          grid-row: 1;
+        }
+
+        /* MILITARY COMMANDERS
+           Dictator circle to the left of Military.
+           Dictator portrait above the three military portraits.
+        */
+
+        .aop-stage[data-active="military"] .node-dictator {
+          left: 5%;
+          top: 7%;
+          transform: none;
+        }
+
+        .aop-stage[data-active="military"] .node-military {
+          left: 27%;
+          top: 7%;
+          transform: none;
+        }
+
+        .aop-layout-military .aop-selected-title {
+          top: 190px;
+        }
+
+        .aop-layout-military .aop-leader {
+          position: absolute;
+          top: 225px;
+          left: 50%;
+          width: 125px;
+          transform: translateX(-50%);
+        }
+
+        .aop-layout-military .aop-portrait-layout {
+          position: absolute;
+          top: 475px;
+          left: 50%;
+          display: grid;
+          grid-template-columns: repeat(3, 125px);
+          gap: 22px;
+          transform: translateX(-50%);
+        }
+
+        /* SECURITY APPARATUS
+           Security circle on the left.
+           Dictator circle to the right of Security.
+           Dictator portrait above the three Security portraits.
+        */
+
+        .aop-stage[data-active="security"] .node-security {
+          left: 48%;
+          right: auto;
+          top: 7%;
+          transform: none;
+        }
+
+        .aop-stage[data-active="security"] .node-dictator {
+          left: 76%;
+          right: auto;
+          top: 7%;
+          transform: none;
+        }
+
+        .aop-layout-security .aop-selected-title {
+          top: 190px;
+        }
+
+        .aop-layout-security .aop-leader {
+          position: absolute;
+          top: 225px;
+          left: 50%;
+          width: 125px;
+          transform: translateX(-50%);
+        }
+
+        .aop-layout-security .aop-portrait-layout {
+          position: absolute;
+          top: 475px;
+          left: 50%;
+          display: grid;
+          grid-template-columns: repeat(3, 125px);
+          gap: 22px;
+          transform: translateX(-50%);
+        }
+
+        .aop-layout-security .aop-group-person {
+          position: relative;
+          width: 125px;
+        }
+
+        .aop-layout-security .aop-group-person-1 {
+          grid-column: 2;
+          grid-row: 1;
+        }
+
+        .aop-layout-security .aop-group-person-2 {
+          grid-column: 1;
+          grid-row: 1;
+        }
+
+        .aop-layout-security .aop-group-person-3 {
+          grid-column: 3;
+          grid-row: 1;
+        }
+
+        /* POLITICAL LOYALISTS
+           Dictator circle moves up.
+           Political Loyalists circle moves to the right.
+           Dictator portrait occupies the original centre.
+        */
+
+        .aop-stage[data-active="loyalists"] .node-dictator {
+          left: 50%;
+          top: 2%;
+          transform: translateX(-50%);
+        }
+
+        .aop-stage[data-active="loyalists"] .node-loyalists {
+          left: auto;
+          right: 5%;
+          top: 36%;
+          bottom: auto;
+          transform: none;
+        }
+
+        .aop-layout-loyalists .aop-selected-title {
+          top: 190px;
+        }
+
+        .aop-layout-loyalists .aop-leader {
+          position: absolute;
+          top: 225px;
+          left: 50%;
+          width: 125px;
+          transform: translateX(-50%);
+        }
+
+        .aop-layout-loyalists .aop-portrait-layout {
+          position: absolute;
+          top: 475px;
+          left: 50%;
+          display: grid;
+          grid-template-columns: repeat(3, 125px);
+          gap: 22px;
+          transform: translateX(-50%);
+        }
+
+        /* ANIMATION */
 
         @keyframes aopAppear {
           from {
             opacity: 0;
             transform: translateY(12px);
           }
+
           to {
             opacity: 1;
             transform: translateY(0);
@@ -1272,9 +1398,13 @@ export default function DictatorshipPage() {
 
         /* TABLET */
 
-        @media (max-width: 900px) {
+        @media (max-width: 900px) and (min-width: 601px) {
           .aop-stage {
-            height: 540px;
+            height: 600px;
+          }
+
+          .aop-stage.has-selection {
+            height: 760px;
           }
 
           .aop-circle {
@@ -1287,20 +1417,33 @@ export default function DictatorshipPage() {
             font-size: 13px;
           }
 
-          .aop-details {
-            padding: 25px 10px;
+          .aop-person {
+            width: 105px;
+            max-width: 105px;
           }
 
-          .aop-portrait-layout {
-            gap: 16px;
+          .aop-photo {
+            max-height: 105px;
           }
 
           .aop-person h3 {
-            font-size: 14px;
+            font-size: 11px;
           }
 
           .aop-person p {
-            font-size: 12px;
+            font-size: 9px;
+          }
+
+          .aop-family-portraits,
+          .aop-layout-military .aop-portrait-layout,
+          .aop-layout-security .aop-portrait-layout,
+          .aop-layout-loyalists .aop-portrait-layout {
+            grid-template-columns: repeat(3, 105px);
+            gap: 14px;
+          }
+
+          .aop-layout-security .aop-group-person {
+            width: 105px;
           }
 
           .relationship-diagram {
@@ -1332,7 +1475,8 @@ export default function DictatorshipPage() {
             font-size: 14px;
           }
 
-          .aop-stage {
+          .aop-stage,
+          .aop-stage.has-selection {
             display: grid;
             grid-template-columns: repeat(2, minmax(0, 1fr));
             justify-items: center;
@@ -1348,9 +1492,9 @@ export default function DictatorshipPage() {
           }
 
           .aop-node {
-            position: static;
-            inset: auto;
-            transform: none;
+            position: relative;
+            inset: auto !important;
+            transform: none !important;
             width: 100%;
             display: flex;
             justify-content: center;
@@ -1377,31 +1521,61 @@ export default function DictatorshipPage() {
             font-size: 12px;
           }
 
-          .aop-details {
-            margin-top: 5px;
-            padding: 22px 0;
+          .aop-selected-view {
+            position: relative;
+            inset: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            grid-column: 1 / -1;
+            width: 100%;
+            padding: 20px 0;
           }
 
-          .aop-details-heading {
-            align-items: flex-start;
-            margin-bottom: 22px;
+          .aop-selected-title {
+            position: relative;
+            inset: auto;
+            width: 100%;
+            max-width: 100%;
+            transform: none;
+            order: 0;
+            font-size: 14px;
           }
 
-          .aop-details-heading h2 {
-            font-size: 19px;
-            line-height: 1.7;
+          .aop-leader {
+            position: relative !important;
+            inset: auto !important;
+            width: 115px !important;
+            transform: none !important;
+            order: 1;
           }
 
-          .aop-reset-button {
-            flex-shrink: 0;
-            min-height: 40px;
-            padding: 8px 12px;
-            font-size: 11px;
-          }
-
+          .aop-family-portraits,
           .aop-portrait-layout {
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 9px;
+            position: relative !important;
+            inset: auto !important;
+            display: grid !important;
+            grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+            width: 100%;
+            gap: 10px !important;
+            transform: none !important;
+            order: 2;
+          }
+
+          .aop-family-1 {
+            grid-column: 2;
+            grid-row: 1;
+          }
+
+          .aop-family-2 {
+            grid-column: 1;
+            grid-row: 1;
+          }
+
+          .aop-family-3 {
+            grid-column: 3;
+            grid-row: 1;
           }
 
           .aop-person {
@@ -1410,6 +1584,7 @@ export default function DictatorshipPage() {
           }
 
           .aop-photo {
+            max-height: none;
             aspect-ratio: 3 / 4;
           }
 
@@ -1417,23 +1592,21 @@ export default function DictatorshipPage() {
             margin-top: 9px;
             font-size: 11px;
             line-height: 1.6;
-            overflow-wrap: anywhere;
           }
 
           .aop-person p {
             font-size: 10px;
             line-height: 1.7;
-            overflow-wrap: anywhere;
           }
 
-          .aop-person-featured {
-            transform: none;
+          .aop-layout-security .aop-group-person {
+            position: relative;
+            inset: auto;
+            width: 100%;
           }
 
-          .aop-instructions {
-            font-size: 12px;
-            line-height: 1.8;
-            padding: 0 8px;
+          .aop-layout-security .aop-portrait-layout {
+            display: grid !important;
           }
 
           .relationship-section {
