@@ -86,12 +86,12 @@ export default function VisionPillars() {
   return (
     <section
       id="our-vision"
-      className="w-full overflow-visible bg-[#142b45] px-5 py-20 text-white sm:px-8 lg:py-28"
+      className="w-full overflow-visible bg-[#142b45] px-5 pt-20 pb-0 text-white sm:px-8 lg:pt-28 lg:pb-0"
     >
       <div className="mx-auto max-w-7xl">
 
         {/* SECTION INTRODUCTION - WHITE BAND */}
-        <div className="relative left-1/2 mb-8 w-screen -translate-x-1/2 bg-[#142b45] px-5 py-6 text-center sm:px-8 lg:py-8">
+        <div className="relative left-1/2 mb-4 w-screen -translate-x-1/2 bg-[#142b45] px-5 py-3 text-center sm:px-8 sm:py-4">
   <div className="mx-auto max-w-4xl text-center">
     
     <h2 className="text-3xl font-extrabold leading-tight text-white sm:text-4xl lg:text-5xl">
@@ -351,7 +351,7 @@ export default function VisionPillars() {
         </div>
 
         {/* NATIONAL VISION FOOTER */}
-        <div className="mx-auto mt-16 max-w-4xl border-t border-white/30 pt-10 text-center sm:mt-20">
+        <div className="mx-auto mt-6 max-w-4xl border-t border-white/30 pt-6 text-center">
 
           <h3 className="text-xl font-extrabold tracking-wide text-white sm:text-2xl lg:text-3xl">
             Identity
