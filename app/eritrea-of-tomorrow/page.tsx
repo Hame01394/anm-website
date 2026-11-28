@@ -168,7 +168,7 @@ const pillars: Pillar[] = [
   },
   {
     number: "03",
-    title: "National Pride: Cultural Renewal and National Cohesion",
+    title: "A Proud Nation: Cultural Renewal and National Cohesion",
     subtitle:
       "Revitalising national identity, cultural heritage and shared belonging",
     description:
@@ -253,10 +253,10 @@ function NationalFrameworkHeading() {
   return (
     <section className="w-full border-b border-[#e7e0d3] bg-white px-5 py-14 md:px-10 md:py-20">
       <div className="mx-auto max-w-7xl text-center">
-        <SectionLabel>WE WILL BUILD ERITREA</SectionLabel>
+        <SectionLabel>ERITREA OF TOMORROW</SectionLabel>
 
         <h2 className="text-3xl font-bold leading-tight text-[#142b45] md:text-5xl">
-          A Strong Economy. National Pride. Trustworthy Institutions.
+          Trustworthy Institutions. A Strong Economy. A Proud Nation.
         </h2>
 
         <div className="mx-auto mt-6 h-1 w-20 bg-[#c9a45c]" />
@@ -364,7 +364,7 @@ function ThreePillarCircle() {
               className="h-auto w-full overflow-visible"
               overflow="visible"
               role="group"
-              aria-label="Interactive diagram of the three pillars"
+              aria-label="Interactive diagram of the three foundations"
             >
               <defs>
                 <clipPath id={clipId}>
@@ -560,7 +560,7 @@ function ThreePillarCircle() {
           </div>
 
           <p className="mt-7 max-w-xl text-center text-xs leading-6 tracking-wide text-white/65">
-            Explore each pillar. Select a sector to discover the future we will build.
+            Explore each foundation. Select a sector to discover the future we will build.
           </p>
         </div>
       </div>
@@ -814,27 +814,27 @@ export default function EritreaOfTomorrow() {
         <div className="mx-auto max-w-6xl">
           <div className="mb-12 text-center">
             <p className="mb-4 text-xs font-bold uppercase tracking-[0.3em] text-[#d5b46b]">
-              One national vision
+              Our National vision
             </p>
             <h2 className="text-3xl font-extrabold leading-tight md:text-5xl">
-              THREE PILLARS
+              THE FOUNDATIONS OF OUR NATIONAL VISION. 
             </h2>
             <div className="mx-auto mt-6 h-1 w-20 bg-[#c9a45c]" />
           </div>
 
           {/* TRUSTWORTHY INSTITUTIONS — THE FOUNDATION */}
-          <div className="mx-auto max-w-3xl border border-[#c9a45c] bg-[#234467] px-6 py-8 text-center shadow-xl md:px-10 md:py-9">
+          <div className="mx-auto max-w-3xl border border-[#c9a45c] bg-white px-6 py-8 text-center shadow-xl md:px-10 md:py-9">
             <div className="mb-3 flex justify-center">
               <svg viewBox="0 0 48 48" className="h-10 w-10 text-[#e2c47e]" fill="none" aria-hidden="true">
                 <path d="M5 18 24 7l19 11H5Z M9 21h30 M12 21v16m8-16v16m8-16v16m8-16v16M7 40h34" stroke="currentColor" strokeWidth="2" strokeLinecap="square" strokeLinejoin="miter" />
               </svg>
             </div>
-            <h3 className="text-xl font-extrabold uppercase tracking-wide md:text-2xl">
-              Trustworthy Institutions
-            </h3>
-            <p className="mt-2 text-sm font-medium text-white/85 md:text-base">
-              The foundation of good governance
-            </p>
+            <h3 className="text-xl font-extrabold uppercase tracking-wide text-[#142b45] md:text-2xl">
+  Trustworthy Institutions
+</h3>
+            <p className="mt-2 text-sm font-medium text-[#596779] md:text-base">
+  The foundation of good governance
+</p>
           </div>
 
           {/* BRANCHING CONNECTION TO THE TWO COMPLEMENTARY PILLARS */}
@@ -846,32 +846,32 @@ export default function EritreaOfTomorrow() {
           </div>
 
           <div className="grid gap-5 md:grid-cols-2 md:gap-8">
-            <article className="flex min-h-[190px] flex-col items-center justify-center border border-white/20 bg-[#1b3552] px-6 py-8 text-center md:min-h-[220px] md:px-10">
+            <article className="flex min-h-[190px] flex-col items-center justify-center border border-[#e7e0d3] bg-white px-6 py-8 text-center shadow-sm transition duration-300 hover:border-[#c9a45c] md:min-h-[220px] md:px-10">
               <div className="mb-4 flex h-12 w-12 items-center justify-center border border-[#c9a45c] text-[#e2c47e]" aria-hidden="true">
                 <svg viewBox="0 0 48 48" className="h-7 w-7" fill="none">
                   <path d="M7 40h34M10 40V19h28v21M7 19l17-11 17 11M17 25v5m7-5v5m7-5v5M17 40V33h14v7" stroke="currentColor" strokeWidth="2" strokeLinecap="square" strokeLinejoin="miter" />
                 </svg>
               </div>
-              <h3 className="text-xl font-extrabold uppercase tracking-wide md:text-2xl">
-                A Strong Economy
-              </h3>
-              <p className="mt-3 max-w-sm text-sm leading-7 text-white/80 md:text-base">
-                Creates prosperity and opportunity.
-              </p>
+              <h3 className="text-xl font-extrabold uppercase tracking-wide text-[#142b45] md:text-2xl">
+  A Strong Economy
+</h3>
+              <p className="mt-3 max-w-sm text-sm leading-7 text-[#596779] md:text-base">
+  The engine of prosperity and opportunity.
+</p>
             </article>
 
-            <article className="flex min-h-[190px] flex-col items-center justify-center border border-white/20 bg-[#1b3552] px-6 py-8 text-center md:min-h-[220px] md:px-10">
+            <article className="flex min-h-[190px] flex-col items-center justify-center border border-[#e7e0d3] bg-white px-6 py-8 text-center shadow-sm transition duration-300 hover:border-[#c9a45c] md:min-h-[220px] md:px-10">
               <div className="mb-4 flex h-12 w-12 items-center justify-center border border-[#c9a45c] text-[#e2c47e]" aria-hidden="true">
                 <svg viewBox="0 0 48 48" className="h-7 w-7" fill="none">
                   <path d="M24 5 39 11v12c0 10-6 16-15 20C15 39 9 33 9 23V11L24 5Z M17 24l5 5 10-11" stroke="currentColor" strokeWidth="2" strokeLinecap="square" strokeLinejoin="miter" />
                 </svg>
               </div>
-              <h3 className="text-xl font-extrabold uppercase tracking-wide md:text-2xl">
-                National Pride
-              </h3>
-              <p className="mt-3 max-w-sm text-sm leading-7 text-white/80 md:text-base">
-                Preserves our identity, heritage and cultural continuity.
-              </p>
+              <h3 className="text-xl font-extrabold uppercase tracking-wide text-[#142b45] md:text-2xl">
+  A Proud Nation
+</h3>
+              <p className="mt-3 max-w-sm text-sm leading-7 text-[#596779] md:text-base">
+  The foundation of social trust, national competitiveness and cultural continuity.
+</p>
             </article>
           </div>
 

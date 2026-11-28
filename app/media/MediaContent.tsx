@@ -3,216 +3,315 @@
 
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+import { useCallback, useEffect, useState } from "react";
 
 const categories = [
-  {
-    title: "Latest News",
-    description: "Updates and developments from the movement.",
-  },
-  {
-    title: "Analysis & Commentary",
-    description: "Political analysis and informed commentary.",
-  },
-  {
-    title: "Press Releases",
-    description: "Official announcements from the ANM.",
-  },
-  {
-    title: "Speeches & Statements",
-    description: "Speeches, declarations and official positions.",
-  },
-  {
-    title: "Videos & Interviews",
-    description: "Interviews, video messages and media appearances.",
-  },
-  {
-    title: "Publications & Reports",
-    description: "Reports, policy documents and publications.",
-  },
+  { id: "latest-news", title: "Latest News" },
+  { id: "analysis-commentary", title: "Analysis & Commentary" },
+  { id: "press-releases", title: "Press Releases" },
+  { id: "speeches-statements", title: "Speeches & Statements" },
+  { id: "videos-interviews", title: "Videos & Interviews" },
+  { id: "publications-reports", title: "Publications & Reports" },
 ];
+
+type Article = {
+  id: string;
+  category: string;
+  locale: string;
+  title: string;
+  subtitle: string | null;
+  slug: string;
+  publishedAt: string | null;
+};
+
+type Pagination = {
+  page: number;
+  limit: number;
+  total: number;
+  totalPages: number;
+};
+
+function formatDate(value: string | null) {
+  if (!value) return "";
+
+  return new Intl.DateTimeFormat("en", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  }).format(new Date(value));
+}
 
 export default function MediaContent() {
   const searchParams = useSearchParams();
+  const categoryParam = searchParams.get("category");
 
-  const requestedCategory = searchParams.get("category");
+  const activeCategory =
+    categories.find((item) => item.id === categoryParam) ??
+    categories.find(
+      (item) =>
+        item.title.toLowerCase() ===
+        decodeURIComponent(categoryParam || "").toLowerCase()
+    );
 
-  const activeCategory = categories.find(
-    (category) => category.title === requestedCategory
-  )?.title ?? null;
+  const [articles, setArticles] = useState<Article[]>([]);
+  const [pagination, setPagination] = useState<Pagination>({
+    page: 1,
+    limit: 12,
+    total: 0,
+    totalPages: 0,
+  });
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
-  const categoryHref = (category: string) =>
-    `/media?category=${encodeURIComponent(category)}`;
+  const loadArticles = useCallback(async (page = 1) => {
+    setLoading(true);
+    setError("");
+
+    try {
+      const query = new URLSearchParams({
+        page: String(page),
+        limit: "12",
+      });
+
+      if (activeCategory) {
+        query.set("category", activeCategory.id);
+      }
+
+      const response = await fetch(`/api/media?${query.toString()}`, {
+        cache: "no-store",
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Unable to load articles.");
+      }
+
+      setArticles(data.articles ?? []);
+      setPagination(data.pagination);
+    } catch (err) {
+      setError(
+        err instanceof Error
+          ? err.message
+          : "Unable to load articles."
+      );
+    } finally {
+      setLoading(false);
+    }
+  }, [activeCategory]);
+
+  useEffect(() => {
+    loadArticles(1);
+  }, [loadArticles]);
 
   return (
-    <main className="min-h-screen bg-white text-[#142b45]">
-      {/* HERO */}
+    <main className="min-h-screen bg-[#f8f5ed]">
       <section className="relative overflow-hidden bg-[#142b45] px-6 py-24 text-white md:py-32">
-        <div className="pointer-events-none absolute -right-24 -top-24 h-80 w-80 rounded-full border border-[#c9a45c]/20" />
-        <div className="pointer-events-none absolute -right-12 -top-12 h-56 w-56 rounded-full border border-[#c9a45c]/30" />
-
-        <div className="relative mx-auto max-w-7xl">
-          <p className="mb-5 text-sm font-bold uppercase tracking-[0.3em] text-[#d5b46b]">
+        <div className="mx-auto max-w-7xl">
+          <p className="mb-5 text-xs font-bold uppercase tracking-[0.3em] text-[#c9a45c]">
             Aga'azian National Movement
           </p>
 
-          <h1 className="max-w-4xl text-4xl font-bold leading-tight md:text-6xl">
-            News <span className="text-[#d5b46b]">&</span> Media
+          <h1 className="max-w-4xl text-5xl font-bold leading-tight md:text-7xl">
+            Media & Newsroom
           </h1>
 
-          <div className="mt-6 h-1 w-24 bg-[#c9a45c]" />
+          <div className="mt-7 h-1 w-20 bg-[#c9a45c]" />
 
-          <h2 className="mt-8 text-xl font-semibold md:text-2xl">
-            News, Analysis & Statements
-          </h2>
-
-          <p className="mt-5 max-w-3xl text-base leading-8 text-white/75 md:text-lg">
-            Follow the latest news, political analysis, official statements,
-            speeches, interviews and publications from the Aga'azian National
-            Movement.
+          <p className="mt-7 max-w-2xl text-base leading-8 text-white/75 md:text-lg">
+            News, analysis, official statements, speeches,
+            interviews and publications from the Aga'azian
+            National Movement.
           </p>
-
-          <Link
-            href="#latest-publications"
-            className="mt-9 inline-flex items-center gap-3 border border-[#d5b46b] px-7 py-4 text-sm font-bold uppercase tracking-wider text-[#f1d99f] transition hover:bg-[#c9a45c] hover:text-[#142b45]"
-          >
-            Explore Publications
-            <span aria-hidden="true">↓</span>
-          </Link>
         </div>
+
+        <div className="pointer-events-none absolute -bottom-24 -right-20 h-80 w-80 rounded-full border border-[#c9a45c]/20" />
+        <div className="pointer-events-none absolute -bottom-16 -right-12 h-64 w-64 rounded-full border border-[#c9a45c]/20" />
       </section>
 
-      {/* CATEGORIES */}
-      <section className="border-b border-[#e8e2d6] bg-[#f8f5ed] px-6 py-14">
-        <div className="mx-auto max-w-7xl">
-          <div className="mb-8">
-            <p className="text-xs font-bold uppercase tracking-[0.25em] text-[#a17d3d]">
-              Explore the newsroom
-            </p>
-            <h2 className="mt-3 text-2xl font-bold md:text-3xl">
-              Browse by Category
-            </h2>
-          </div>
+      <section className="border-b border-[#d9d4c8] bg-white">
+        <div className="mx-auto max-w-7xl px-6 py-5">
+          <div className="flex flex-wrap gap-x-7 gap-y-4">
+            <Link
+              href="/media"
+              className={`text-sm font-bold transition ${
+                !activeCategory
+                  ? "text-[#142b45]"
+                  : "text-gray-500 hover:text-[#142b45]"
+              }`}
+            >
+              All Media
+            </Link>
 
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {categories.map((category, index) => (
+            {categories.map((category) => (
               <Link
-                key={category.title}
-                href={categoryHref(category.title)}
-                aria-current={
-                  activeCategory === category.title ? "page" : undefined
-                }
-                className={`group flex min-h-36 flex-col justify-between border p-6 transition duration-300 hover:-translate-y-1 hover:border-[#c9a45c] hover:shadow-lg ${
-                  activeCategory === category.title
-                    ? "border-[#c9a45c] bg-[#142b45] text-white"
-                    : "border-[#e3dccf] bg-white text-[#142b45]"
+                key={category.id}
+                href={`/media?category=${category.id}`}
+                className={`text-sm font-semibold transition ${
+                  activeCategory?.id === category.id
+                    ? "text-[#a98438]"
+                    : "text-gray-500 hover:text-[#142b45]"
                 }`}
               >
-                <span
-                  className={`text-xs font-bold tracking-widest ${
-                    activeCategory === category.title
-                      ? "text-[#d5b46b]"
-                      : "text-[#b18b49]"
-                  }`}
-                >
-                  0{index + 1}
-                </span>
-
-                <div>
-                  <h3 className="text-lg font-bold transition group-hover:text-[#c9a45c]">
-                    {category.title}
-                  </h3>
-                  <p
-                    className={`mt-2 text-sm leading-6 ${
-                      activeCategory === category.title
-                        ? "text-white/70"
-                        : "text-[#647184]"
-                    }`}
-                  >
-                    {category.description}
-                  </p>
-                </div>
+                {category.title}
               </Link>
             ))}
           </div>
         </div>
       </section>
 
-      {/* PUBLICATIONS */}
-      <section
-        id="latest-publications"
-        className="scroll-mt-20 px-6 py-20 md:py-28"
-      >
-        <div className="mx-auto max-w-7xl">
-          <div className="mb-12 flex flex-col justify-between gap-6 md:flex-row md:items-end">
-            <div>
-              <p className="text-xs font-bold uppercase tracking-[0.25em] text-[#a17d3d]">
-                From the newsroom
-              </p>
-
-              <h2 className="mt-3 text-3xl font-bold md:text-4xl">
-                {activeCategory || "Featured Publications"}
-              </h2>
-
-              <p className="mt-4 max-w-2xl leading-7 text-[#647184]">
-                {activeCategory
-                  ? `Explore ${activeCategory.toLowerCase()} from the Aga'azian National Movement.`
-                  : "News, political analysis and official communications from the Aga'azian National Movement."}
-              </p>
-            </div>
-
-            {activeCategory ? (
-              <Link
-                href="/media"
-                className="inline-flex w-fit items-center gap-2 border-b-2 border-[#c9a45c] pb-2 text-sm font-bold uppercase tracking-wider text-[#142b45] transition hover:text-[#a17d3d]"
-              >
-                View All Publications →
-              </Link>
-            ) : (
-              <span className="text-xs font-semibold uppercase tracking-wider text-[#a17d3d]">
-                Official ANM Newsroom
-              </span>
-            )}
-          </div>
-
-          <div className="border border-[#e5dfd3] bg-[#f8f5ed] px-6 py-16 text-center md:px-12">
-            <div className="mx-auto flex h-16 w-16 items-center justify-center border border-[#c9a45c]/50 bg-white">
-              <span className="text-2xl font-bold tracking-wider text-[#a17d3d]">
-                ANM
-              </span>
-            </div>
-
-            <p className="mt-7 text-xs font-bold uppercase tracking-[0.25em] text-[#a17d3d]">
-              {activeCategory ?? "Newsroom"}
+      <section className="mx-auto max-w-7xl px-6 py-16 md:py-20">
+        <div className="mb-10 flex flex-wrap items-end justify-between gap-5">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.25em] text-[#a98438]">
+              {activeCategory ? "Media Category" : "Latest Updates"}
             </p>
 
-            <h3 className="mt-3 text-2xl font-bold text-[#142b45]">
-              Publications Coming Soon
+            <h2 className="mt-3 text-3xl font-bold text-[#142b45] md:text-4xl">
+              {activeCategory?.title || "Latest from ANM"}
+            </h2>
+          </div>
+
+          <p className="text-sm text-gray-500">
+            {pagination.total}{" "}
+            {pagination.total === 1 ? "article" : "articles"}
+          </p>
+        </div>
+
+        {loading ? (
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {Array.from({ length: 6 }).map((_, index) => (
+              <div
+                key={index}
+                className="animate-pulse border border-[#e2ddd2] bg-white p-7"
+              >
+                <div className="h-3 w-28 bg-[#eee9df]" />
+                <div className="mt-6 h-7 w-full bg-[#eee9df]" />
+                <div className="mt-3 h-7 w-3/4 bg-[#eee9df]" />
+                <div className="mt-8 h-3 w-24 bg-[#eee9df]" />
+              </div>
+            ))}
+          </div>
+        ) : error ? (
+          <div className="border border-red-200 bg-white p-8 text-red-700">
+            {error}
+            <button
+              type="button"
+              onClick={() => loadArticles(1)}
+              className="ml-3 font-bold underline"
+            >
+              Try again
+            </button>
+          </div>
+        ) : articles.length === 0 ? (
+          <div className="border border-[#e2ddd2] bg-white px-6 py-16 text-center">
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#a98438]">
+              ANM Newsroom
+            </p>
+
+            <h3 className="mt-4 text-2xl font-bold text-[#142b45]">
+              No published articles yet
             </h3>
 
-            <p className="mx-auto mt-4 max-w-xl text-sm leading-7 text-[#647184]">
-              Official news, analysis, statements and publications from the
-              Aga'azian National Movement will be published here. Please
-              check back for updates.
+            <p className="mx-auto mt-3 max-w-lg text-sm leading-7 text-gray-500">
+              Published news and updates will appear here.
+              Please check back soon.
             </p>
-
-            {activeCategory && (
-              <Link
-                href="/media"
-                className="mt-8 inline-flex items-center gap-2 bg-[#142b45] px-6 py-3 text-xs font-bold uppercase tracking-wider text-white transition hover:bg-[#294d70]"
-              >
-                Explore All Categories →
-              </Link>
-            )}
           </div>
-        </div>
+        ) : (
+          <>
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {articles.map((article) => {
+                const articleCategory =
+                  categories.find(
+                    (category) => category.id === article.category
+                  )?.title || "ANM Media";
+
+                return (
+                  <article
+                    key={article.id}
+                    className="group flex flex-col border border-[#e2ddd2] bg-white transition hover:-translate-y-1 hover:border-[#c9a45c] hover:shadow-lg"
+                  >
+                    <div className="h-1 w-full bg-[#c9a45c]" />
+
+                    <div className="flex flex-1 flex-col p-7">
+                      <div className="flex flex-wrap items-center justify-between gap-3">
+                        <span className="text-[10px] font-bold uppercase tracking-[0.17em] text-[#a98438]">
+                          {articleCategory}
+                        </span>
+
+                        <span className="text-xs text-gray-400">
+                          {formatDate(article.publishedAt)}
+                        </span>
+                      </div>
+
+                      <h3 className="mt-6 text-xl font-bold leading-snug text-[#142b45] transition group-hover:text-[#9b772f]">
+                        {article.title}
+                      </h3>
+
+                      {article.subtitle && (
+                        <p className="mt-3 line-clamp-3 text-sm leading-7 text-gray-600">
+                          {article.subtitle}
+                        </p>
+                      )}
+
+                      <div className="mt-auto pt-8">
+                        <Link
+                          href={`/media/${encodeURIComponent(article.slug)}`}
+                          className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#142b45] transition group-hover:text-[#a98438]"
+                        >
+                          Read Article
+                          <span aria-hidden="true">→</span>
+                        </Link>
+                      </div>
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+
+            {pagination.totalPages > 1 && (
+              <div className="mt-12 flex items-center justify-center gap-5">
+                <button
+                  type="button"
+                  disabled={pagination.page <= 1}
+                  onClick={() => loadArticles(pagination.page - 1)}
+                  className="border border-[#142b45] px-5 py-3 text-sm font-bold text-[#142b45] transition hover:bg-[#142b45] hover:text-white disabled:cursor-not-allowed disabled:opacity-30"
+                >
+                  Previous
+                </button>
+
+                <span className="text-sm text-gray-600">
+                  Page {pagination.page} of {pagination.totalPages}
+                </span>
+
+                <button
+                  type="button"
+                  disabled={pagination.page >= pagination.totalPages}
+                  onClick={() => loadArticles(pagination.page + 1)}
+                  className="border border-[#142b45] px-5 py-3 text-sm font-bold text-[#142b45] transition hover:bg-[#142b45] hover:text-white disabled:cursor-not-allowed disabled:opacity-30"
+                >
+                  Next
+                </button>
+              </div>
+            )}
+          </>
+        )}
       </section>
 
-      {/* FOOTNOTE */}
-      <section className="border-t border-[#e8e2d6] bg-[#f8f5ed] px-6 py-12">
-        <div className="mx-auto max-w-7xl text-center">
-          <p className="text-sm leading-7 text-[#647184]">
-            The News & Media section is the official space for ANM news,
-            analysis, statements, speeches, interviews and publications.
+      <section className="bg-[#142b45] px-6 py-16 text-white">
+        <div className="mx-auto max-w-7xl">
+          <p className="text-xs font-bold uppercase tracking-[0.25em] text-[#c9a45c]">
+            Stay Informed
+          </p>
+
+          <h2 className="mt-4 text-3xl font-bold">
+            Follow the ANM Newsroom
+          </h2>
+
+          <p className="mt-4 max-w-2xl text-sm leading-7 text-white/70">
+            Follow our official communications, policy
+            developments and public activities.
           </p>
         </div>
       </section>
